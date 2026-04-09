@@ -59,8 +59,8 @@ const TIMELINE = [
   },
   {
     year: '2026',
-    title: 'A Global Mandate',
-    body: 'With co-labourers across Cyprus, South Africa, the Netherlands, and Australia, the Teleiosis Mandate is fulfilling its call: to reveal Christ, train believers, and perfect the saints into the fullness of God.',
+    title: 'The Growing Mandate',
+    body: 'With a growing community of believers across Zambia and an expanding reach through the audio library, the Teleiosis Mandate is fulfilling its call: to reveal Christ, train believers, and perfect the saints into the fullness of God.',
     scripture: 'Col 1:28',
   },
 ]

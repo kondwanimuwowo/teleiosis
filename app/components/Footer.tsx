@@ -41,7 +41,6 @@ export function Footer() {
 
             <p className="text-white/30 text-xs font-serif leading-relaxed">
               "That Which Is Perfect Is Come"
-              <span className="ml-2 tracking-widest">ΤΕΛΕΙΩΣΙΣ</span>
             </p>
 
             {/* Newsletter signup */}
@@ -154,9 +153,6 @@ export function Footer() {
         <div className="border-t border-white/10 mt-14 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-white/35 text-xs">
             &copy; {year} Teleiosis Mandate. All rights reserved.
-          </p>
-          <p className="text-white/25 text-xs font-serif">
-            Lusaka, Zambia
           </p>
         </div>
 
