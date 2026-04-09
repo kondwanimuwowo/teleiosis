@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Home, Users, BookOpen, Calendar, Mail, FileText, Phone, Facebook, Instagram, Youtube } from "lucide-react"
+import { Menu, X, Home, Users, BookOpen, Calendar, Mail, FileText, Facebook, Instagram, Youtube } from "lucide-react"
 
 const NAV_LINKS = [
   { href: "/",          label: "Home",       icon: Home },
