@@ -47,7 +47,7 @@ export default function Home() {
           <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-6xl text-white tracking-wider mb-5 leading-[1.05]">
             <FlipText />
           </h1>
-          <p className="text-white/55 text-base sm:text-lg font-serif italic mb-6 max-w-xl leading-relaxed">
+          <p className="text-white/55 text-base sm:text-lg font-serif mb-6 max-w-xl leading-relaxed">
             That Which Is Perfect Is Come
           </p>
           <p className="text-white/75 text-base sm:text-lg max-w-2xl leading-relaxed mb-10">
@@ -96,7 +96,7 @@ export default function Home() {
                   We gather believers who are hungry to move beyond the basics, into the deep things of God's Kingdom.
                 </p>
                 <blockquote className="border-l-2 border-teleiosis-gold pl-5">
-                  <p className="text-[#4a0e68] font-serif italic text-base sm:text-lg leading-relaxed mb-2">
+                  <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
                     "Till we all come unto a perfect man, unto the measure of the stature of the fulness of Christ."
                   </p>
                   <cite className="text-xs text-slate-400 tracking-widest uppercase not-italic">Ephesians 4:13</cite>

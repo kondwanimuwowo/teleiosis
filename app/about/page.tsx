@@ -166,7 +166,7 @@ export default function AboutPage() {
                       We gather believers who hunger to move beyond the basics and into the deep things of God's Kingdom — to understand their identity, authority, and purpose as sons and daughters of God.
                     </p>
                     <blockquote className="border-l-2 border-teleiosis-gold pl-5">
-                      <p className="text-[#4a0e68] font-serif italic text-base sm:text-lg leading-relaxed mb-2">
+                      <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
                         "Till we all come unto a perfect man, unto the measure of the stature of the fulness of Christ."
                       </p>
                       <cite className="text-xs text-slate-400 tracking-widest uppercase not-italic">Ephesians 4:13</cite>
@@ -260,7 +260,7 @@ export default function AboutPage() {
                       In the New Testament, it refers specifically to the process of believers being brought to their full spiritual maturity and completeness in Christ — not just salvation, but the full realisation of what it means to be a son or daughter of God.
                     </p>
                     <blockquote className="border-l-2 border-teleiosis-gold pl-5">
-                      <p className="text-[#4a0e68] font-serif italic text-base sm:text-lg leading-relaxed mb-2">
+                      <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
                         "For we all come to the knowledge of the Son of God, unto a perfect man, unto the measure of the stature of the fulness of Christ."
                       </p>
                       <cite className="text-xs text-slate-400 tracking-widest uppercase not-italic">Ephesians 4:13</cite>

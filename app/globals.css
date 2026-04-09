@@ -62,6 +62,11 @@ html {
   animation: cursor-blink 0.85s step-end infinite;
 }
 
+/* ── No italics anywhere ─────────────────────────────────────────── */
+em, cite, i {
+  font-style: normal;
+}
+
 /* ── Scrollbar utilities ─────────────────────────────────────────── */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }

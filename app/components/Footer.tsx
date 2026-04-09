@@ -39,9 +39,9 @@ export function Footer() {
               A community devoted to the practical revelation of the risen Christ — training the sons of God into Christian perfection and Kingdom authority.
             </p>
 
-            <p className="text-white/30 text-xs font-serif italic leading-relaxed">
+            <p className="text-white/30 text-xs font-serif leading-relaxed">
               "That Which Is Perfect Is Come"
-              <span className="ml-2 not-italic tracking-widest">ΤΕΛΕΙΩΣΙΣ</span>
+              <span className="ml-2 tracking-widest">ΤΕΛΕΙΩΣΙΣ</span>
             </p>
 
             {/* Newsletter signup */}
@@ -155,7 +155,7 @@ export function Footer() {
           <p className="text-white/35 text-xs">
             &copy; {year} Teleiosis Mandate. All rights reserved.
           </p>
-          <p className="text-white/25 text-xs font-serif italic">
+          <p className="text-white/25 text-xs font-serif">
             Lusaka, Zambia
           </p>
         </div>

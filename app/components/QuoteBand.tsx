@@ -54,7 +54,7 @@ export function QuoteBand() {
             <div className="flex flex-col items-center justify-center h-full" style={{ minHeight: '12rem' }}>
               <p
                 key={idx}
-                className="font-serif italic font-light text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-5"
+                className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-5"
               >
                 "{text}"
               </p>
