@@ -66,10 +66,10 @@ const TIMELINE = [
 ]
 
 const CO_LABOURERS = [
-  { initials: 'MI', name: 'Marios Ellinas',     title: 'Senior Teacher & Regional Director',      location: 'Cyprus',      bio: "A seasoned minister and teacher with over 20 years of experience in Kingdom teaching. Marios leads the Mediterranean region and specialises in the revelation of sonship." },
-  { initials: 'LM', name: 'Lindi Masters',       title: 'Community Leader & Discipleship Coordinator', location: 'South Africa', bio: "Passionate about discipleship and practical outreach. Lindi coordinates small groups and mentors emerging leaders in the southern Africa region." },
-  { initials: 'RN', name: 'Ricky Nieuwenhuis',   title: 'Teachings Coordinator & Media Director', location: 'Netherlands', bio: "Oversees the distribution and publication of teachings. Ricky ensures that the message of Teleiosis reaches believers across digital platforms globally." },
-  { initials: 'RV', name: 'Robbie Venter',       title: 'Events Coordinator & Conference Director', location: 'Australia',  bio: "Orchestrates conferences and regional gatherings. Robbie brings organisational excellence to major events and helps create transformative experiences." },
+  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Dedicated to supporting the ministry's vision through spiritual and practical assistance, ensuring the message of Teleiosis is advanced with integrity and excellence." },
+  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Focused on upholding the leadership and facilitating the flow of the Word, providing a strong foundation of support and intercession for the mandate." },
+  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Committed to the protection and preparation of the ministry's resources and personnel, embodying the heart of a servant to see the fullness of Christ manifested." },
+  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Serving as a faithful companion in the gospel, handling the responsibilities of the house of God with diligence and a spirit of honor." },
 ]
 
 import type { Variants } from 'framer-motion'
