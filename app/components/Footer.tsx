@@ -45,21 +45,21 @@ export function Footer() {
             </p>
 
             {/* Newsletter signup */}
-            <div className="mt-1">
-              <p className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3">
+            <div className="mt-2">
+              <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                 Stay Updated
               </p>
-              <form className="flex gap-2 max-w-sm">
+              <form className="flex flex-col sm:flex-row gap-3 max-w-sm">
                 <input
                   type="email"
-                  placeholder="Your email address"
-                  className="flex-1 px-4 py-2.5 rounded-lg bg-white/8 border border-white/12 text-white text-sm placeholder-white/35 focus:outline-none focus:border-teleiosis-gold/60 transition-colors"
+                  placeholder="Email address"
+                  className="flex-1 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-white/25 focus:outline-none focus:border-teleiosis-gold/60 transition-all"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2.5 rounded-lg bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors whitespace-nowrap"
+                  className="h-11 px-6 rounded-full bg-teleiosis-gold text-[#2c0e68] text-xs font-bold uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300 whitespace-nowrap"
                 >
-                  Subscribe
+                  Join Us
                 </button>
               </form>
             </div>

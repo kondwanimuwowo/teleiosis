@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Play, Pause, Music, Calendar, User } from 'lucide-react'
 import { useTeachings, useTeachingCategories } from '@/lib/hooks'
 import { Spinner } from './Spinner'
 
@@ -16,25 +18,25 @@ export function TeachingsList() {
       {/* ── FILTER TABS ──────────────────────────────────────────── */}
       <section className="bg-white border-b border-slate-100 sticky top-20 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-1 overflow-x-auto no-scrollbar py-3">
+          <nav className="flex items-center gap-2 overflow-x-auto no-scrollbar py-4">
             <button
               onClick={() => setSelectedCategory(undefined)}
-              className={`flex-shrink-0 px-4 py-2 min-h-[40px] rounded-full text-sm font-semibold transition-colors ${
+              className={`flex-shrink-0 px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
                 !selectedCategory
-                  ? 'bg-[#4a0e68] text-white'
-                  : 'text-slate-500 hover:text-[#4a0e68] hover:bg-[#4a0e68]/8'
+                  ? 'bg-[#4a0e68] text-white shadow-lg shadow-[#4a0e68]/20'
+                  : 'text-slate-400 hover:text-[#4a0e68] hover:bg-slate-50'
               }`}
             >
-              All
+              All Teachings
             </button>
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex-shrink-0 px-4 py-2 min-h-[40px] rounded-full text-sm font-semibold whitespace-nowrap transition-colors ${
+                className={`flex-shrink-0 px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase whitespace-nowrap transition-all duration-300 ${
                   selectedCategory === cat.id
-                    ? 'bg-[#4a0e68] text-white'
-                    : 'text-slate-500 hover:text-[#4a0e68] hover:bg-[#4a0e68]/8'
+                    ? 'bg-[#4a0e68] text-white shadow-lg shadow-[#4a0e68]/20'
+                    : 'text-slate-400 hover:text-[#4a0e68] hover:bg-slate-50'
                 }`}
               >
                 {cat.name}
@@ -45,83 +47,142 @@ export function TeachingsList() {
       </section>
 
       {/* ── TEACHINGS LIST ───────────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-white py-16 sm:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           {loading && (
-            <div className="py-24 flex items-center justify-center">
+            <div className="py-32 flex items-center justify-center">
               <Spinner size="md" />
             </div>
           )}
+          
           {error && (
-            <div className="py-16 text-center">
-              <p className="text-red-500 text-sm">Error loading teachings. Please try again.</p>
+            <div className="py-20 text-center bg-red-50 rounded-3xl border border-red-100">
+              <p className="text-red-600 text-sm font-semibold">Error loading teachings. Please refresh and try again.</p>
             </div>
           )}
+          
           {!loading && teachings.length === 0 && (
-            <div className="py-16 text-center">
-              <p className="text-slate-400 text-sm">No teachings found in this category.</p>
+            <div className="py-20 text-center bg-slate-50 rounded-3xl border border-slate-100">
+              <p className="text-slate-400 text-sm font-medium">No teachings found in this category.</p>
             </div>
           )}
+          
           {!loading && teachings.length > 0 && (
-            <div>
-              <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-6">
-                {teachings.length} Teaching{teachings.length !== 1 ? 's' : ''}
-              </p>
-              <ul className="divide-y divide-slate-100">
-                {teachings.map((teaching, idx) => (
-                  <li key={teaching.id} className="py-5">
-                    <div className="flex items-start gap-4">
-                      {/* Index */}
-                      <span className="flex-shrink-0 w-8 text-slate-300 text-sm font-mono pt-0.5 text-right">{idx + 1}</span>
+            <div className="space-y-12">
+              <div className="flex items-baseline justify-between border-b border-slate-100 pb-6">
+                <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.4em] uppercase">
+                  {teachings.length} Available Teaching{teachings.length !== 1 ? 's' : ''}
+                </p>
+                <span className="text-slate-300 text-[10px] font-bold uppercase tracking-widest">{selectedCategory ? categories.find(c => c.id === selectedCategory)?.name : 'General Library'}</span>
+              </div>
 
-                      {/* Info */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-serif font-bold text-base sm:text-lg text-[#2c0e68] mb-0.5 leading-snug">{teaching.title}</h3>
-                        <p className="text-slate-400 text-xs sm:text-sm">
-                          {teaching.speaker} · {teaching.duration_minutes} min · {new Date(teaching.published_date).toLocaleDateString()}
-                        </p>
+              <div className="divide-y divide-slate-100">
+                {teachings.map((teaching, idx) => (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    key={teaching.id} 
+                    className="group"
+                  >
+                    <div className="py-8 flex flex-col sm:flex-row sm:items-center gap-6 group-hover:bg-slate-50/50 transition-colors rounded-2xl px-4 -mx-4">
+                      {/* Index / Icon */}
+                      <div className="flex-shrink-0 flex items-center gap-4">
+                        <span className="text-slate-200 font-serif text-lg w-6">{String(idx + 1).padStart(2, '0')}</span>
+                        <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-[#4a0e68] group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-sm">
+                          <Music size={18} />
+                        </div>
                       </div>
 
-                      {/* Play button */}
-                      <button
-                        type="button"
-                        onClick={() => setActiveTeachingId(activeTeachingId === teaching.id ? null : teaching.id)}
-                        className="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 min-h-[44px] min-w-[44px] rounded-full border-2 border-[#4a0e68] text-[#4a0e68] hover:bg-[#4a0e68] hover:text-white transition-colors"
-                        aria-label={activeTeachingId === teaching.id ? 'Close player' : `Play ${teaching.title}`}
-                      >
-                        {activeTeachingId === teaching.id ? (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                        ) : (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-                        )}
-                      </button>
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                          <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            <User size={12} className="text-teleiosis-gold" />
+                            {teaching.speaker}
+                          </span>
+                          <span className="w-1 h-1 rounded-full bg-slate-200 hidden sm:block" />
+                          <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            <Calendar size={12} className="text-teleiosis-gold" />
+                            {new Date(teaching.published_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                          </span>
+                        </div>
+                        <h3 className="font-serif font-bold text-lg sm:text-xl text-[#2c0e68] leading-snug group-hover:text-[#4a0e68] transition-colors">
+                          {teaching.title}
+                        </h3>
+                      </div>
+
+                      {/* Action */}
+                      <div className="flex items-center gap-4">
+                        <span className="hidden md:block text-[11px] font-bold text-slate-400 tabular-nums">
+                          {teaching.duration_minutes}m
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setActiveTeachingId(activeTeachingId === teaching.id ? null : teaching.id)}
+                          className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                            activeTeachingId === teaching.id
+                              ? 'bg-[#4a0e68] text-white scale-110 shadow-lg shadow-[#4a0e68]/30'
+                              : 'bg-white border border-slate-200 text-[#4a0e68] hover:border-[#4a0e68] hover:shadow-md'
+                          }`}
+                        >
+                          {activeTeachingId === teaching.id ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-0.5" />}
+                        </button>
+                      </div>
                     </div>
 
-                    {/* Audio player */}
-                    {activeTeachingId === teaching.id && (
-                      <div className="mt-4 ml-12 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <audio controls src={teaching.audio_url} className="w-full">
-                          Your browser does not support the audio element.
-                        </audio>
-                      </div>
-                    )}
-                  </li>
+                    {/* Collapsible Player */}
+                    <AnimatePresence>
+                      {activeTeachingId === teaching.id && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pb-8 px-4 sm:pl-28">
+                            <div className="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-inner relative overflow-hidden">
+                              <div className="absolute top-0 right-0 w-32 h-32 bg-teleiosis-gold/5 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2" />
+                              <audio 
+                                controls 
+                                autoPlay
+                                src={teaching.audio_url} 
+                                className="w-full custom-audio-player h-10"
+                              >
+                                Your browser does not support the audio element.
+                              </audio>
+                              <div className="mt-4 flex justify-between items-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Currently Playing</p>
+                                <Link href="/contact" className="text-[10px] font-bold text-teleiosis-gold hover:text-[#4a0e68] uppercase tracking-widest transition-colors">
+                                  Request Transcript →
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
         </div>
       </section>
 
       {/* ── COMMUNITY BANNER ─────────────────────────────────────── */}
-      <section className="bg-slate-50 py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Go Deeper</p>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] mb-5">Join Our Community</h2>
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto">
-            Connect with a community of believers pursuing the fullness of Christ. Attend Saturday classes, access teachings, and grow together in Kingdom authority.
+      <section className="bg-slate-50 py-24 sm:py-32 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-teleiosis-gold/5 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2" />
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center relative z-10">
+          <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Go Deeper</p>
+          <h2 className="font-serif font-bold text-3xl sm:text-5xl text-[#2c0e68] mb-6">Join Our Community</h2>
+          <p className="text-slate-500 text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+            Connect with a community of believers pursuing the fullness of Christ. Join our Saturday classes and walk in Kingdom authority.
           </p>
-          <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 min-h-[44px] bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#2c0e68] transition-colors">
+          <Link 
+            href="/contact" 
+            className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#2c0e68] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+          >
             Get in Touch
           </Link>
         </div>
