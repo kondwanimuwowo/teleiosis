@@ -51,7 +51,7 @@ export default function Home() {
             That Which Is Perfect Is Come
           </p>
           <p className="text-white/75 text-base sm:text-lg max-w-2xl leading-relaxed mb-10">
-            A community devoted to the practical revelation of the risen Christ — training the sons of God into Christian perfection and Kingdom authority.
+            A community devoted to the practical revelation of the risen Christ, training the sons of God into Christian perfection and Kingdom authority.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link href="/events" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] rounded-full bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm">
@@ -90,7 +90,7 @@ export default function Home() {
                   Called to a Higher Standard
                 </h2>
                 <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-4">
-                  The Teleiosis Mandate is a ministry movement grounded in the revelation of Christian perfection — the full maturity and manifestation of the sons of God.
+                  The Teleiosis Mandate is a ministry movement grounded in the revelation of Christian perfection, the full maturity and manifestation of the sons of God.
                 </p>
                 <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
                   We gather believers who are hungry to move beyond the basics, into the deep things of God's Kingdom.
@@ -166,12 +166,12 @@ export default function Home() {
         <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-              {/* Poster — portrait */}
+              {/* Poster, portrait */}
               <div className="flex justify-center lg:justify-start">
                 <div className="w-full max-w-xs sm:max-w-sm overflow-hidden shadow-lg">
                   <img
                     src="/images/manifested-sons-of-god-class-light.jpg"
-                    alt="Manifested Sons of God Class — Saturday poster"
+                    alt="Manifested Sons of God Class, Saturday poster"
                     className="w-full h-full object-cover"
                   />
                 </div>

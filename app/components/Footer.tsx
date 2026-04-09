@@ -36,7 +36,7 @@ export function Footer() {
             </div>
 
             <p className="text-white/55 text-sm leading-relaxed max-w-sm">
-              A community devoted to the practical revelation of the risen Christ — training the sons of God into Christian perfection and Kingdom authority.
+              A community devoted to the practical revelation of the risen Christ, training the sons of God into Christian perfection and Kingdom authority.
             </p>
 
             <p className="text-white/30 text-xs font-serif leading-relaxed">

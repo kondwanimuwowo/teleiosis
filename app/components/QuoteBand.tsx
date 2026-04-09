@@ -6,16 +6,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 const QUOTES = [
   { text: "The Call of God is for us to accept the fullness of Christ and the Perfection that He wrought for us. That which is perfect is come.", scripture: "1 Cor 13:10" },
   { text: "Leave nothing hanging in your life. Your Heavenly Father is very much concerned about the fine details. He is big enough to take care of the minutia of your life.", scripture: "Psa 138:8" },
-  { text: "Don't advertise God small — show forth His excellence in all that concerns you. Through you, God is showing the world His Power.", scripture: "Eph 2:10" },
+  { text: "Don't advertise God small, show forth His excellence in all that concerns you. Through you, God is showing the world His Power.", scripture: "Eph 2:10" },
   { text: "The fabric between Heaven and Earth is wearing thin as we reveal the Heart of the Father to the world. Let Heaven come.", scripture: "Matt 6:10" },
   { text: "You are powerful, more than you know. The limits you see or the things that seem insurmountable are more scared of you than you are of them.", scripture: "Eph 3:20" },
-  { text: "Love is not naive, but in its function it is higher than the flaws and mistakes of others — it sees the greatest outcome from any situation, which is the perfection of that thing.", scripture: "1 Cor 13:4–5" },
+  { text: "Love is not naive, but in its function it is higher than the flaws and mistakes of others, it sees the greatest outcome from any situation, which is the perfection of that thing.", scripture: "1 Cor 13:4–5" },
   { text: "The things of God are permanent. God does not do temporal fixes. The work of Jesus in His death, burial and resurrection accomplished for us more than what we are experiencing now.", scripture: "1 Cor 13:10" },
-  { text: "What you have inside of you is what the Father placed there to bless and impact the world. Don't look outwardly to find who God made you to be. Look on the inside — there lies the treasure the world is eagerly awaiting.", scripture: "2 Cor 4:7" },
+  { text: "What you have inside of you is what the Father placed there to bless and impact the world. Don't look outwardly to find who God made you to be. Look on the inside, there lies the treasure the world is eagerly awaiting.", scripture: "2 Cor 4:7" },
   { text: "Jesus came to give life more abundantly. There is a life that is overflowing, that gives life to all things around it. You are called to be a life-giving spirit.", scripture: "1 Cor 15:45" },
-  { text: "You are the best at being you. Don't try to be someone else. Who you are is only found in Christ — He is the one who defines you. You are a Heaven-class person, one of a kind.", scripture: "Matt 5:16" },
+  { text: "You are the best at being you. Don't try to be someone else. Who you are is only found in Christ, He is the one who defines you. You are a Heaven-class person, one of a kind.", scripture: "Matt 5:16" },
   { text: "Grace is the divine enablement of God at work in a man. Grace is the person of Jesus Christ. You may not have what it takes, but you have WHO it takes.", scripture: "Phil 4:13" },
-  { text: "The highest call for any being is to be loved of God — and you, individually, are at the very centre of His affection. There is nothing that can ever separate you from the Love of God that is in Christ Jesus.", scripture: "1 John 3:1" },
+  { text: "The highest call for any being is to be loved of God, and you, individually, are at the very centre of His affection. There is nothing that can ever separate you from the Love of God that is in Christ Jesus.", scripture: "1 John 3:1" },
 ]
 
 export function QuoteBand() {

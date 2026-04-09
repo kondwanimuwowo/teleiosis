@@ -8,7 +8,7 @@ const DELETE_SPEED = 50
 const PAUSE_AFTER  = 2500
 
 export function FlipText() {
-  // Write directly to the DOM — zero React re-renders per character
+  // Write directly to the DOM, zero React re-renders per character
   const textRef    = useRef<HTMLSpanElement>(null)
   const [blinking, setBlinking] = useState(false)
   const timer      = useRef<ReturnType<typeof setTimeout> | null>(null)

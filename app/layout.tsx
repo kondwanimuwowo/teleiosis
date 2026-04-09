@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: { template: '%s | Teleiosis Mandate', default: 'Teleiosis Mandate' },
-  description: 'A community devoted to the practical revelation of the risen Christ — training the sons of God into Christian perfection and Kingdom authority.',
+  description: 'A community devoted to the practical revelation of the risen Christ, training the sons of God into Christian perfection and Kingdom authority.',
 }
 
 export default function RootLayout({

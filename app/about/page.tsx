@@ -36,19 +36,19 @@ const TIMELINE = [
   {
     year: '2014',
     title: 'GraceGalore Begins',
-    body: "Rhema Nyambe begins sending daily devotionals to a small group of believers. The message: God's grace is not just forgiveness — it is the divine enablement of God at work in a man. \"Grace is the person of Jesus Christ. You have Who it takes to make it.\"",
+    body: "Rhema Nyambe begins sending daily devotionals to a small group of believers. The message: God's grace is not just forgiveness, it is the divine enablement of God at work in a man. \"Grace is the person of Jesus Christ. You have Who it takes to make it.\"",
     scripture: 'Phil 4:13',
   },
   {
     year: '2017',
     title: 'The Perfection Revelation',
-    body: '"The Call of God is for us to accept the fullness of Christ and the Perfection that He wrought for us. That which is perfect is come." The devotionals begin turning from foundational grace to the deeper message of teleiosis — the full maturity of believers in Christ.',
+    body: '"The Call of God is for us to accept the fullness of Christ and the Perfection that He wrought for us. That which is perfect is come." The devotionals begin turning from foundational grace to the deeper message of teleiosis, the full maturity of believers in Christ.',
     scripture: '1 Cor 13:10',
   },
   {
     year: '2020',
     title: 'Teleiosis Mandate Launched',
-    body: "What began as a devotional movement became a teaching mandate. Rhema launched the Teleiosis Mandate in Lusaka, establishing the Manifested Sons of God Class — a Saturday gathering at Emperor's Crown Olympia, Chainama Road, dedicated to deep systematic teaching.",
+    body: "What began as a devotional movement became a teaching mandate. Rhema launched the Teleiosis Mandate in Lusaka, establishing the Manifested Sons of God Class, a Saturday gathering at Emperor's Crown Olympia, Chainama Road, dedicated to deep systematic teaching.",
     scripture: 'Rom 8:19',
   },
   {
@@ -95,7 +95,7 @@ export default function AboutPage() {
             About Teleiosis
           </h1>
           <p className="text-white/65 text-base sm:text-lg max-w-2xl leading-relaxed">
-            A movement devoted to the practical revelation of Christ — training believers into the fullness of sonship, Kingdom authority, and Christian perfection.
+            A movement devoted to the practical revelation of Christ, training believers into the fullness of sonship, Kingdom authority, and Christian perfection.
           </p>
         </div>
       </section>
@@ -160,10 +160,10 @@ export default function AboutPage() {
                       Called to a Higher Standard
                     </h2>
                     <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-4">
-                      The Teleiosis Mandate is a ministry movement grounded in the revelation of Christian perfection — the full maturity and manifestation of the sons of God in the earth.
+                      The Teleiosis Mandate is a ministry movement grounded in the revelation of Christian perfection, the full maturity and manifestation of the sons of God in the earth.
                     </p>
                     <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
-                      We gather believers who hunger to move beyond the basics and into the deep things of God's Kingdom — to understand their identity, authority, and purpose as sons and daughters of God.
+                      We gather believers who hunger to move beyond the basics and into the deep things of God's Kingdom, to understand their identity, authority, and purpose as sons and daughters of God.
                     </p>
                     <blockquote className="border-l-2 border-teleiosis-gold pl-5">
                       <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
@@ -223,10 +223,10 @@ export default function AboutPage() {
                     <h3 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-1">Rhema Nyambe</h3>
                     <p className="text-teleiosis-gold font-semibold text-sm mb-6">Founder &amp; Leader, Teleiosis Mandate</p>
                     <p className="text-slate-600 text-base leading-relaxed mb-4">
-                      Rhema is a minister and teacher with a burning passion for the revelation of Christian perfection. Based in Lusaka, Zambia, he leads the Teleiosis Mandate with a heart to see believers walk in the fullness of their inheritance in Christ — not in theory, but in practical, lived reality.
+                      Rhema is a minister and teacher with a burning passion for the revelation of Christian perfection. Based in Lusaka, Zambia, he leads the Teleiosis Mandate with a heart to see believers walk in the fullness of their inheritance in Christ, not in theory, but in practical, lived reality.
                     </p>
                     <p className="text-slate-600 text-base leading-relaxed mb-4">
-                      What began as a devotional ministry called <em>GraceGalore</em> in 2014 — a daily word of encouragement to a small group of believers — grew into a full teaching and discipleship movement. By 2020, the revelation had deepened: God was calling His people not merely to grace, but to <em>teleiosis</em> — completion, maturity, the fullness of Christ.
+                      What began as a devotional ministry called <em>GraceGalore</em> in 2014, a daily word of encouragement to a small group of believers, grew into a full teaching and discipleship movement. By 2020, the revelation had deepened: God was calling His people not merely to grace, but to <em>teleiosis</em>, completion, maturity, the fullness of Christ.
                     </p>
                     <p className="text-slate-600 text-base leading-relaxed mb-8">
                       Through conferences, Saturday classes, and an expanding audio library, Rhema equips believers across Zambia and beyond to manifest Kingdom authority in every area of their lives.
@@ -257,7 +257,7 @@ export default function AboutPage() {
                       Teleiosis comes from the Greek word τελείωσις (teleiósis), which means "perfection," "completion," "maturity," or "full development."
                     </p>
                     <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
-                      In the New Testament, it refers specifically to the process of believers being brought to their full spiritual maturity and completeness in Christ — not just salvation, but the full realisation of what it means to be a son or daughter of God.
+                      In the New Testament, it refers specifically to the process of believers being brought to their full spiritual maturity and completeness in Christ, not just salvation, but the full realisation of what it means to be a son or daughter of God.
                     </p>
                     <blockquote className="border-l-2 border-teleiosis-gold pl-5">
                       <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
@@ -279,7 +279,7 @@ export default function AboutPage() {
                   How Teleiosis Was Born
                 </h2>
                 <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-16 max-w-2xl">
-                  The Teleiosis Mandate did not begin with a conference or a vision document. It began with a daily word — a devotional called <em>GraceGalore</em>, sent every morning by a young minister in Lusaka, Zambia.
+                  The Teleiosis Mandate did not begin with a conference or a vision document. It began with a daily word, a devotional called <em>GraceGalore</em>, sent every morning by a young minister in Lusaka, Zambia.
                 </p>
                 <div className="relative">
                   <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-px bg-slate-200" />

@@ -28,7 +28,7 @@ export function Nav() {
             </span>
           </Link>
 
-          {/* Desktop nav — centered */}
+          {/* Desktop nav, centered */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             {NAV_LINKS.map(({ href, label }) => (
               <Link
@@ -41,7 +41,7 @@ export function Nav() {
             ))}
           </nav>
 
-          {/* Right — CTA + mobile */}
+          {/* Right, CTA + mobile */}
           <div className="flex items-center gap-3">
             <Link
               href="/contact"

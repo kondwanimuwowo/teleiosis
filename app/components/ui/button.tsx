@@ -9,10 +9,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Gold fill — primary CTA (e.g. "Get Tickets", "Join Now")
+        // Gold fill, primary CTA (e.g. "Get Tickets", "Join Now")
         default:
           "bg-teleiosis-gold text-teleiosis-deep hover:bg-teleiosis-gold/85 shadow-sm",
-        // Deep purple fill — secondary CTA
+        // Deep purple fill, secondary CTA
         secondary:
           "bg-teleiosis-purple text-white hover:bg-teleiosis-purple/85 shadow-sm",
         // Outlined purple
@@ -24,7 +24,7 @@ const buttonVariants = cva(
         // Magenta accent
         accent:
           "bg-teleiosis-magenta text-white hover:bg-teleiosis-pink shadow-sm",
-        // Ghost — minimal
+        // Ghost, minimal
         ghost:
           "hover:bg-teleiosis-purple/10 text-teleiosis-purple",
         // Destructive

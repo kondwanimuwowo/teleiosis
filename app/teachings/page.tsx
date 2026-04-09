@@ -11,19 +11,19 @@ const SERIES = [
   {
     title: 'Kingship',
     episodeCount: 4,
-    desc: 'What does it mean to reign in life? Covering the doctrine of righteousness, the stance of a king, and a kingdom of words — training believers to exercise their royal authority in Christ.',
+    desc: 'What does it mean to reign in life? Covering the doctrine of righteousness, the stance of a king, and a kingdom of words, training believers to exercise their royal authority in Christ.',
     image: '/images/sermon-4.jpg',
   },
   {
     title: 'The Ministry of the Word',
     episodeCount: 4,
-    desc: 'A deep exploration of the Word of God as a living force. Includes Part 6: "Prophecy as a Weapon" — equipping believers to wield the spoken Word with precision and authority.',
+    desc: 'A deep exploration of the Word of God as a living force. Includes Part 6: "Prophecy as a Weapon", equipping believers to wield the spoken Word with precision and authority.',
     image: '/images/pexels-bible-1868359_1280.jpg',
   },
   {
     title: 'The Christ Dimension',
     episodeCount: 3,
-    desc: 'Accessing the reality of Christ within. Teachings on In Reality, Accessing the Christ Dimensions, and the Spirit of Truth — going beyond doctrine into lived experience.',
+    desc: 'Accessing the reality of Christ within. Teachings on In Reality, Accessing the Christ Dimensions, and the Spirit of Truth, going beyond doctrine into lived experience.',
     image: '/images/pexels-bible-1869164_1280.jpg',
   },
   {
@@ -41,7 +41,7 @@ const SERIES = [
   {
     title: 'The Lamb of God',
     episodeCount: 2,
-    desc: "The most recent series — January 2026. A two-part teaching on God's sacrifice and what the blood of the Lamb accomplishes beyond what most believers have yet received.",
+    desc: "The most recent series, January 2026. A two-part teaching on God's sacrifice and what the blood of the Lamb accomplishes beyond what most believers have yet received.",
     image: '/images/sermon-3.jpg',
   },
 ]
