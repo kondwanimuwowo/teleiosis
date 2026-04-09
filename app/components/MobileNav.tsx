@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Facebook, Instagram, Youtube } from "lucide-react"
+import { Menu, X, Facebook, Instagram, Youtube, Phone, Mail } from "lucide-react"
 
 const NAV_LINKS = [
   { href: "/",          label: "Home" },
@@ -55,9 +55,9 @@ export function MobileNav() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-[101] w-[65%] max-w-[280px] border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
+              className="fixed inset-y-0 right-0 z-[101] w-[65%] max-w-[280px] border-l border-white/10 shadow-2xl flex flex-col overflow-hidden bg-white/80 backdrop-blur-2xl saturate-[1.8]"
             >
-              {/* Header - Purple */}
+              {/* Header - Violet */}
               <div className="p-6 flex items-center justify-between border-b border-white/10 bg-[#1e0a4d]">
                 <div>
                   <p className="font-serif font-bold text-lg text-white tracking-[0.2em]">TELEIOSIS</p>
@@ -70,48 +70,62 @@ export function MobileNav() {
                 </button>
               </div>
 
-              {/* Navigation Links - White Middle */}
-              <nav className="flex-1 overflow-y-auto py-10 px-6 space-y-2 bg-white flex flex-col justify-center">
+              {/* Navigation Links - Semi-transparent White */}
+              <nav className="flex-1 overflow-y-auto py-8 px-6 space-y-1">
                 {NAV_LINKS.map(({ href, label }) => (
                   <Link
                     key={href}
                     href={href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center px-4 py-4 rounded-xl text-[#1e0a4d]/70 hover:text-[#1e0a4d] hover:bg-slate-50 transition-all group"
+                    className="flex items-center px-4 py-3.5 rounded-xl text-slate-800 hover:text-[#1e0a4d] hover:bg-[#1e0a4d]/5 transition-all group"
                   >
-                    <span className="text-base font-bold uppercase tracking-widest">{label}</span>
+                    <span className="text-lg font-medium tracking-tight whitespace-nowrap">{label}</span>
                   </Link>
                 ))}
               </nav>
 
-              {/* Footer / Connect - Purple Bottom */}
-              <div className="p-8 space-y-8 bg-[#1e0a4d]/95 backdrop-blur-md">
-                <div className="space-y-4">
-                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/30 text-center sm:text-left">Connect</p>
-                  <div className="flex justify-center sm:justify-start gap-4">
-                    {[
-                      { icon: Facebook, href: 'https://web.facebook.com/Rhemaword27' },
-                      { icon: Instagram, href: 'https://instagram.com' },
-                      { icon: Youtube, href: 'https://youtube.com' },
-                    ].map((social, i) => (
-                      <a 
-                        key={i} 
-                        href={social.href} 
-                        className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-teleiosis-gold hover:border-teleiosis-gold transition-all"
-                      >
-                        <social.icon size={18} />
-                      </a>
-                    ))}
+              {/* Footer - Off-white with 5 Violet Icons in 3+2 layout */}
+              <div className="p-8 pb-12 border-t border-slate-200 bg-slate-50 flex flex-col items-center gap-6">
+                <div className="space-y-4 w-full">
+                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400 text-center">Connect With Us</p>
+                  
+                  <div className="flex flex-col gap-5">
+                    {/* Top Icons (3) */}
+                    <div className="flex justify-center gap-4">
+                      {[
+                        { icon: Facebook,  href: 'https://web.facebook.com/Rhemaword27' },
+                        { icon: Instagram, href: 'https://instagram.com' },
+                        { icon: Youtube,   href: 'https://youtube.com' },
+                      ].map((social, i) => (
+                        <a 
+                          key={i} 
+                          href={social.href} 
+                          className="w-10 h-10 rounded-full bg-[#1e0a4d] flex items-center justify-center text-white hover:bg-teleiosis-gold hover:text-[#1e0a4d] hover:scale-110 transition-all duration-300 shadow-sm"
+                        >
+                          <social.icon size={18} />
+                        </a>
+                      ))}
+                    </div>
+
+                    {/* Separator */}
+                    <div className="w-12 h-px bg-slate-200 mx-auto" />
+
+                    {/* Bottom Icons (2) */}
+                    <div className="flex justify-center gap-4">
+                      {[
+                        { icon: Phone,     href: 'tel:+260977964076' },
+                        { icon: Mail,      href: 'mailto:info@teleiosis.org' },
+                      ].map((social, i) => (
+                        <a 
+                          key={i} 
+                          href={social.href} 
+                          className="w-10 h-10 rounded-full bg-[#1e0a4d] flex items-center justify-center text-white hover:bg-teleiosis-gold hover:text-[#1e0a4d] hover:scale-110 transition-all duration-300 shadow-sm"
+                        >
+                          <social.icon size={18} />
+                        </a>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="space-y-2 text-center sm:text-left">
-                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/30">Contact</p>
-                  <a href="tel:+260977964076" className="block text-xs font-medium text-white/60 hover:text-teleiosis-gold transition-colors">
-                    +260 977 964 076
-                  </a>
-                  <a href="mailto:info@teleiosis.org" className="block text-xs font-medium text-white/60 hover:text-teleiosis-gold transition-colors">
-                    info@teleiosis.org
-                  </a>
                 </div>
               </div>
             </motion.div>
