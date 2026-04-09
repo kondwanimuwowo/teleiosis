@@ -22,10 +22,10 @@ export function Footer() {
     <footer className="bg-[#2c0e68] border-t border-white/10">
       <div className="mx-auto max-w-7xl px-5 lg:px-10 py-16">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
 
           {/* ── Brand + newsletter ─────────────────────── */}
-          <div className="lg:col-span-2 flex flex-col gap-5">
+          <div className="sm:col-span-2 lg:col-span-2 flex flex-col gap-5">
 
             {/* Wordmark */}
             <div>
@@ -64,7 +64,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* ── Navigate ───────────────────────────────── */}
+          {/* ── Navigate (Left on mobile/tablet) ───────────────────────────────── */}
           <div className="flex flex-col gap-1">
             <h3 className="font-serif font-bold text-sm text-white uppercase tracking-widest mb-3">
               Navigate
@@ -80,7 +80,7 @@ export function Footer() {
             ))}
           </div>
 
-          {/* ── Programs + Social + Contact ────────────── */}
+          {/* ── Programs + Social + Contact (Right on mobile/tablet) ────────────── */}
           <div className="flex flex-col gap-8">
 
             {/* Programs */}
