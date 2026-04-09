@@ -65,7 +65,7 @@ export default function Home() {
       </section>
 
       {/* ── PILLARS BAR ──────────────────────────────────────────── */}
-      <section className="bg-slate-50 py-8">
+      <section className="bg-slate-50 py-8 hidden sm:block">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-center">
             <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Spirit · Soul · Body</p>
