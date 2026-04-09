@@ -86,7 +86,7 @@ export default function EventsPage() {
 
       {/* ── NEVER MISS AN EVENT (NEWSLETTER) ─────────────────────── */}
       <FadeIn>
-        <NewsletterSection className="bg-white pb-16 sm:pb-20 lg:pb-24" />
+        <NewsletterSection className="bg-white mt-24 pb-16 sm:pb-20 lg:pb-24" />
       </FadeIn>
     </>
   )
