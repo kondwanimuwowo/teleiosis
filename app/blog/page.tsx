@@ -3,66 +3,11 @@ export const metadata = {
   description: 'Explore teachings, devotionals, and news from the Teleiosis Mandate. Deepen your understanding of sonship and Kingdom authority through the Ministry of the Word.',
 }
 
+import Link from 'next/link'
 import { NewsletterSection } from '../components/NewsletterSection'
 import { FadeIn } from '../components/FadeIn'
 import { Button } from '../components/ui/button'
-
-const BLOG_POSTS = [
-  {
-    id: 1,
-    category: 'Devotional',
-    title: 'That Which Is Perfect Is Come',
-    excerpt: 'The Call of God is for us to accept the fullness of Christ and the Perfection that He wrought for us. The work of Jesus in His death, burial and resurrection accomplished for us more than what we are experiencing now.',
-    date: 'Apr 2, 2026',
-    scripture: '1 Cor 13:10',
-    image: '/images/pexels-bible-1869164_1280.jpg',
-  },
-  {
-    id: 2,
-    category: 'Teaching',
-    title: 'The Lamb of God: Understanding God\'s Sacrifice',
-    excerpt: 'A two-part teaching exploring the depth of what the sacrifice of the Lamb accomplishes for every believer — not just forgiveness, but the full restoration of our identity, authority, and standing before God.',
-    date: 'Mar 28, 2026',
-    scripture: 'John 1:29',
-    image: '/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg',
-  },
-  {
-    id: 3,
-    category: 'Devotional',
-    title: 'The Perfection of God Is in Christ',
-    excerpt: 'It is wrong for you to judge yourself as imperfect, because you are judging one that is a member of Christ. We have to discern the body of Christ. Declare the Glory of God that is in you. You are one with Him.',
-    date: 'Mar 20, 2026',
-    scripture: 'Eph 5:30',
-    image: '/images/pexels-bible-1868359_1280.jpg',
-  },
-  {
-    id: 4,
-    category: 'News',
-    title: 'New Series: The Ministry of the Spirit',
-    excerpt: 'Three new Saturday class recordings are now available — exploring the active, transforming work of the Holy Spirit in the life of the believer. The Spirit is not passive. He is doing something right now on the inside of you.',
-    date: 'Mar 12, 2026',
-    scripture: 'Acts 1:8',
-    image: '/images/sermon-3.jpg',
-  },
-  {
-    id: 5,
-    category: 'Devotional',
-    title: 'Don\'t Advertise God Small',
-    excerpt: 'You are the head and not the tail. Jesus died to make us the First and the Best in all areas of our lives. Through you God is showing the world His Power. Show forth His excellence in all that concerns you.',
-    date: 'Mar 5, 2026',
-    scripture: 'Eph 2:10',
-    image: '/images/sermon-4.jpg',
-  },
-  {
-    id: 6,
-    category: 'Teaching',
-    title: 'Kingship: Training for Reigning',
-    excerpt: 'A four-part series from the Manifested Sons Class on what it means to walk as a king in the Kingdom of God — covering the doctrine of righteousness, the stance of a king, and a kingdom of words.',
-    date: 'Feb 25, 2026',
-    scripture: 'Rom 5:17',
-    image: '/images/rod-long-TzgZrZQFVPc-unsplash.jpg',
-  },
-]
+import { BLOG_POSTS } from '@/lib/blog-posts'
 
 export default function BlogPage() {
   return (
@@ -88,8 +33,11 @@ export default function BlogPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {BLOG_POSTS.map((post) => (
-                <article key={post.id} className="bg-white border border-slate-100 flex flex-col group cursor-pointer hover:border-[#4a0e68]/20 transition-colors overflow-hidden">
-                  {/* Image */}
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.slug}`}
+                  className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden"
+                >
                   <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                     <img
                       src={post.image}
@@ -97,7 +45,6 @@ export default function BlogPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  {/* Content */}
                   <div className="p-6 flex flex-col flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-semibold tracking-widest uppercase text-[#4a0e68]">
@@ -117,7 +64,7 @@ export default function BlogPage() {
                       </span>
                     </div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
             <div className="text-center">
