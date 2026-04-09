@@ -232,7 +232,7 @@ export default function AboutPage() {
                       Through conferences, Saturday classes, and an expanding audio library, Rhema equips believers across Zambia and beyond to manifest Kingdom authority in every area of their lives.
                     </p>
                     <div className="flex gap-5">
-                      <a href="https://facebook.com" className="text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px] flex items-center">Facebook</a>
+                      <a href="https://web.facebook.com/Rhemaword27" className="text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px] flex items-center">Facebook</a>
                       <a href="https://youtube.com" className="text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px] flex items-center">YouTube</a>
                     </div>
                   </div>

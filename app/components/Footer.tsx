@@ -103,7 +103,7 @@ export function Footer() {
               </h3>
               <div className="flex items-center gap-2.5">
                 {/* Facebook */}
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                <a href="https://web.facebook.com/Rhemaword27" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-teleiosis-gold hover:text-[#2c0e68] transition-all">
                   <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
@@ -135,9 +135,9 @@ export function Footer() {
                 Contact
               </h3>
               <div className="flex flex-col gap-1.5">
-                <a href="tel:+260976779008"
+                <a href="tel:+260977964076"
                   className="text-sm text-white/55 hover:text-teleiosis-gold transition-colors">
-                  +260 97 6 779 008
+                  +260 977 964 076
                 </a>
                 <a href="mailto:info@teleiosis.org"
                   className="text-sm text-white/55 hover:text-teleiosis-gold transition-colors">

@@ -120,7 +120,7 @@ export default function ContactPage() {
                     
                     <div className="space-y-8">
                       {[
-                        { icon: Phone, label: 'Phone', value: '+260 97 6 779 008', href: 'tel:+260976779008' },
+                        { icon: Phone, label: 'Phone', value: '+260 977 964 076', href: 'tel:+260977964076' },
                         { icon: Mail, label: 'Email', value: 'info@teleiosis.org', href: 'mailto:info@teleiosis.org' },
                       ].map((item) => (
                         <div key={item.label} className="flex items-start gap-4">
@@ -153,7 +153,7 @@ export default function ContactPage() {
                       <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-6">Connect With Us</p>
                       <div className="flex gap-4">
                         {[
-                          { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
+                          { icon: Facebook, href: 'https://web.facebook.com/Rhemaword27', label: 'Facebook' },
                           { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
                           { icon: Youtube, href: 'https://youtube.com', label: 'YouTube' },
                         ].map((social) => (
