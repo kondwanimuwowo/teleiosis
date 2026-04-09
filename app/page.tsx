@@ -1,0 +1,252 @@
+import Link from 'next/link'
+import { FlipText } from './components/FlipText'
+import { NewsletterSection } from './components/NewsletterSection'
+import { CTASection } from './components/CTASection'
+import { QuoteBand } from './components/QuoteBand'
+import { FadeIn } from './components/FadeIn'
+
+export const metadata = {
+  title: 'Home',
+}
+
+
+const NEWS_PREVIEW = [
+  { id: 1, category: 'News', title: 'New Teaching Series Launched', excerpt: 'Explore the foundations of Kingdom authority...', date: 'Mar 15, 2026' },
+  { id: 2, category: 'Event', title: 'Azle Conference Recap', excerpt: 'Over 300 believers gathered for transformation...', date: 'Mar 10, 2026' },
+  { id: 3, category: 'Teaching', title: 'Manifested Sons: Part 3 Released', excerpt: 'The final teaching in our summer series...', date: 'Mar 5, 2026' },
+]
+
+const STATS = [
+  { value: '500+', label: 'Lives Transformed' },
+  { value: '10+',   label: 'Years of Ministry' },
+  { value: '10+',  label: 'Conferences Held' },
+  { value: '1',    label: 'Mandate and Call' },
+]
+
+const PROGRAMS = [
+  { n: '01', title: 'Manifested Sons', desc: 'Weekly Saturday classes exploring the revelation of the sons of God and Kingdom authority in daily life.', href: '/about', cta: 'Learn more' },
+  { n: '02', title: 'Unto Perfection', desc: 'Annual conferences bringing believers together for intensive teaching and encounters with the Spirit.', href: '/events', cta: 'See events' },
+  { n: '03', title: 'The Glorious Mandate', desc: 'Ongoing outreach and discipleship equipping believers to manifest Kingdom reality in their communities.', href: '/about', cta: 'Join us' },
+]
+
+export default function Home() {
+  return (
+    <>
+      {/* ── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative min-h-dvh flex items-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-[#2c0e68]/80" />
+
+        <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-24 sm:pt-40 sm:pb-32">
+          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] mb-5">
+            τελείωσις
+          </p>
+          <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-6xl text-white tracking-wider mb-5 leading-[1.05]">
+            <FlipText />
+          </h1>
+          <p className="text-white/55 text-base sm:text-lg font-serif italic mb-6 max-w-xl leading-relaxed">
+            That Which Is Perfect Is Come
+          </p>
+          <p className="text-white/75 text-base sm:text-lg max-w-2xl leading-relaxed mb-10">
+            A community devoted to the practical revelation of the risen Christ — training the sons of God into Christian perfection and Kingdom authority.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/events" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] rounded-full bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm">
+              Upcoming Events
+            </Link>
+            <Link href="/teachings" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] rounded-full border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition-colors">
+              Explore Teachings
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PILLARS BAR ──────────────────────────────────────────── */}
+      <section className="bg-slate-50 py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-center">
+            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Spirit · Soul · Body</p>
+            <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
+            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Sonship · Kingdom · Glory</p>
+            <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
+            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Perfection · Purpose · Power</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHO WE ARE ───────────────────────────────────────────── */}
+      <FadeIn>
+        <section className="bg-white py-20 sm:py-28 lg:py-32">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+              {/* Text */}
+              <div>
+                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Who We Are</p>
+                <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-6">
+                  Called to a Higher Standard
+                </h2>
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-4">
+                  The Teleiosis Mandate is a ministry movement grounded in the revelation of Christian perfection — the full maturity and manifestation of the sons of God.
+                </p>
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
+                  We gather believers who are hungry to move beyond the basics, into the deep things of God's Kingdom.
+                </p>
+                <blockquote className="border-l-2 border-teleiosis-gold pl-5">
+                  <p className="text-[#4a0e68] font-serif italic text-base sm:text-lg leading-relaxed mb-2">
+                    "Till we all come unto a perfect man, unto the measure of the stature of the fulness of Christ."
+                  </p>
+                  <cite className="text-xs text-slate-400 tracking-widest uppercase not-italic">Ephesians 4:13</cite>
+                </blockquote>
+              </div>
+
+              {/* Stats grid */}
+              <div className="grid grid-cols-2 gap-4 w-fit mx-auto place-items-center">
+                {STATS.map(({ value, label }, i) => (
+                  <div
+                    key={label}
+                    style={{
+                      borderRadius:
+                        i === 0 ? '30% 0 0 0' :
+                        i === 1 ? '0 30% 0 0' :
+                        i === 2 ? '0 0 0 30%' :
+                        '0 0 30% 0'
+                    }}
+                    className={`h-40 w-40 p-4 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
+                      i === 0 ? 'bg-[#4a0e68] text-white' :
+                      i === 3 ? 'bg-[#2c0e68] text-white' :
+                      'bg-slate-50 border border-slate-100 text-[#2c0e68]'
+                    }`}
+                  >
+                    <p className={`font-serif font-bold text-xl sm:text-2xl mb-1 ${i === 0 || i === 3 ? 'text-teleiosis-gold' : 'text-[#4a0e68]'}`}>
+                      {value}
+                    </p>
+                    <p className={`text-[10px] sm:text-xs tracking-widest uppercase font-semibold leading-tight ${i === 0 || i === 3 ? 'text-white/70' : 'text-slate-500'}`}>
+                      {label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </FadeIn>
+
+      <QuoteBand />
+
+      {/* ── PROGRAMS ─────────────────────────────────────────────── */}
+      <FadeIn delay={0.1}>
+        <section className="bg-slate-50 py-20 sm:py-28 lg:py-32">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Programs</p>
+            <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
+              Training Into Perfection
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {PROGRAMS.map(({ n, title, desc, href, cta }) => (
+                <article key={n} className="bg-white rounded-xl border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm">
+                  <p className="font-serif font-bold text-2xl text-teleiosis-gold mb-3">{n}</p>
+                  <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">{desc}</p>
+                  <Link href={href} className="inline-flex items-center gap-1 text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px]">
+                    {cta} →
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </FadeIn>
+
+      {/* ── UPCOMING EVENT ───────────────────────────────────────── */}
+      <FadeIn delay={0.2}>
+        <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              {/* Poster — portrait */}
+              <div className="flex justify-center lg:justify-start">
+                <div className="w-full max-w-xs sm:max-w-sm overflow-hidden shadow-lg">
+                  <img
+                    src="/images/manifested-sons-of-god-class-light.jpg"
+                    alt="Manifested Sons of God Class — Saturday poster"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Details */}
+              <div>
+                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Next Event</p>
+                <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-white leading-tight mb-8">
+                  Manifested Sons of God Class
+                </h2>
+                <dl className="space-y-5 mb-10">
+                  {[
+                    { dt: 'When',     dd: 'This Saturday, 11 April 2026' },
+                    { dt: 'Time',     dd: '2:00 PM – 5:00 PM' },
+                    { dt: 'Venue',    dd: 'Emperors Crown Olympia' },
+                    { dt: 'Address',  dd: 'Along Chainama Road, Olympia, Lusaka' },
+                    { dt: 'Format',   dd: 'In Person' },
+                  ].map(({ dt, dd }) => (
+                    <div key={dt} className="flex gap-4 items-baseline">
+                      <dt className="text-white/40 text-xs tracking-widest uppercase w-20 flex-shrink-0">{dt}</dt>
+                      <dd className="text-white/85 text-base">{dd}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <Link href="/events" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm">
+                  View All Events
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </FadeIn>
+
+      {/* ── NEWS & UPDATES ───────────────────────────────────────── */}
+      <FadeIn delay={0.1}>
+        <section className="bg-white py-20 sm:py-28 lg:py-32">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Latest</p>
+            <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
+              News &amp; Updates
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {NEWS_PREVIEW.map((post) => (
+                <article key={post.id} className="bg-slate-50 rounded-xl border border-slate-100 p-6 flex flex-col">
+                  <span className="inline-block self-start text-xs font-semibold tracking-widest uppercase text-[#4a0e68] bg-[#4a0e68]/10 px-3 py-1 rounded-full mb-4">
+                    {post.category}
+                  </span>
+                  <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-2 leading-snug">{post.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1">{post.excerpt}</p>
+                  <div className="flex justify-between items-center">
+                    <p className="text-xs text-slate-400">{post.date}</p>
+                    <Link href="/blog" className="text-sm font-semibold text-teleiosis-gold hover:text-[#4a0e68] transition-colors min-h-[44px] flex items-center">
+                      Read →
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </FadeIn>
+
+      {/* ── NEVER MISS AN EVENT (NEWSLETTER) ─────────────────────── */}
+      <FadeIn>
+        <NewsletterSection className="bg-white pb-16 sm:pb-20 lg:pb-28" />
+      </FadeIn>
+
+      {/* ── CTA ──────────────────────────────────────────────────── */}
+      <CTASection
+        title="Ready to Go Deeper?"
+        description="Join a community of believers pursuing the fullness of Christ and the manifestation of Kingdom authority."
+        buttonText="Get Started"
+        buttonHref="/contact"
+      />
+    </>
+  )
+}

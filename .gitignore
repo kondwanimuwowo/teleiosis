@@ -1,0 +1,130 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Teleiosis Mandate — .gitignore
+# ──────────────────────────────────────────────────────────────────────────────
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ── Package manager lock files (keep one — commit only the one you use) ───────
+# yarn.lock
+
+# ── Next.js build artefacts ───────────────────────────────────────────────────
+.next/
+out/
+build/
+dist/
+
+# ── TypeScript build info ─────────────────────────────────────────────────────
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# ── Environment & secrets (NEVER commit these) ────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+secrets.json
+.apikey
+*.pem
+*.key
+*.p12
+
+# ── Supabase local dev ────────────────────────────────────────────────────────
+supabase/.temp/
+supabase/functions/.env
+
+# ── Cloudflare / Wrangler ─────────────────────────────────────────────────────
+.wrangler/
+wrangler.toml.bak
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs/
+
+# ── Testing & coverage ────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# ── IDE & editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# ── AI agent working files ────────────────────────────────────────────────────
+.claude/
+.claudeignore
+.antigravityignore
+prompt.md
+tsc_errors.txt
+
+# ── Inspiration / reference designs (not part of production code) ─────────────
+public/inspo/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# ── Windows ───────────────────────────────────────────────────────────────────
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ── Linux ─────────────────────────────────────────────────────────────────────
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ── Temporary & scratch files ─────────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.orig
+*.cache
+.cache/
+
+# ── Audio / media uploads (should live in Cloudflare R2, not git) ─────────────
+audio-files/
+uploads/
+*.mp3
+*.mp4
+*.wav
+*.m4a
+*.aac
+*.ogg
+*.flac

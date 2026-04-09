@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Teleiosis Design Tokens ───────────────────────────────────────
+       Palette source: /public/inspo/color-palette.svg
+       #4a0e68  teleiosis-purple  — primary brand
+       #e4ac05  teleiosis-gold    — accent / CTA
+       #941494  teleiosis-magenta — secondary accent
+       #941474  teleiosis-pink    — hover / tint
+       #2c0e68  teleiosis-deep    — footer / dark sections
+    ─────────────────────────────────────────────────────────────────── */
+
+    --background:           0 0% 100%;
+    --foreground:           270 74% 23%;       /* teleiosis-purple tint */
+
+    --card:                 0 0% 100%;
+    --card-foreground:      270 74% 23%;
+
+    --primary:              43 97% 46%;        /* teleiosis-gold   #e4ac05 */
+    --primary-foreground:   270 74% 23%;       /* deep purple text on gold */
+
+    --secondary:            270 74% 23%;       /* teleiosis-purple #4a0e68 */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted:                270 30% 96%;
+    --muted-foreground:     270 20% 50%;
+
+    --accent:               300 83% 33%;       /* teleiosis-magenta #941494 */
+    --accent-foreground:    0 0% 100%;
+
+    --border:               270 30% 90%;
+    --input:                270 30% 90%;
+    --ring:                 43 97% 46%;        /* gold focus ring */
+
+    --radius:               0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+/* ── Scroll padding for fixed nav (h-20 = 80px) ─────────────────── */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* ── Typewriter cursor blink ─────────────────────────────────────── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: cursor-blink 0.85s step-end infinite;
+}
+
+/* ── Scrollbar utilities ─────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+
+/* ── Prevent horizontal overflow on all devices ─────────────────── */
+body {
+  overflow-x: hidden;
+}
