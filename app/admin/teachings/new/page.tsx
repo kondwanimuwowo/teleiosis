@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Upload, Music, ArrowLeft, Loader2, CheckCircle2 } from 'lucide-react'
+import { Upload, Music, ArrowLeft, Loader2, CheckCircle2, Library, X } from 'lucide-react'
 import Link from 'next/link'
+import { AudioGalleryModal } from '../AudioGalleryModal'
 
 type Category = { id: string; name: string }
 type Series = { id: string; title: string }
@@ -11,9 +12,14 @@ type Series = { id: string; title: string }
 export default function NewTeachingPage() {
   const router = useRouter()
   const audioRef = useRef<HTMLInputElement>(null)
+  
   const [categories, setCategories] = useState<Category[]>([])
   const [seriesList, setSeriesList] = useState<Series[]>([])
   const [audioFile, setAudioFile]   = useState<File | null>(null)
+  const [galleryUrl, setGalleryUrl] = useState<string | null>(null)
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null)
+  
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [progress, setProgress]     = useState(0)
   const [uploading, setUploading]   = useState(false)
   const [success, setSuccess]       = useState(false)
@@ -34,49 +40,69 @@ export default function NewTeachingPage() {
     setForm(f => ({ ...f, [field]: value }))
   }
 
+  function handleGallerySelect(file: { name: string; url: string }) {
+    setGalleryUrl(file.url)
+    setSelectedFileName(file.name)
+    setAudioFile(null) // Clear any local file selection
+    setIsGalleryOpen(false)
+    setError(null)
+  }
+
+  function clearAudioSelection() {
+    setAudioFile(null)
+    setGalleryUrl(null)
+    setSelectedFileName(null)
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!audioFile) { setError('Please select an audio file'); return }
+    if (!audioFile && !galleryUrl) { setError('Please select or upload an audio file'); return }
     
     setUploading(true)
     setError(null)
     setProgress(0)
 
     try {
-      // 1. Get Presigned URL
-      const presignRes = await fetch('/api/admin/teachings/presign', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fileName: audioFile.name,
-          contentType: audioFile.type || 'audio/mpeg'
+      let finalAudioUrl = galleryUrl
+
+      // Only upload if it's a new local file
+      if (audioFile && !galleryUrl) {
+        // 1. Get Presigned URL
+        const presignRes = await fetch('/api/admin/teachings/presign', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fileName: audioFile.name,
+            contentType: audioFile.type || 'audio/mpeg'
+          })
         })
-      })
-      
-      const { signedUrl, publicUrl, error: presignError } = await presignRes.json()
-      if (presignError) throw new Error(presignError)
+        
+        const { signedUrl, publicUrl, error: presignError } = await presignRes.json()
+        if (presignError) throw new Error(presignError)
 
-      // 2. Upload directly to R2 via PUT
-      const uploadPromise = new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-        xhr.upload.onprogress = (ev) => {
-          if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100))
-        }
-        xhr.onload = () => {
-          if (xhr.status === 200) resolve(true)
-          else reject(new Error('Failed to upload file to storage'))
-        }
-        xhr.onerror = () => reject(new Error('Network error during file upload'))
-        xhr.open('PUT', signedUrl)
-        xhr.setRequestHeader('Content-Type', audioFile.type || 'audio/mpeg')
-        xhr.send(audioFile)
-      })
+        // 2. Upload directly to R2 via PUT
+        const uploadPromise = new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest()
+          xhr.upload.onprogress = (ev) => {
+            if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100))
+          }
+          xhr.onload = () => {
+            if (xhr.status === 200) resolve(true)
+            else reject(new Error('Failed to upload file to storage'))
+          }
+          xhr.onerror = () => reject(new Error('Network error during file upload'))
+          xhr.open('PUT', signedUrl)
+          xhr.setRequestHeader('Content-Type', audioFile.type || 'audio/mpeg')
+          xhr.send(audioFile)
+        })
 
-      await uploadPromise
+        await uploadPromise
+        finalAudioUrl = publicUrl
+      }
 
       // 3. Save metadata to Database
       const formData = new FormData()
-      formData.append('audio_url', publicUrl)
+      formData.append('audio_url', finalAudioUrl!)
       Object.entries(form).forEach(([k, v]) => formData.append(k, String(v)))
 
       const dbRes = await fetch('/api/admin/teachings', {
@@ -123,48 +149,100 @@ export default function NewTeachingPage() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-5">
-          {/* Audio file drop zone */}
+          {/* Audio selection area */}
           <div>
-            <label className={labelCls}>Audio File * (.mp3, .m4a)</label>
+            <label className={labelCls}>Audio Source *</label>
             <div
-              onClick={() => audioRef.current?.click()}
-              className={`flex flex-col items-center justify-center gap-2 p-8 rounded-xl border-2 border-dashed cursor-pointer transition-all duration-200 ${
-                audioFile
+              className={`relative flex flex-col items-center justify-center gap-2 p-8 rounded-2xl border-2 border-dashed transition-all duration-300 ${
+                audioFile || galleryUrl
                   ? 'border-[#4a2c9c]/40 bg-[#4a2c9c]/4'
-                  : 'border-slate-300 hover:border-[#4a2c9c]/40 hover:bg-[#4a2c9c]/4'
+                  : 'border-slate-200 hover:border-[#4a2c9c]/40 hover:bg-slate-50'
               }`}
             >
+              {(audioFile || galleryUrl) && (
+                <button 
+                  type="button"
+                  onClick={clearAudioSelection}
+                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white border border-slate-100 text-slate-400 hover:text-red-500 transition-colors shadow-sm"
+                >
+                  <X size={14} />
+                </button>
+              )}
+
               {audioFile ? (
                 <>
-                  <Music size={24} className="text-[#4a2c9c]" />
-                  <p className="text-sm font-medium text-[#4a2c9c]">{audioFile.name}</p>
-                  <p className="text-xs text-slate-400">{(audioFile.size / 1024 / 1024).toFixed(1)} MB</p>
+                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm mb-1 text-[#4a2c9c]">
+                    <Music size={24} />
+                  </div>
+                  <p className="text-sm font-bold text-[#2c0e68] text-center px-4 truncate w-full">
+                    {audioFile.name}
+                  </p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    Local File • {(audioFile.size / 1024 / 1024).toFixed(1)} MB
+                  </p>
+                </>
+              ) : galleryUrl ? (
+                <>
+                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm mb-1 text-teleiosis-gold">
+                    <Library size={24} />
+                  </div>
+                  <p className="text-sm font-bold text-[#2c0e68] text-center px-4 truncate w-full">
+                    {selectedFileName}
+                  </p>
+                  <p className="text-[10px] font-bold text-teleiosis-gold uppercase tracking-widest">
+                    Selected from Gallery
+                  </p>
                 </>
               ) : (
-                <>
-                  <Upload size={24} className="text-slate-400" />
-                  <p className="text-sm text-slate-500">Click to select audio file</p>
-                  <p className="text-xs text-slate-400">MP3 or M4A, up to 200MB</p>
-                </>
+                <div 
+                  className="flex flex-col items-center cursor-pointer w-full"
+                  onClick={() => audioRef.current?.click()}
+                >
+                  <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mb-3 text-slate-400 group-hover:scale-110 transition-transform">
+                    <Upload size={24} />
+                  </div>
+                  <p className="text-sm font-semibold text-[#2c0e68]">Click to select audio file</p>
+                  <p className="text-xs text-slate-400 mt-1">MP3 or M4A, up to 200MB</p>
+                </div>
               )}
             </div>
+            
             <input
               ref={audioRef}
               type="file"
               accept=".mp3,.m4a,audio/*"
               className="hidden"
-              onChange={e => setAudioFile(e.target.files?.[0] ?? null)}
+              onChange={e => {
+                setAudioFile(e.target.files?.[0] ?? null)
+                setGalleryUrl(null)
+                setSelectedFileName(null)
+              }}
             />
+
+            {!audioFile && !galleryUrl && (
+              <div className="mt-4 flex items-center justify-center gap-2">
+                <div className="h-px bg-slate-100 flex-1" />
+                <button
+                  type="button"
+                  onClick={() => setIsGalleryOpen(true)}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4a2c9c] hover:text-[#2c0e68] transition-colors uppercase tracking-widest px-4 py-2 rounded-full bg-[#4a2c9c]/5 hover:bg-[#4a2c9c]/10"
+                >
+                  <Library size={12} />
+                  Select from Gallery
+                </button>
+                <div className="h-px bg-slate-100 flex-1" />
+              </div>
+            )}
           </div>
 
           {/* Upload progress */}
-          {uploading && (
-            <div>
-              <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
-                <span>Direct Upload to R2 (Unlimited Size)…</span>
+          {uploading && audioFile && !galleryUrl && (
+            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+              <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                <span>Uploading to Storage…</span>
                 <span>{progress}%</span>
               </div>
-              <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[#4a2c9c] rounded-full transition-all duration-300"
                   style={{ width: `${progress}%` }}
@@ -234,29 +312,35 @@ export default function NewTeachingPage() {
               id="membership"
               checked={form.included_in_membership}
               onChange={e => set('included_in_membership', e.target.checked)}
-              className="w-4 h-4 accent-[#4a2c9c]"
+              className="w-4 h-4 accent-[#4a2c9c] rounded border-slate-300"
             />
-            <label htmlFor="membership" className="text-sm text-slate-600">Included in membership</label>
+            <label htmlFor="membership" className="text-sm font-medium text-slate-600">Included in membership</label>
           </div>
 
           {error && (
-            <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
+            <p className="text-red-500 text-xs font-bold uppercase tracking-widest bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
           )}
 
           <div className="flex gap-3 pt-2">
-            <Link href="/admin/teachings" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 transition-colors">
+            <Link href="/admin/teachings" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-bold hover:bg-slate-50 transition-colors">
               Cancel
             </Link>
             <button
               type="submit"
               disabled={uploading}
-              className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
+              className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#4a2c9c] transition-all shadow-md disabled:opacity-60"
             >
-              {uploading ? <><Loader2 size={14} className="animate-spin" /> Uploading…</> : 'Upload Teaching'}
+              {uploading ? <><Loader2 size={16} className="animate-spin" /> {audioFile ? 'Uploading…' : 'Saving…'}</> : 'Publish Teaching'}
             </button>
           </div>
         </form>
       )}
+
+      <AudioGalleryModal 
+        isOpen={isGalleryOpen}
+        onClose={() => setIsGalleryOpen(false)}
+        onSelect={handleGallerySelect}
+      />
     </div>
   )
 }
