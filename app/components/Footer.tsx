@@ -141,10 +141,19 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 mt-14 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <div className="border-t border-white/10 mt-14 pt-8 flex flex-col sm:flex-row justify-center items-center gap-3">
           <p className="text-white/35 text-xs">
             &copy; {year} Teleiosis Mandate. All rights reserved.
           </p>
+          {/* Admin portal — intentionally subtle */}
+          <a
+            href="/admin"
+            aria-label="Admin"
+            className="text-[#2c0e68] hover:text-white/15 transition-colors duration-500 text-[10px] select-none"
+            tabIndex={-1}
+          >
+            τ
+          </a>
         </div>
 
       </div>

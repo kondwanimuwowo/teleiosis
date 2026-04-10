@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Cinzel } from 'next/font/google'
 import './globals.css'
-import { Nav } from './components/Nav'
-import { Footer } from './components/Footer'
+import { PublicShell } from './components/PublicShell'
 import { ProgressBar } from './components/ProgressBar'
 import { Suspense } from 'react'
 
@@ -41,13 +40,9 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <ProgressBar />
         </Suspense>
-        <div className="flex flex-col min-h-screen">
-          <Nav />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <PublicShell>
+          {children}
+        </PublicShell>
       </body>
     </html>
   )
