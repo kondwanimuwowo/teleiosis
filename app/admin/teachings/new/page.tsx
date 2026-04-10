@@ -37,30 +37,67 @@ export default function NewTeachingPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!audioFile) { setError('Please select an audio file'); return }
+    
     setUploading(true)
     setError(null)
     setProgress(0)
 
-    const data = new FormData()
-    data.append('audio', audioFile)
-    Object.entries(form).forEach(([k, v]) => data.append(k, String(v)))
+    try {
+      // 1. Get Presigned URL
+      const presignRes = await fetch('/api/admin/teachings/presign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: audioFile.name,
+          contentType: audioFile.type || 'audio/mpeg'
+        })
+      })
+      
+      const { signedUrl, publicUrl, error: presignError } = await presignRes.json()
+      if (presignError) throw new Error(presignError)
 
-    const xhr = new XMLHttpRequest()
-    xhr.upload.onprogress = (ev) => {
-      if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100))
-    }
-    xhr.onload = () => {
-      setUploading(false)
-      if (xhr.status === 200) {
-        setSuccess(true)
-        setTimeout(() => { router.push('/admin/teachings'); router.refresh() }, 1200)
-      } else {
-        try { setError(JSON.parse(xhr.responseText).error) } catch { setError('Upload failed') }
+      // 2. Upload directly to R2 via PUT
+      const uploadPromise = new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.upload.onprogress = (ev) => {
+          if (ev.lengthComputable) setProgress(Math.round((ev.loaded / ev.total) * 100))
+        }
+        xhr.onload = () => {
+          if (xhr.status === 200) resolve(true)
+          else reject(new Error('Failed to upload file to storage'))
+        }
+        xhr.onerror = () => reject(new Error('Network error during file upload'))
+        xhr.open('PUT', signedUrl)
+        xhr.setRequestHeader('Content-Type', audioFile.type || 'audio/mpeg')
+        xhr.send(audioFile)
+      })
+
+      await uploadPromise
+
+      // 3. Save metadata to Database
+      const formData = new FormData()
+      formData.append('audio_url', publicUrl)
+      Object.entries(form).forEach(([k, v]) => formData.append(k, String(v)))
+
+      const dbRes = await fetch('/api/admin/teachings', {
+        method: 'POST',
+        body: formData,
+      })
+      
+      if (!dbRes.ok) {
+        const d = await dbRes.json()
+        throw new Error(d.error || 'Failed to save teaching details')
       }
+
+      setSuccess(true)
+      setTimeout(() => { router.push('/admin/teachings'); router.refresh() }, 1200)
+      
+    } catch (err: any) {
+      console.error('Upload error:', err)
+      setError(err.message || 'An error occurred during upload')
+    } finally {
+      setUploading(false)
     }
-    xhr.onerror = () => { setUploading(false); setError('Network error') }
-    xhr.open('POST', '/api/admin/teachings')
-    xhr.send(data)
   }
 
   const inputCls = "w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 text-sm focus:outline-none focus:border-[#4a2c9c]/50 focus:ring-2 focus:ring-[#4a2c9c]/10 transition-all bg-white placeholder-slate-400"
@@ -124,7 +161,7 @@ export default function NewTeachingPage() {
           {uploading && (
             <div>
               <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
-                <span>Uploading to Cloudflare R2…</span>
+                <span>Direct Upload to R2 (Unlimited Size)…</span>
                 <span>{progress}%</span>
               </div>
               <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
