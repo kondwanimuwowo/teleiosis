@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Plus, FolderOpen, Image as ImageIcon } from 'lucide-react'
+import { Plus, FolderOpen, Image as ImageIcon, Pencil, Trash2 } from 'lucide-react'
+
 
 type TeachingSeries = {
   id: string
@@ -75,9 +76,20 @@ export default function SeriesAdminPage() {
                   <span className="text-xs text-slate-400">
                     {new Date(series.created_at).toLocaleDateString()}
                   </span>
-                  <button onClick={() => handleDelete(series.id)} className="text-xs font-semibold text-red-500 hover:text-red-600 transition-colors">
-                    Delete
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <Link 
+                      href={`/admin/series/${series.id}/edit`} 
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-[#4a2c9c] hover:bg-[#4a2c9c]/8 transition-colors"
+                    >
+                      <Pencil size={14} />
+                    </Link>
+                    <button 
+                      onClick={() => handleDelete(series.id)} 
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

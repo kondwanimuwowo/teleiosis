@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
-import { Plus, BookOpen, Trash2, Pencil } from 'lucide-react'
+import { Plus, BookOpen, Pencil } from 'lucide-react'
+import { DeleteBlogPostButton } from './DeleteBlogPostButton'
 
 export const metadata = { title: 'Blog | Teleiosis Admin' }
 

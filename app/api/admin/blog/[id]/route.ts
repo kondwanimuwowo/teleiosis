@@ -13,7 +13,7 @@ const s3 = new S3Client({
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   const { data, error } = await supabaseAdmin
-    .from('teaching_series')
+    .from('blog_posts')
     .select('*')
     .eq('id', params.id)
     .single()
@@ -26,12 +26,12 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   try {
     const formData = await request.formData()
     const image = formData.get('image') as File | null
-    let thumbnailUrl = formData.get('thumbnail_url') as string | null
+    let imageUrl = formData.get('image_url') as string | null
 
     if (image && image.size > 0) {
       const timestamp = Date.now()
       const safeName = image.name.replace(/[^a-zA-Z0-9.\-_]/g, '-')
-      const key = `series/${timestamp}-${safeName}`
+      const key = `blog/${timestamp}-${safeName}`
 
       const buffer = await image.arrayBuffer()
       await s3.send(new PutObjectCommand({
@@ -41,16 +41,24 @@ export async function PATCH(request: Request, { params }: { params: { id: string
         ContentType: image.type || 'image/jpeg',
       }))
 
-      thumbnailUrl = `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${key}`
+      imageUrl = `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${key}`
+    }
+
+    const updateData: any = {
+      title:          formData.get('title'),
+      slug:           formData.get('slug'),
+      category:       formData.get('category'),
+      read_time:      formData.get('read_time'),
+      excerpt:        formData.get('excerpt'),
+      scripture:      formData.get('scripture'),
+      scripture_text: formData.get('scripture_text'),
+      body:           JSON.parse(formData.get('body') as string || '[]'),
+      image_url:      imageUrl,
     }
 
     const { error } = await supabaseAdmin
-      .from('teaching_series')
-      .update({
-        title: formData.get('title'),
-        description: formData.get('description'),
-        thumbnail_url: thumbnailUrl,
-      })
+      .from('blog_posts')
+      .update(updateData)
       .eq('id', params.id)
 
     if (error) return NextResponse.json({ error: error.message }, { status: 400 })
@@ -61,7 +69,11 @@ export async function PATCH(request: Request, { params }: { params: { id: string
 }
 
 export async function DELETE(_: Request, { params }: { params: { id: string } }) {
-  const { error } = await supabaseAdmin.from('teaching_series').delete().eq('id', params.id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  const { error } = await supabaseAdmin
+    .from('blog_posts')
+    .delete()
+    .eq('id', params.id)
+  
+  if (error) return NextResponse.json({ error: error.message }, { status: 400 })
   return NextResponse.json({ success: true })
 }

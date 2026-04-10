@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Trash2, Loader2, Quote } from 'lucide-react'
+import { Plus, Trash2, Loader2, Quote, Pencil, X } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +12,8 @@ export default function AdminQuotesPage() {
   const [loading, setLoading] = useState(true)
   const [text, setText]         = useState('')
   const [scripture, setScripture] = useState('')
-  const [adding, setAdding]     = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
 
   async function load() {
     const r = await fetch('/api/admin/quotes')
@@ -23,18 +24,37 @@ export default function AdminQuotesPage() {
 
   useEffect(() => { load() }, [])
 
-  async function addQuote(e: React.FormEvent) {
+  function startEdit(q: QuoteRow) {
+    setEditingId(q.id)
+    setText(q.text)
+    setScripture(q.scripture || '')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function cancelEdit() {
+    setEditingId(null)
+    setText('')
+    setScripture('')
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!text.trim()) return
-    setAdding(true)
-    await fetch('/api/admin/quotes', {
-      method: 'POST',
+    setSubmitting(true)
+    
+    const url = editingId ? `/api/admin/quotes/${editingId}` : '/api/admin/quotes'
+    const method = editingId ? 'PATCH' : 'POST'
+
+    await fetch(url, {
+      method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, scripture }),
     })
+    
     setText('')
     setScripture('')
-    setAdding(false)
+    setEditingId(null)
+    setSubmitting(false)
     load()
   }
 
@@ -52,9 +72,22 @@ export default function AdminQuotesPage() {
         <p className="text-slate-500 text-sm mt-1">These rotate in the Quote Band on the homepage.</p>
       </div>
 
-      {/* Add new */}
-      <form onSubmit={addQuote} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-6 space-y-4">
-        <h2 className="font-serif font-semibold text-base text-[#2c0e68]">Add New Quote</h2>
+      {/* Add / Edit form */}
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-serif font-semibold text-base text-[#2c0e68]">
+            {editingId ? 'Edit Quote' : 'Add New Quote'}
+          </h2>
+          {editingId && (
+            <button 
+              type="button" 
+              onClick={cancelEdit}
+              className="text-xs text-slate-400 hover:text-slate-600 flex items-center gap-1"
+            >
+              <X size={14} /> Cancel Edit
+            </button>
+          )}
+        </div>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
@@ -73,11 +106,11 @@ export default function AdminQuotesPage() {
           />
           <button
             type="submit"
-            disabled={adding}
+            disabled={submitting}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
           >
-            {adding ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
-            Add
+            {submitting ? <Loader2 size={14} className="animate-spin" /> : editingId ? <Pencil size={14} /> : <Plus size={14} />}
+            {editingId ? 'Update' : 'Add'}
           </button>
         </div>
       </form>
@@ -94,18 +127,26 @@ export default function AdminQuotesPage() {
         ) : (
           <ul className="divide-y divide-slate-50">
             {quotes.map((q) => (
-              <li key={q.id} className="flex items-start gap-4 px-6 py-5 hover:bg-slate-50/60 transition-colors group">
+              <li key={q.id} className={`flex items-start gap-4 px-6 py-5 hover:bg-slate-50/60 transition-colors group ${editingId === q.id ? 'bg-slate-50 ring-1 ring-inset ring-[#4a2c9c]/10' : ''}`}>
                 <Quote size={14} className="flex-shrink-0 mt-1 text-teleiosis-gold" />
                 <div className="flex-1 min-w-0">
                   <p className="text-slate-700 text-sm leading-relaxed">{q.text}</p>
                   {q.scripture && <p className="text-xs text-teleiosis-gold font-semibold mt-1 tracking-wider">{q.scripture}</p>}
                 </div>
-                <button
-                  onClick={() => deleteQuote(q.id)}
-                  className="flex-shrink-0 p-1.5 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100"
-                >
-                  <Trash2 size={14} />
-                </button>
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    onClick={() => startEdit(q)}
+                    className="p-1.5 rounded-lg text-slate-300 hover:text-[#4a2c9c] hover:bg-[#4a2c9c]/5 transition-colors"
+                  >
+                    <Pencil size={14} />
+                  </button>
+                  <button
+                    onClick={() => deleteQuote(q.id)}
+                    className="p-1.5 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 transition-colors"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
