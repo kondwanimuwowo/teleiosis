@@ -56,12 +56,10 @@ export default async function AdminBlogPage() {
                     <td className="px-5 py-4 text-slate-500 hidden md:table-cell">{dateStr}</td>
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-2 justify-end">
-                        <Link href={`/blog/${p.slug}`} target="_blank" className="p-1.5 rounded-lg text-slate-400 hover:text-[#4a2c9c] hover:bg-[#4a2c9c]/8 transition-colors">
+                        <Link href={`/admin/blog/${p.id}/edit`} className="p-1.5 rounded-lg text-slate-400 hover:text-[#4a2c9c] hover:bg-[#4a2c9c]/8 transition-colors">
                           <Pencil size={14} />
                         </Link>
-                        <button className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors">
-                          <Trash2 size={14} />
-                        </button>
+                        <DeleteBlogPostButton id={p.id} />
                       </div>
                     </td>
                   </tr>

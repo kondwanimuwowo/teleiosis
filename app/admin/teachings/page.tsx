@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
-import { Plus, Mic2, Trash2 } from 'lucide-react'
+import { Plus, Mic2, Pencil } from 'lucide-react'
+import { DeleteTeachingButton } from './DeleteTeachingButton'
 
 export const metadata = { title: 'Teachings | Teleiosis Admin' }
 

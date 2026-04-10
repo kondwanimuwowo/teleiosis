@@ -48,3 +48,4 @@ When the user asks you to update a page or component:
 2. **Refactor & Modernize:** Inject the new design system classes. Think about how the component should look in modern 2026 application design.
 3. **Add Interactivity:** Ensure the element reacts beautifully to the user cursor.
 4. **Self-Correct:** Before returning the result, ask yourself: *"Does this look like a premium, state-of-the-art web app?"* If not, elevate the styling further.
+5. **Run Build**: After every code change, run a production build to ensure errors are caught before deployment.
