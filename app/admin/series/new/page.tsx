@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Loader2, UploadCloud, FileAudio } from 'lucide-react'
+import { ArrowLeft, Loader2, UploadCloud } from 'lucide-react'
 
 export default function NewSeriesPage() {
   const router = useRouter()
