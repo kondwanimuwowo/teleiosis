@@ -119,6 +119,7 @@ $RECYCLE.BIN/
 .cache/
 
 # ── Audio / media uploads (should live in Cloudflare R2, not git) ─────────────
+public/teleiosis-audio-teachings
 audio-files/
 uploads/
 *.mp3
