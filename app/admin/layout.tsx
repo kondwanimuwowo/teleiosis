@@ -6,17 +6,18 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 import {
   LayoutDashboard, Calendar, Mic2, BookOpen,
-  Quote, Users, LogOut, ExternalLink, ChevronRight, Menu, X, Library
+  Quote, Users, LogOut, ExternalLink, ChevronRight, Menu, X, Library, Tag
 } from 'lucide-react'
 
 const NAV = [
-  { href: '/admin',            label: 'Dashboard',  Icon: LayoutDashboard },
-  { href: '/admin/events',     label: 'Events',     Icon: Calendar },
-  { href: '/admin/teachings',  label: 'Teachings',  Icon: Mic2 },
-  { href: '/admin/series',     label: 'Series',     Icon: Library },
-  { href: '/admin/blog',       label: 'Blog',       Icon: BookOpen },
-  { href: '/admin/quotes',     label: 'Quotes',     Icon: Quote },
-  { href: '/admin/team',       label: 'Team',       Icon: Users },
+  { href: '/admin',              label: 'Dashboard',  Icon: LayoutDashboard },
+  { href: '/admin/events',       label: 'Events',     Icon: Calendar },
+  { href: '/admin/teachings',    label: 'Teachings',  Icon: Mic2 },
+  { href: '/admin/series',       label: 'Series',     Icon: Library },
+  { href: '/admin/categories',   label: 'Categories', Icon: Tag },
+  { href: '/admin/blog',         label: 'Blog',       Icon: BookOpen },
+  { href: '/admin/quotes',       label: 'Quotes',     Icon: Quote },
+  { href: '/admin/team',         label: 'Team',       Icon: Users },
 ]
 
 const supabase = createBrowserClient(
