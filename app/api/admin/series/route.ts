@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     if (image) {
       const timestamp = Date.now()
       const safeName = image.name.replace(/[^a-zA-Z0-9.\-_]/g, '-')
-      const key = `series/${timestamp}-${safeName}`
+      const key = `covers/${timestamp}-${safeName}`
 
       const buffer = await image.arrayBuffer()
       await s3.send(new PutObjectCommand({

@@ -10,6 +10,7 @@ const s3 = new S3Client({
   },
 })
 
+const AUDIO_EXTENSIONS = ['.mp3', '.m4a', '.wav', '.ogg', '.aac', '.flac']
 const FOLDERS = ['teachings', 'series']
 
 async function listFolder(folder: string) {
@@ -21,15 +22,22 @@ async function listFolder(folder: string) {
   console.log(`Gallery: Found ${response.Contents?.length || 0} objects in '${folder}/'`)
 
   return (response.Contents || [])
-    .filter(obj => obj.Key && !obj.Key.endsWith('/')) // Exclude "folder" placeholder keys
-    .map(obj => ({
-      key: obj.Key!,
-      name: obj.Key!.replace(`${folder}/`, ''),
-      folder,
-      size: obj.Size ?? 0,
-      lastModified: obj.LastModified ?? new Date(0),
-      url: `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${obj.Key}`,
-    }))
+    .filter(obj => {
+      if (!obj.Key || obj.Key.endsWith('/')) return false
+      const lower = obj.Key.toLowerCase()
+      return AUDIO_EXTENSIONS.some(ext => lower.endsWith(ext))
+    })
+    .map(obj => {
+      const encodedKey = obj.Key!.split('/').map(encodeURIComponent).join('/')
+      return {
+        key: obj.Key!,
+        name: obj.Key!.replace(`${folder}/`, ''),
+        folder,
+        size: obj.Size ?? 0,
+        lastModified: obj.LastModified ?? new Date(0),
+        url: `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${encodedKey}`,
+      }
+    })
 }
 
 export async function GET() {
