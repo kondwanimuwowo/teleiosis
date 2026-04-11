@@ -3,43 +3,52 @@ import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 const s3 = new S3Client({
   region: 'auto',
-  endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  endpoint: `https://${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
   credentials: {
     accessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY!,
     secretAccessKey: process.env.CLOUDFLARE_R2_SECRET_KEY!,
   },
 })
 
+const FOLDERS = ['teachings', 'series']
+
+async function listFolder(folder: string) {
+  const command = new ListObjectsV2Command({
+    Bucket: process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET!,
+    Prefix: `${folder}/`,
+  })
+  const response = await s3.send(command)
+  console.log(`Gallery: Found ${response.Contents?.length || 0} objects in '${folder}/'`)
+
+  return (response.Contents || [])
+    .filter(obj => obj.Key && !obj.Key.endsWith('/')) // Exclude "folder" placeholder keys
+    .map(obj => ({
+      key: obj.Key!,
+      name: obj.Key!.replace(`${folder}/`, ''),
+      folder,
+      size: obj.Size ?? 0,
+      lastModified: obj.LastModified ?? new Date(0),
+      url: `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${obj.Key}`,
+    }))
+}
+
 export async function GET() {
   try {
     console.log('Gallery: Fetching from bucket:', process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET)
-    const command = new ListObjectsV2Command({
-      Bucket: process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET!,
-      Prefix: 'teachings/',
-    })
 
-    const response = await s3.send(command)
-    console.log('Gallery: Found', response.Contents?.length || 0, 'objects')
-    
-    // Map objects to a cleaner format with public URLs
-    const files = (response.Contents || [])
-      .filter(obj => obj.Key && !obj.Key.endsWith('/')) // Exclude "folders"
-      .map(obj => ({
-        key: obj.Key,
-        name: obj.Key?.replace('teachings/', ''),
-        size: obj.Size,
-        lastModified: obj.LastModified,
-        url: `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${obj.Key}`
-      }))
-      .sort((a, b) => (b.lastModified?.getTime() || 0) - (a.lastModified?.getTime() || 0))
+    // Fetch all folders in parallel
+    const results = await Promise.all(FOLDERS.map(listFolder))
+    const files = results
+      .flat()
+      .sort((a, b) => b.lastModified.getTime() - a.lastModified.getTime())
 
+    console.log('Gallery: Total files across all folders:', files.length)
     return NextResponse.json({ files })
   } catch (err: any) {
-    console.error('Gallery fetch error details:', {
+    console.error('Gallery fetch error:', {
       message: err.message,
       code: err.code,
       name: err.name,
-      stack: err.stack
     })
     return NextResponse.json({ error: err.message }, { status: 500 })
   }

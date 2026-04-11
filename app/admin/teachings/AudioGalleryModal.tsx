@@ -6,6 +6,7 @@ import { X, Search, Music, Loader2, Calendar } from 'lucide-react'
 type R2File = {
   key: string
   name: string
+  folder: string
   size: number
   lastModified: string
   url: string
@@ -20,6 +21,7 @@ interface AudioGalleryModalProps {
 export function AudioGalleryModal({ isOpen, onClose, onSelect }: AudioGalleryModalProps) {
   const [files, setFiles] = useState<R2File[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -30,12 +32,15 @@ export function AudioGalleryModal({ isOpen, onClose, onSelect }: AudioGalleryMod
 
   async function fetchFiles() {
     setLoading(true)
+    setError(null)
     try {
       const res = await fetch('/api/admin/teachings/gallery')
       const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to fetch gallery')
       setFiles(data.files || [])
-    } catch (err) {
-      console.error('Failed to fetch gallery files')
+    } catch (err: any) {
+      console.error('Failed to fetch gallery files:', err)
+      setError(err.message || 'Could not load gallery')
     } finally {
       setLoading(false)
     }
@@ -86,6 +91,13 @@ export function AudioGalleryModal({ isOpen, onClose, onSelect }: AudioGalleryMod
               <Loader2 className="animate-spin mb-2" size={32} />
               <p className="text-sm">Fetching files...</p>
             </div>
+          ) : error ? (
+            <div className="flex flex-col items-center justify-center h-64 text-red-400">
+              <Music className="mb-2 opacity-30" size={48} />
+              <p className="text-sm font-semibold">Failed to load gallery</p>
+              <p className="text-xs text-slate-400 mt-1 max-w-xs text-center">{error}</p>
+              <button onClick={fetchFiles} className="mt-3 text-xs font-bold text-[#4a2c9c] hover:underline">Try again</button>
+            </div>
           ) : filteredFiles.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-slate-400">
               <Music className="mb-2 opacity-20" size={48} />
@@ -107,14 +119,21 @@ export function AudioGalleryModal({ isOpen, onClose, onSelect }: AudioGalleryMod
                       {file.name}
                     </p>
                     <div className="flex items-center gap-3 text-[10px] text-slate-400 uppercase tracking-wider font-bold">
-                      <span className="flex items-center gap-1">
-                        {(file.size / 1024 / 1024).toFixed(1)} MB
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Calendar size={10} />
-                        {new Date(file.lastModified).toLocaleDateString()}
-                      </span>
-                    </div>
+                        <span className={`px-1.5 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-widest ${
+                          file.folder === 'series'
+                            ? 'bg-amber-100 text-amber-700'
+                            : 'bg-purple-100 text-purple-700'
+                        }`}>
+                          {file.folder}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          {(file.size / 1024 / 1024).toFixed(1)} MB
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar size={10} />
+                          {new Date(file.lastModified).toLocaleDateString()}
+                        </span>
+                      </div>
                   </div>
                 </button>
               ))}
