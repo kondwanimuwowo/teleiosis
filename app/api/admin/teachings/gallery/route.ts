@@ -12,12 +12,14 @@ const s3 = new S3Client({
 
 export async function GET() {
   try {
+    console.log('Gallery: Fetching from bucket:', process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET)
     const command = new ListObjectsV2Command({
       Bucket: process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET!,
       Prefix: 'teachings/',
     })
 
     const response = await s3.send(command)
+    console.log('Gallery: Found', response.Contents?.length || 0, 'objects')
     
     // Map objects to a cleaner format with public URLs
     const files = (response.Contents || [])
@@ -33,7 +35,12 @@ export async function GET() {
 
     return NextResponse.json({ files })
   } catch (err: any) {
-    console.error('Gallery fetch error:', err)
+    console.error('Gallery fetch error details:', {
+      message: err.message,
+      code: err.code,
+      name: err.name,
+      stack: err.stack
+    })
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }

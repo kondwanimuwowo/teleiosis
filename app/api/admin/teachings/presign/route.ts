@@ -14,6 +14,7 @@ const s3 = new S3Client({
 export async function POST(request: Request) {
   try {
     const { fileName, contentType } = await request.json()
+    console.log('Presign: Request for', fileName, contentType)
     
     const timestamp = Date.now()
     const safeName = fileName.replace(/[^a-zA-Z0-9.\-_]/g, '-')
@@ -28,8 +29,14 @@ export async function POST(request: Request) {
     const signedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 })
     const publicUrl = `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${key}`
 
+    console.log('Presign: Success for', key)
     return NextResponse.json({ signedUrl, publicUrl, key })
   } catch (err: any) {
+    console.error('Presign error details:', {
+      message: err.message,
+      code: err.code,
+      stack: err.stack
+    })
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }
