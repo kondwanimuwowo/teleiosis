@@ -1,39 +1,107 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-type Quote = { text: string; scripture: string }
+type Quote = { id: number; content: string; date: string }
 
-export default function QuoteBandClient({ quotes }: { quotes: Quote[] }) {
-  const [idx, setIdx] = useState(0)
-  const prev = () => setIdx((i) => (i - 1 + quotes.length) % quotes.length)
-  const next = () => setIdx((i) => (i + 1) % quotes.length)
-  const { text, scripture } = quotes[idx]
+const ROTATE_INTERVAL = 8000 // 8 seconds
+
+export default function QuoteBandClient() {
+  const [quote, setQuote] = useState<Quote | null>(null)
+  const [isHovering, setIsHovering] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const fetchQuote = async () => {
+    try {
+      const res = await fetch('/api/quotes/random')
+      if (res.ok) {
+        const data = await res.json()
+        setQuote(data)
+      }
+    } catch (error) {
+      console.error('Failed to fetch quote:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Initial load
+  useEffect(() => {
+    fetchQuote()
+  }, [])
+
+  // Auto-rotate quotes
+  useEffect(() => {
+    if (isHovering || isLoading) return
+
+    const interval = setInterval(() => {
+      fetchQuote()
+    }, ROTATE_INTERVAL)
+
+    return () => clearInterval(interval)
+  }, [isHovering, isLoading])
+
+  if (isLoading) {
+    return (
+      <section className="bg-[#2c0e68] min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }} />
+        <div className="relative z-10 text-white/50 text-sm">Loading quote...</div>
+      </section>
+    )
+  }
+
+  if (!quote) {
+    return (
+      <section className="bg-[#2c0e68] min-h-screen flex items-center justify-center">
+        <div className="text-white/50">No quotes available</div>
+      </section>
+    )
+  }
 
   return (
-    <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32 relative overflow-hidden">
+    <section
+      className="bg-[#2c0e68] min-h-screen flex items-center relative overflow-hidden group"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
       <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }} />
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full">
         <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-10 text-center">From The Teacher's Desk</p>
-        <div className="flex items-center gap-6 sm:gap-12 lg:gap-20">
-          <button onClick={prev} aria-label="Previous quote" className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center border border-white/20 text-white/40 hover:text-white hover:border-white/50 transition-colors" style={{ borderRadius: 0 }}>
+
+        <div className="flex items-center justify-center gap-6 sm:gap-12 lg:gap-20">
+          {/* Previous button — hidden until hover */}
+          <button
+            onClick={fetchQuote}
+            aria-label="Previous quote"
+            className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors duration-200 opacity-0 group-hover:opacity-100 hidden md:flex"
+            style={{ borderRadius: 0 }}
+          >
             <ChevronLeft size={18} />
           </button>
-          <blockquote className="flex-1 text-center" style={{ minHeight: '12rem' }}>
-            <div className="flex flex-col items-center justify-center h-full" style={{ minHeight: '12rem' }}>
-              <p key={idx} className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-5">"{text}"</p>
-              <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">{scripture}</cite>
+
+          {/* Quote content */}
+          <blockquote className="flex-1 text-center">
+            <div className="flex flex-col items-center justify-center">
+              <p className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-5">
+                "{quote.content}"
+              </p>
+              <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">
+                {quote.date}
+              </cite>
             </div>
           </blockquote>
-          <button onClick={next} aria-label="Next quote" className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center border border-white/20 text-white/40 hover:text-white hover:border-white/50 transition-colors" style={{ borderRadius: 0 }}>
+
+          {/* Next button — hidden until hover */}
+          <button
+            onClick={fetchQuote}
+            aria-label="Next quote"
+            className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors duration-200 opacity-0 group-hover:opacity-100 hidden md:flex"
+            style={{ borderRadius: 0 }}
+          >
             <ChevronRight size={18} />
           </button>
-        </div>
-        <div className="flex justify-center gap-2 mt-10">
-          {quotes.map((_, i) => (
-            <button key={i} onClick={() => setIdx(i)} aria-label={`Go to quote ${i + 1}`} className={`w-1.5 h-1.5 rounded-full transition-colors ${i === idx ? 'bg-teleiosis-gold' : 'bg-white/25 hover:bg-white/50'}`} />
-          ))}
         </div>
       </div>
     </section>
