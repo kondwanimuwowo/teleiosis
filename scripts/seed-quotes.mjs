@@ -27,25 +27,29 @@ for (const file of files) {
   allQuotes = allQuotes.concat(fileQuotes)
 }
 
-// Transform quotes to match DB schema
-const quotes = allQuotes.map((q, idx) => ({
-  external_id: q.id,
-  content: q.content,
-  date: q.date,
-  // Auto-generate a stable slug for uniqueness
-  slug: `quote-${q.id}-${allQuotes.indexOf(q)}`.toLowerCase().replace(/\s+/g, '-'),
+// Transform quotes to match existing DB schema
+const quotes = allQuotes.map((q) => ({
+  text: q.content,
+  quote_date: q.date,
+  scripture: null,
+  author: 'Rhema Nyambe',
+  is_active: true,
 }))
 
 console.log(`Seeding ${quotes.length} quotes from ${files.length} files...`)
 
+// Clear existing quotes first
+await supabase.from('quotes').delete().neq('id', '')
+
+// Insert all quotes
 const { data, error } = await supabase
   .from('quotes')
-  .upsert(quotes, { onConflict: 'external_id' })
-  .select('slug')
+  .insert(quotes)
+  .select('id')
 
 if (error) {
   console.error('Error:', error.message)
   process.exit(1)
 }
 
-console.log(`Done. Inserted/updated: ${data.length} quotes`)
+console.log(`Done. Inserted: ${data.length} quotes`)

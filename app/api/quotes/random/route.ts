@@ -20,7 +20,7 @@ export async function GET() {
   const randomOffset = Math.floor(Math.random() * count)
   const { data, error } = await supabase
     .from('quotes')
-    .select('id, content, date')
+    .select('id, text, quote_date')
     .range(randomOffset, randomOffset)
     .single()
 

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-type Quote = { id: number; content: string; date: string }
+type Quote = { id: string; text: string; quote_date: string | null }
 
 const ROTATE_INTERVAL = 8000 // 8 seconds
 
@@ -85,11 +85,13 @@ export default function QuoteBandClient() {
           <blockquote className="flex-1 text-center">
             <div className="flex flex-col items-center justify-center">
               <p className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-5">
-                "{quote.content}"
+                "{quote.text}"
               </p>
-              <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">
-                {quote.date}
-              </cite>
+              {quote.quote_date && (
+                <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">
+                  {quote.quote_date}
+                </cite>
+              )}
             </div>
           </blockquote>
 
