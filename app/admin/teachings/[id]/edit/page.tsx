@@ -108,7 +108,7 @@ export default function EditTeachingPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             fileName: audioFile.name,
-            contentType: audioFile.type || 'audio/mpeg'
+            contentType: audioFile.type || 'audio/mpeg',
           })
         })
         

@@ -13,8 +13,8 @@ const s3 = new S3Client({
 
 export async function POST(request: Request) {
   try {
-    const { fileName, contentType } = await request.json()
-    console.log('Presign: Request for', fileName, contentType)
+    const { fileName, contentType, folder } = await request.json()
+    console.log('Presign: Request for', fileName, contentType, folder)
     
     const timestamp = Date.now()
     const safeName = fileName.replace(/[^a-zA-Z0-9.\-_]/g, '-')
