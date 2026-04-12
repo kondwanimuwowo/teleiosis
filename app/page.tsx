@@ -31,7 +31,7 @@ export default async function Home() {
   const supabase = await createSupabaseServerClient()
   const { data: newsPosts } = await supabase
     .from('blog_posts')
-    .select('id, slug, category, title, excerpt, published_at')
+    .select('id, slug, category, title, excerpt, published_at, image_url')
     .order('published_at', { ascending: false })
     .limit(3)
 
@@ -223,19 +223,34 @@ export default async function Home() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {newsPreview.map((post) => (
-                <article key={post.id} className="bg-slate-50 rounded-xl border border-slate-100 p-6 flex flex-col">
-                  <span className="inline-block self-start text-xs font-semibold tracking-widest uppercase text-[#4a0e68] bg-[#4a0e68]/10 px-3 py-1 rounded-full mb-4">
-                    {post.category}
-                  </span>
-                  <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-2 leading-snug">{post.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1">{post.excerpt}</p>
-                  <div className="flex justify-between items-center">
-                    <p className="text-xs text-slate-400">{formatDate(post.published_at)}</p>
-                    <Link href={`/blog/${post.slug}`} className="text-sm font-semibold text-teleiosis-gold hover:text-[#4a0e68] transition-colors min-h-[44px] flex items-center">
-                      Read →
-                    </Link>
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.slug}`}
+                  className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden"
+                >
+                  <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+                    <img
+                      src={post.image_url}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                </article>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-xs font-semibold tracking-widest uppercase text-[#4a0e68]">
+                        {post.category}
+                      </span>
+                      <span className="w-1 h-1 rounded-full bg-slate-300" />
+                      <span className="text-xs text-slate-400">{formatDate(post.published_at)}</span>
+                    </div>
+                    <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-3 leading-snug group-hover:text-[#4a0e68] transition-colors flex-1">
+                      {post.title}
+                    </h3>
+                    <span className="text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors pt-4 border-t border-slate-100 mt-auto">
+                      Read →
+                    </span>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
