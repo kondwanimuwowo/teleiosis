@@ -2,24 +2,31 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft, BookOpen, Clock, CalendarDays } from 'lucide-react'
-import { BLOG_POSTS, getPostBySlug } from '@/lib/blog-posts'
+import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { FadeIn } from '@/app/components/FadeIn'
 import { NewsletterSection } from '@/app/components/NewsletterSection'
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }))
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getPostBySlug(params.slug)
-  if (!post) return {}
+  const { slug } = await params
+  const supabase = await createSupabaseServerClient()
+  const { data } = await supabase
+    .from('blog_posts')
+    .select('title, excerpt')
+    .eq('slug', slug)
+    .single()
+
+  if (!data) return {}
   return {
-    title: `${post.title} | Teleiosis Blog`,
-    description: post.excerpt,
+    title: `${data.title} | Teleiosis Blog`,
+    description: data.excerpt,
   }
 }
 
@@ -29,11 +36,26 @@ const CATEGORY_COLORS: Record<string, string> = {
   News:       'bg-slate-100 text-slate-600 border-slate-200',
 }
 
-export default function BlogPostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug)
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = await params
+  const supabase = await createSupabaseServerClient()
+
+  const { data: post } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('slug', slug)
+    .single()
+
   if (!post) notFound()
 
-  const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3)
+  const { data: relatedPosts } = await supabase
+    .from('blog_posts')
+    .select('id, slug, category, title, excerpt, published_at, image_url')
+    .neq('slug', slug)
+    .order('published_at', { ascending: false })
+    .limit(3)
+
+  const related = relatedPosts ?? []
 
   return (
     <>
@@ -41,7 +63,7 @@ export default function BlogPostPage({ params }: Props) {
       <section className="relative flex items-end" style={{ minHeight: '65vh' }}>
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('${post.image}')` }}
+          style={{ backgroundImage: `url('${post.image_url}')` }}
         />
         {/* layered overlays for depth */}
         <div className="absolute inset-0 bg-[#2c0e68]/80" />
@@ -71,11 +93,11 @@ export default function BlogPostPage({ params }: Props) {
           <div className="flex flex-wrap items-center gap-5 text-white/50 text-xs">
             <span className="flex items-center gap-1.5">
               <CalendarDays size={13} />
-              {post.date}
+              {formatDate(post.published_at)}
             </span>
             <span className="flex items-center gap-1.5">
               <Clock size={13} />
-              {post.readTime}
+              {post.read_time}
             </span>
             <span className="flex items-center gap-1.5">
               <BookOpen size={13} />
@@ -93,13 +115,13 @@ export default function BlogPostPage({ params }: Props) {
             {/* Scripture pull-quote */}
             <blockquote className="relative mb-12 pl-6 border-l-2 border-teleiosis-gold">
               <p className="font-serif text-lg sm:text-xl text-[#4a0e68] leading-relaxed">
-                {post.scriptureText}
+                {post.scripture_text}
               </p>
             </blockquote>
 
             {/* Body paragraphs */}
             <div className="prose-teleiosis space-y-6">
-              {post.body.map((paragraph, i) => (
+              {(post.body as string[]).map((paragraph, i) => (
                 <p
                   key={i}
                   className="text-slate-700 text-base sm:text-[17px] leading-[1.85] tracking-[0.01em]"
@@ -121,45 +143,47 @@ export default function BlogPostPage({ params }: Props) {
       </FadeIn>
 
       {/* ── RELATED POSTS ─────────────────────────────────────── */}
-      <FadeIn delay={0.1}>
-        <section className="bg-slate-50 py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <p className="text-teleiosis-gold text-xs font-bold tracking-[0.3em] uppercase mb-4">Continue Reading</p>
-            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-10">More from Teleiosis</h2>
+      {related.length > 0 && (
+        <FadeIn delay={0.1}>
+          <section className="bg-slate-50 py-16 sm:py-20">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <p className="text-teleiosis-gold text-xs font-bold tracking-[0.3em] uppercase mb-4">Continue Reading</p>
+              <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-10">More from Teleiosis</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/blog/${rel.slug}`}
-                  className="group bg-white border border-slate-100 overflow-hidden hover:border-[#4a0e68]/20 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col"
-                >
-                  <div className="aspect-[16/9] overflow-hidden bg-slate-100">
-                    <img
-                      src={rel.image}
-                      alt={rel.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-5 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] font-bold tracking-widest uppercase text-[#4a0e68]">{rel.category}</span>
-                      <span className="w-1 h-1 rounded-full bg-slate-300" />
-                      <span className="text-[10px] text-slate-400">{rel.date}</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {related.map((rel) => (
+                  <Link
+                    key={rel.id}
+                    href={`/blog/${rel.slug}`}
+                    className="group bg-white border border-slate-100 overflow-hidden hover:border-[#4a0e68]/20 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col"
+                  >
+                    <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+                      <img
+                        src={rel.image_url}
+                        alt={rel.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
                     </div>
-                    <h3 className="font-serif font-bold text-base text-[#2c0e68] leading-snug mb-2 group-hover:text-[#4a0e68] transition-colors flex-1">
-                      {rel.title}
-                    </h3>
-                    <span className="text-xs font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors mt-3">
-                      Read →
-                    </span>
-                  </div>
-                </Link>
-              ))}
+                    <div className="p-5 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-[10px] font-bold tracking-widest uppercase text-[#4a0e68]">{rel.category}</span>
+                        <span className="w-1 h-1 rounded-full bg-slate-300" />
+                        <span className="text-[10px] text-slate-400">{formatDate(rel.published_at)}</span>
+                      </div>
+                      <h3 className="font-serif font-bold text-base text-[#2c0e68] leading-snug mb-2 group-hover:text-[#4a0e68] transition-colors flex-1">
+                        {rel.title}
+                      </h3>
+                      <span className="text-xs font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors mt-3">
+                        Read →
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      </FadeIn>
+          </section>
+        </FadeIn>
+      )}
 
       {/* ── NEWSLETTER ───────────────────────────────────────── */}
       <FadeIn>

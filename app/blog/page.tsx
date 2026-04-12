@@ -1,15 +1,28 @@
-export const metadata = {
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { createSupabaseServerClient } from '@/lib/supabase-server'
+import { NewsletterSection } from '../components/NewsletterSection'
+import { FadeIn } from '../components/FadeIn'
+
+export const metadata: Metadata = {
   title: 'Blog | Insights into Christian Perfection',
   description: 'Explore teachings, devotionals, and news from the Teleiosis Mandate. Deepen your understanding of sonship and Kingdom authority through the Ministry of the Word.',
 }
 
-import Link from 'next/link'
-import { NewsletterSection } from '../components/NewsletterSection'
-import { FadeIn } from '../components/FadeIn'
-import { Button } from '../components/ui/button'
-import { BLOG_POSTS } from '@/lib/blog-posts'
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const supabase = await createSupabaseServerClient()
+
+  const { data: posts } = await supabase
+    .from('blog_posts')
+    .select('id, slug, category, title, excerpt, published_at, read_time, scripture, image_url')
+    .order('published_at', { ascending: false })
+
+  const blogPosts = posts ?? []
+
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────────── */}
@@ -32,7 +45,7 @@ export default function BlogPage() {
         <section className="bg-white py-16 sm:py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {BLOG_POSTS.map((post) => (
+              {blogPosts.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
@@ -40,7 +53,7 @@ export default function BlogPage() {
                 >
                   <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                     <img
-                      src={post.image}
+                      src={post.image_url}
                       alt={post.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -51,7 +64,7 @@ export default function BlogPage() {
                         {post.category}
                       </span>
                       <span className="w-1 h-1 rounded-full bg-slate-300" />
-                      <span className="text-xs text-slate-400">{post.date}</span>
+                      <span className="text-xs text-slate-400">{formatDate(post.published_at)}</span>
                     </div>
                     <h2 className="font-serif font-bold text-lg text-[#2c0e68] mb-3 leading-snug group-hover:text-[#4a0e68] transition-colors">
                       {post.title}
@@ -67,11 +80,9 @@ export default function BlogPage() {
                 </Link>
               ))}
             </div>
-            <div className="text-center">
-              <Button variant="secondary" size="lg" className="rounded-full">
-                Load More Articles
-              </Button>
-            </div>
+            {blogPosts.length === 0 && (
+              <p className="text-center text-slate-400 text-sm py-16">No posts published yet. Check back soon.</p>
+            )}
           </div>
         </section>
       </FadeIn>

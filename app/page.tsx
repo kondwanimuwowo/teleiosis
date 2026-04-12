@@ -4,17 +4,15 @@ import { NewsletterSection } from './components/NewsletterSection'
 import { CTASection } from './components/CTASection'
 import { QuoteBand } from './components/QuoteBand'
 import { FadeIn } from './components/FadeIn'
+import { createSupabaseServerClient } from '@/lib/supabase-server'
 
 export const metadata = {
   title: 'Home',
 }
 
-
-const NEWS_PREVIEW = [
-  { id: 1, category: 'News', title: 'New Teaching Series Launched', excerpt: 'Explore the foundations of Kingdom authority...', date: 'Mar 15, 2026' },
-  { id: 2, category: 'Event', title: 'Azle Conference Recap', excerpt: 'Over 300 believers gathered for transformation...', date: 'Mar 10, 2026' },
-  { id: 3, category: 'Teaching', title: 'Manifested Sons: Part 3 Released', excerpt: 'The final teaching in our summer series...', date: 'Mar 5, 2026' },
-]
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
 
 const STATS = [
   { value: '500+', label: 'Lives Transformed' },
@@ -29,7 +27,16 @@ const PROGRAMS = [
   { n: '03', title: 'The Glorious Mandate', desc: 'Ongoing outreach and discipleship equipping believers to manifest Kingdom reality in their communities.', href: '/about', cta: 'Join us' },
 ]
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createSupabaseServerClient()
+  const { data: newsPosts } = await supabase
+    .from('blog_posts')
+    .select('id, slug, category, title, excerpt, published_at')
+    .order('published_at', { ascending: false })
+    .limit(3)
+
+  const newsPreview = newsPosts ?? []
+
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────────── */}
@@ -215,7 +222,7 @@ export default function Home() {
               News &amp; Updates
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {NEWS_PREVIEW.map((post) => (
+              {newsPreview.map((post) => (
                 <article key={post.id} className="bg-slate-50 rounded-xl border border-slate-100 p-6 flex flex-col">
                   <span className="inline-block self-start text-xs font-semibold tracking-widest uppercase text-[#4a0e68] bg-[#4a0e68]/10 px-3 py-1 rounded-full mb-4">
                     {post.category}
@@ -223,8 +230,8 @@ export default function Home() {
                   <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-2 leading-snug">{post.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1">{post.excerpt}</p>
                   <div className="flex justify-between items-center">
-                    <p className="text-xs text-slate-400">{post.date}</p>
-                    <Link href="/blog" className="text-sm font-semibold text-teleiosis-gold hover:text-[#4a0e68] transition-colors min-h-[44px] flex items-center">
+                    <p className="text-xs text-slate-400">{formatDate(post.published_at)}</p>
+                    <Link href={`/blog/${post.slug}`} className="text-sm font-semibold text-teleiosis-gold hover:text-[#4a0e68] transition-colors min-h-[44px] flex items-center">
                       Read →
                     </Link>
                   </div>
