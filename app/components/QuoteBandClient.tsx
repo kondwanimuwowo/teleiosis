@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-type Quote = { id: string; text: string; quote_date: string | null }
+type Quote = { id: string; text: string; scripture: string | null; author: string }
 
 const ROTATE_INTERVAL = 8000 // 8 seconds
 
@@ -65,7 +65,7 @@ export default function QuoteBandClient() {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }} />
+      <div className="fixed inset-0 opacity-10 bg-cover bg-center -z-10" style={{ backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }} />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full">
         <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-10 text-center">From The Teacher's Desk</p>
@@ -84,14 +84,19 @@ export default function QuoteBandClient() {
           {/* Quote content */}
           <blockquote className="flex-1 text-center">
             <div className="flex flex-col items-center justify-center">
-              <p className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-5">
+              <p className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-6">
                 "{quote.text}"
               </p>
-              {quote.quote_date && (
-                <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">
-                  {quote.quote_date}
-                </cite>
-              )}
+              <div className="flex flex-col items-center gap-2">
+                {quote.scripture && (
+                  <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">
+                    {quote.scripture}
+                  </cite>
+                )}
+                <p className="text-white/60 text-xs tracking-[0.15em] font-serif">
+                  — {quote.author}
+                </p>
+              </div>
             </div>
           </blockquote>
 

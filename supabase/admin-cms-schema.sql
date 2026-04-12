@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS quotes (
   id          UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
   text        TEXT         NOT NULL,
   scripture   VARCHAR(255),
+  quote_date  VARCHAR(50),
   author      VARCHAR(255) DEFAULT 'Rhema Nyambe',
   is_active   BOOLEAN      NOT NULL DEFAULT TRUE,
   created_at  TIMESTAMP    NOT NULL DEFAULT NOW()
