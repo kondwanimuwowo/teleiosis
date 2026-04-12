@@ -161,6 +161,9 @@ export default async function BlogPostPage({ params }: Props) {
                       <img
                         src={rel.image_url}
                         alt={rel.title}
+                        width={560}
+                        height={315}
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
