@@ -55,16 +55,16 @@ export function MobileNav() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-[101] w-[70%] max-w-[300px] bg-[#2c0e68] flex flex-col overflow-hidden shadow-2xl"
+              className="fixed inset-y-0 right-0 z-[101] w-[70%] max-w-[300px] bg-[#f8f7ff] flex flex-col overflow-hidden shadow-2xl"
             >
               {/* Header */}
-              <div className="p-6 flex items-center justify-between border-b border-teleiosis-gold/20">
-                <span className="font-serif font-bold text-xl text-white tracking-[0.2em]">
+              <div className="p-6 flex items-center justify-between border-b border-[#4a0e68]/10">
+                <span className="font-serif font-bold text-xl text-[#2c0e68] tracking-[0.2em]">
                   TELEIOSIS
                 </span>
                 <button
                   onClick={() => setOpen(false)}
-                  className="p-2 text-white/60 hover:text-teleiosis-gold transition-colors"
+                  className="p-2 text-[#4a0e68]/60 hover:text-teleiosis-gold transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -77,7 +77,7 @@ export function MobileNav() {
                     key={href}
                     href={href}
                     onClick={() => setOpen(false)}
-                    className="block px-4 py-3 rounded-lg text-white/80 hover:text-teleiosis-gold hover:bg-white/5 transition-all group font-medium text-sm tracking-wide"
+                    className="block px-4 py-3 rounded-lg text-[#4a0e68]/80 hover:text-teleiosis-gold hover:bg-teleiosis-gold/5 transition-all group font-medium text-sm tracking-wide"
                   >
                     {label}
                     <span className="block h-0.5 bg-teleiosis-gold scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 mt-1" />
@@ -86,11 +86,11 @@ export function MobileNav() {
               </nav>
 
               {/* Divider */}
-              <div className="h-px bg-teleiosis-gold/20" />
+              <div className="h-px bg-[#4a0e68]/10" />
 
               {/* Footer - Social Links */}
               <div className="p-6 flex flex-col items-center gap-4">
-                <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.3em] uppercase">Connect</p>
+                <p className="text-[#4a0e68]/60 text-[10px] font-bold tracking-[0.3em] uppercase">Connect</p>
 
                 <div className="flex justify-center gap-3">
                   {[
@@ -105,7 +105,7 @@ export function MobileNav() {
                       href={social.href}
                       target={social.href.startsWith('http') ? '_blank' : undefined}
                       rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="w-9 h-9 rounded-full border border-teleiosis-gold/30 flex items-center justify-center text-white/70 hover:text-teleiosis-gold hover:bg-teleiosis-gold/10 hover:border-teleiosis-gold transition-all duration-200"
+                      className="w-9 h-9 rounded-full border border-[#4a0e68]/20 flex items-center justify-center text-[#4a0e68]/60 hover:text-teleiosis-gold hover:bg-teleiosis-gold/10 hover:border-teleiosis-gold transition-all duration-200"
                     >
                       <social.icon size={16} />
                     </a>
