@@ -31,7 +31,7 @@ export function MobileNav() {
     <div className="md:hidden">
       <button
         onClick={() => setOpen(true)}
-        className="p-2 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-all active:scale-95"
+        className="p-2 rounded-lg text-white/70 hover:text-teleiosis-gold transition-colors"
         aria-label="Open menu"
       >
         <Menu className="w-6 h-6" />
@@ -46,7 +46,7 @@ export function MobileNav() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+              className="fixed inset-0 z-[100] bg-black/40"
             />
 
             {/* Side Menu */}
@@ -55,77 +55,61 @@ export function MobileNav() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-[101] w-[65%] max-w-[280px] border-l border-white/10 shadow-2xl flex flex-col overflow-hidden bg-white/80 backdrop-blur-2xl saturate-[1.8]"
+              className="fixed inset-y-0 right-0 z-[101] w-[70%] max-w-[300px] bg-[#2c0e68] flex flex-col overflow-hidden shadow-2xl"
             >
-              {/* Header - Violet */}
-              <div className="p-6 flex items-center justify-between border-b border-white/10 bg-[#1e0a4d]">
-                <div>
-                  <p className="font-serif font-bold text-lg text-white tracking-[0.2em]">TELEIOSIS</p>
-                </div>
+              {/* Header */}
+              <div className="p-6 flex items-center justify-between border-b border-teleiosis-gold/20">
+                <span className="font-serif font-bold text-xl text-white tracking-[0.2em]">
+                  TELEIOSIS
+                </span>
                 <button
                   onClick={() => setOpen(false)}
-                  className="p-2 rounded-full text-white/50 hover:text-white hover:bg-white/10 transition-all"
+                  className="p-2 text-white/60 hover:text-teleiosis-gold transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Navigation Links - Semi-transparent White */}
-              <nav className="flex-1 overflow-y-auto py-8 px-6 space-y-1">
+              {/* Navigation Links */}
+              <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
                 {NAV_LINKS.map(({ href, label }) => (
                   <Link
                     key={href}
                     href={href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center px-4 py-3.5 rounded-xl text-slate-800 hover:text-[#1e0a4d] hover:bg-[#1e0a4d]/5 transition-all group"
+                    className="block px-4 py-3 rounded-lg text-white/80 hover:text-teleiosis-gold hover:bg-white/5 transition-all group font-medium text-sm tracking-wide"
                   >
-                    <span className="text-lg font-medium tracking-tight whitespace-nowrap">{label}</span>
+                    {label}
+                    <span className="block h-0.5 bg-teleiosis-gold scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 mt-1" />
                   </Link>
                 ))}
               </nav>
 
-              {/* Footer - Off-white with 5 Violet Icons in 3+2 layout */}
-              <div className="p-8 pb-12 border-t border-slate-200 bg-slate-50 flex flex-col items-center gap-6">
-                <div className="space-y-4 w-full">
-                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400 text-center">Connect With Us</p>
-                  
-                  <div className="flex flex-col gap-5">
-                    {/* Top Icons (3) */}
-                    <div className="flex justify-center gap-4">
-                      {[
-                        { icon: Facebook,  href: 'https://web.facebook.com/Rhemaword27' },
-                        { icon: Instagram, href: 'https://instagram.com' },
-                        { icon: Youtube,   href: 'https://youtube.com' },
-                      ].map((social, i) => (
-                        <a 
-                          key={i} 
-                          href={social.href} 
-                          className="w-10 h-10 rounded-full bg-[#1e0a4d] flex items-center justify-center text-white hover:bg-teleiosis-gold hover:text-[#1e0a4d] hover:scale-110 transition-all duration-300 shadow-sm"
-                        >
-                          <social.icon size={18} />
-                        </a>
-                      ))}
-                    </div>
+              {/* Divider */}
+              <div className="h-px bg-teleiosis-gold/20" />
 
-                    {/* Separator */}
-                    <div className="w-12 h-px bg-slate-200 mx-auto" />
+              {/* Footer - Social Links */}
+              <div className="p-6 flex flex-col items-center gap-4">
+                <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.3em] uppercase">Connect</p>
 
-                    {/* Bottom Icons (2) */}
-                    <div className="flex justify-center gap-4">
-                      {[
-                        { icon: Phone,     href: 'tel:+260977964076' },
-                        { icon: Mail,      href: 'mailto:info@teleiosis.org' },
-                      ].map((social, i) => (
-                        <a 
-                          key={i} 
-                          href={social.href} 
-                          className="w-10 h-10 rounded-full bg-[#1e0a4d] flex items-center justify-center text-white hover:bg-teleiosis-gold hover:text-[#1e0a4d] hover:scale-110 transition-all duration-300 shadow-sm"
-                        >
-                          <social.icon size={18} />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
+                <div className="flex justify-center gap-3">
+                  {[
+                    { icon: Facebook,  href: 'https://web.facebook.com/Rhemaword27' },
+                    { icon: Instagram, href: 'https://instagram.com' },
+                    { icon: Youtube,   href: 'https://youtube.com' },
+                    { icon: Phone,     href: 'tel:+260977964076' },
+                    { icon: Mail,      href: 'mailto:info@teleiosis.org' },
+                  ].map((social, i) => (
+                    <a
+                      key={i}
+                      href={social.href}
+                      target={social.href.startsWith('http') ? '_blank' : undefined}
+                      rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="w-9 h-9 rounded-full border border-teleiosis-gold/30 flex items-center justify-center text-white/70 hover:text-teleiosis-gold hover:bg-teleiosis-gold/10 hover:border-teleiosis-gold transition-all duration-200"
+                    >
+                      <social.icon size={16} />
+                    </a>
+                  ))}
                 </div>
               </div>
             </motion.div>
