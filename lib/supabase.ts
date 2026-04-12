@@ -12,12 +12,24 @@ export interface Teaching {
   description: string
   speaker?: string
   category_id: string
+  series_id?: string
+  order_in_series?: number
   duration_minutes: number
   published_date: string
   audio_url: string
   thumbnail_url?: string
   price?: number
   included_in_membership: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface TeachingSeries {
+  id: string
+  title: string
+  description?: string
+  thumbnail_url?: string
+  slug: string
   created_at: string
   updated_at: string
 }

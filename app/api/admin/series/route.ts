@@ -13,6 +13,10 @@ const s3 = new S3Client({
   },
 })
 
+function toSlug(title: string) {
+  return title.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+}
+
 export async function GET() {
   const { data, error } = await supabaseAdmin.from('teaching_series').select('*').order('created_at', { ascending: false })
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
@@ -41,8 +45,10 @@ export async function POST(request: Request) {
       thumbnailUrl = `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${key}`
     }
 
+    const title = formData.get('title') as string
     const { error } = await supabaseAdmin.from('teaching_series').insert({
-      title: formData.get('title'),
+      title,
+      slug: toSlug(title),
       description: formData.get('description'),
       thumbnail_url: thumbnailUrl,
     })
