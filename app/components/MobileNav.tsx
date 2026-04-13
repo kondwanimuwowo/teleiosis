@@ -81,16 +81,13 @@ export function MobileNav() {
                       key={href}
                       href={href}
                       onClick={() => setOpen(false)}
-                      className={`block px-4 py-3 rounded-lg transition-all group font-bold text-sm tracking-wide ${
+                      className={`block px-4 py-3 rounded-lg transition-all font-bold text-sm tracking-wide ${
                         isActive
                           ? 'text-teleiosis-gold bg-teleiosis-gold/5'
                           : 'text-[#4a0e68]/80 hover:text-teleiosis-gold hover:bg-teleiosis-gold/5'
                       }`}
                     >
                       {label}
-                      <span className={`block h-0.5 bg-teleiosis-gold transition-transform origin-left duration-300 mt-1 ${
-                        isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                      }`} />
                     </Link>
                   )
                 })}
