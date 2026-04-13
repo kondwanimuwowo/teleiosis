@@ -5,6 +5,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type Quote = { id: string; text: string; scripture: string | null; author: string }
 
+const ROTATE_INTERVAL = 8000 // 8 seconds
+
 export default function QuoteBandClient() {
   const [quote, setQuote] = useState<Quote | null>(null)
   const [isHovering, setIsHovering] = useState(false)
@@ -29,16 +31,16 @@ export default function QuoteBandClient() {
     fetchQuote()
   }, [])
 
-  // Auto-rotate quotes (DISABLED temporarily to debug scroll jump issue)
-  // useEffect(() => {
-  //   if (isHovering || isLoading) return
+  // Auto-rotate quotes
+  useEffect(() => {
+    if (isHovering || isLoading) return
 
-  //   const interval = setInterval(() => {
-  //     fetchQuote()
-  //   }, ROTATE_INTERVAL)
+    const interval = setInterval(() => {
+      fetchQuote()
+    }, ROTATE_INTERVAL)
 
-  //   return () => clearInterval(interval)
-  // }, [isHovering, isLoading])
+    return () => clearInterval(interval)
+  }, [isHovering, isLoading])
 
   if (isLoading) {
     return (
