@@ -1,15 +1,7 @@
 import Link from "next/link"
 import { NavScrollWrapper } from "./NavScrollWrapper"
+import { DesktopNav } from "./DesktopNav"
 import { MobileNav } from "./MobileNav"
-
-const NAV_LINKS = [
-  { href: "/",          label: "Home" },
-  { href: "/about",     label: "About" },
-  { href: "/teachings", label: "Teachings" },
-  { href: "/events",    label: "Events" },
-  { href: "/blog",      label: "Blog" },
-  { href: "/contact",   label: "Contact" },
-]
 
 export function Nav() {
   return (
@@ -28,18 +20,8 @@ export function Nav() {
             </span>
           </Link>
 
-          {/* Desktop nav, centered */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white rounded-lg hover:bg-white/5 transition-all whitespace-nowrap"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+          {/* Desktop nav */}
+          <DesktopNav />
 
           {/* Right, CTA + mobile */}
           <div className="flex items-center gap-3">

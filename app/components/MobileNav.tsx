@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Facebook, Instagram, Youtube, Phone, Mail } from "lucide-react"
 
@@ -16,6 +17,7 @@ const NAV_LINKS = [
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
 
   // Prevent scrolling when menu is open
   useEffect(() => {
@@ -58,7 +60,7 @@ export function MobileNav() {
               className="fixed inset-y-0 right-0 z-[101] w-[70%] max-w-[300px] bg-[#f8f7ff] flex flex-col overflow-hidden shadow-2xl"
             >
               {/* Header */}
-              <div className="p-6 flex items-center justify-between border-b border-[#4a0e68]/10">
+              <div className="p-6 flex items-center justify-between border-b-4 border-[#4a0e68]/20 bg-[#faf9ff]">
                 <span className="font-serif font-bold text-xl text-[#2c0e68] tracking-[0.2em]">
                   TELEIOSIS
                 </span>
@@ -72,25 +74,45 @@ export function MobileNav() {
 
               {/* Navigation Links */}
               <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
-                {NAV_LINKS.map(({ href, label }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-3 rounded-lg text-[#4a0e68]/80 hover:text-teleiosis-gold hover:bg-teleiosis-gold/5 transition-all group font-medium text-sm tracking-wide"
-                  >
-                    {label}
-                    <span className="block h-0.5 bg-teleiosis-gold scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 mt-1" />
-                  </Link>
-                ))}
+                {NAV_LINKS.map(({ href, label }) => {
+                  const isActive = pathname === href
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      onClick={() => setOpen(false)}
+                      className={`block px-4 py-3 rounded-lg transition-all group font-bold text-sm tracking-wide ${
+                        isActive
+                          ? 'text-teleiosis-gold bg-teleiosis-gold/5'
+                          : 'text-[#4a0e68]/80 hover:text-teleiosis-gold hover:bg-teleiosis-gold/5'
+                      }`}
+                    >
+                      {label}
+                      <span className={`block h-0.5 bg-teleiosis-gold transition-transform origin-left duration-300 mt-1 ${
+                        isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                      }`} />
+                    </Link>
+                  )
+                })}
               </nav>
 
               {/* Divider */}
               <div className="h-px bg-[#4a0e68]/10" />
 
+              {/* Join Us Button */}
+              <div className="px-6 py-4">
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="block w-full text-center px-5 py-3 rounded-lg bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20"
+                >
+                  Join Us
+                </Link>
+              </div>
+
               {/* Footer - Social Links */}
-              <div className="p-6 flex flex-col items-center gap-4">
-                <p className="text-[#4a0e68]/60 text-[10px] font-bold tracking-[0.3em] uppercase">Connect</p>
+              <div className="p-6 flex flex-col items-center gap-4 border-t-4 border-[#4a0e68]/20 bg-[#faf9ff]">
+                <p className="text-[#4a0e68]/70 text-[10px] font-bold tracking-[0.3em] uppercase">Connect with us</p>
 
                 <div className="flex justify-center gap-3">
                   {[
