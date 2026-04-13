@@ -110,6 +110,26 @@ export default function QuoteBandClient() {
             <ChevronRight size={18} />
           </button>
         </div>
+
+        {/* Mobile rotation buttons */}
+        <div className="md:hidden flex items-center justify-center gap-4 mt-12">
+          <button
+            onClick={fetchQuote}
+            aria-label="Previous quote"
+            className="w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+            style={{ borderRadius: 0 }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            onClick={fetchQuote}
+            aria-label="Next quote"
+            className="w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+            style={{ borderRadius: 0 }}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
       </div>
     </section>
   )
