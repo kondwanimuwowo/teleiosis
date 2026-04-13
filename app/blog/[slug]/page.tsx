@@ -114,7 +114,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* Scripture pull-quote */}
             <blockquote className="relative mb-12 pl-6 border-l-2 border-teleiosis-gold">
-              <p className="font-serif text-lg sm:text-xl text-[#4a0e68] leading-relaxed">
+              <p className="text-lg sm:text-xl text-[#4a0e68] leading-relaxed">
                 {post.scripture_text}
               </p>
             </blockquote>
@@ -136,7 +136,7 @@ export default async function BlogPostPage({ params }: Props) {
               <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${CATEGORY_COLORS[post.category] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
                 {post.category}
               </span>
-              <p className="text-xs text-slate-400 tracking-widest uppercase">{post.scripture}</p>
+              <p className="text-xs text-slate-400">{post.scripture}</p>
             </div>
           </div>
         </div>

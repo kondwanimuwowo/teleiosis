@@ -105,7 +105,7 @@ export default async function Home() {
                   <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
                     "Till we all come unto a perfect man, unto the measure of the stature of the fulness of Christ."
                   </p>
-                  <cite className="text-xs text-slate-400 tracking-widest uppercase not-italic">Ephesians 4:13</cite>
+                  <cite className="text-xs text-slate-400 not-italic">Ephesians 4:13</cite>
                 </blockquote>
               </div>
 

@@ -74,7 +74,7 @@ export default async function BlogPage() {
                     </h2>
                     <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1">{post.excerpt}</p>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-                      <p className="text-xs text-slate-400 tracking-widest uppercase font-semibold">{post.scripture}</p>
+                      <p className="text-xs text-slate-400 font-semibold">{post.scripture}</p>
                       <span className="text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors">
                         Read →
                       </span>

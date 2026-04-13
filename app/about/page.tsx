@@ -169,7 +169,7 @@ export default function AboutPage() {
                       <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
                         "Till we all come unto a perfect man, unto the measure of the stature of the fulness of Christ."
                       </p>
-                      <cite className="text-xs text-slate-400 tracking-widest uppercase not-italic">Ephesians 4:13</cite>
+                      <cite className="text-xs text-slate-400 not-italic">Ephesians 4:13</cite>
                     </blockquote>
                   </div>
 
@@ -263,7 +263,7 @@ export default function AboutPage() {
                       <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
                         "For we all come to the knowledge of the Son of God, unto a perfect man, unto the measure of the stature of the fulness of Christ."
                       </p>
-                      <cite className="text-xs text-slate-400 tracking-widest uppercase not-italic">Ephesians 4:13</cite>
+                      <cite className="text-xs text-slate-400 not-italic">Ephesians 4:13</cite>
                     </blockquote>
                   </div>
                   <div className="aspect-square bg-slate-100 border border-slate-200 lg:max-w-sm" />
@@ -290,7 +290,7 @@ export default function AboutPage() {
                         <p className="text-teleiosis-gold text-xs font-bold tracking-[0.2em] uppercase mb-1">{year}</p>
                         <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
                         <p className="text-slate-600 text-base leading-relaxed mb-2">{body}</p>
-                        <p className="text-xs text-slate-400 tracking-widest uppercase font-semibold">{scripture}</p>
+                        <p className="text-xs text-slate-400 font-semibold">{scripture}</p>
                       </div>
                     ))}
                   </div>
