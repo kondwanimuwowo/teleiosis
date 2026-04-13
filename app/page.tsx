@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { FlipText } from './components/FlipText'
-import { NewsletterSection } from './components/NewsletterSection'
 import { CTASection } from './components/CTASection'
 import { QuoteBand } from './components/QuoteBand'
 import { FadeIn } from './components/FadeIn'
@@ -258,11 +257,6 @@ export default async function Home() {
             </div>
           </div>
         </section>
-      </FadeIn>
-
-      {/* ── NEVER MISS AN EVENT (NEWSLETTER) ─────────────────────── */}
-      <FadeIn>
-        <NewsletterSection className="bg-white pb-16 sm:pb-20 lg:pb-28" />
       </FadeIn>
 
       {/* ── CTA ──────────────────────────────────────────────────── */}
