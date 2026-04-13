@@ -31,16 +31,16 @@ export default function QuoteBandClient() {
     fetchQuote()
   }, [])
 
-  // Auto-rotate quotes
-  useEffect(() => {
-    if (isHovering || isLoading) return
+  // Auto-rotate quotes (DISABLED temporarily to debug scroll jump issue)
+  // useEffect(() => {
+  //   if (isHovering || isLoading) return
 
-    const interval = setInterval(() => {
-      fetchQuote()
-    }, ROTATE_INTERVAL)
+  //   const interval = setInterval(() => {
+  //     fetchQuote()
+  //   }, ROTATE_INTERVAL)
 
-    return () => clearInterval(interval)
-  }, [isHovering, isLoading])
+  //   return () => clearInterval(interval)
+  // }, [isHovering, isLoading])
 
   if (isLoading) {
     return (
