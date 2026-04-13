@@ -5,8 +5,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type Quote = { id: string; text: string; scripture: string | null; author: string }
 
-const ROTATE_INTERVAL = 8000 // 8 seconds
-
 export default function QuoteBandClient() {
   const [quote, setQuote] = useState<Quote | null>(null)
   const [isHovering, setIsHovering] = useState(false)
