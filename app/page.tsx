@@ -102,7 +102,7 @@ export default async function Home() {
                   We gather believers who are hungry to move beyond the basics, into the deep things of God's Kingdom.
                 </p>
                 <blockquote className="border-l-2 border-teleiosis-gold pl-5">
-                  <p className="text-[#4a0e68] font-serif text-base sm:text-lg leading-relaxed mb-2">
+                  <p className="text-[#4a0e68] text-base sm:text-lg leading-relaxed mb-2">
                     "Till we all come unto a perfect man, unto the measure of the stature of the fulness of Christ."
                   </p>
                   <cite className="text-xs text-slate-400 not-italic">Ephesians 4:13</cite>
