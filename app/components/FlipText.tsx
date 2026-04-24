@@ -1,82 +1,68 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
-const WORDS = ["Teleiosis", "Perfection", "Sonship", "Royalty", "Priesthood"]
-const TYPE_SPEED   = 100
+const WORDS = ["Teleiosis", "Perfection", "Sonship", "Royalty", "Priesthood", "Resurrection"]
+const TYPE_SPEED = 100
 const DELETE_SPEED = 50
-const PAUSE_AFTER  = 2500
+const PAUSE_AFTER = 2500
 
 export function FlipText() {
-  // Write directly to the DOM, zero React re-renders per character
-  const textRef    = useRef<HTMLSpanElement>(null)
-  const [blinking, setBlinking] = useState(false)
-  const timer      = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [currentWordIdx, setCurrentWordIdx] = useState(0)
+  const [displayText, setDisplayText] = useState(WORDS[0])
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [isBlinking, setIsBlinking] = useState(true)
 
   useEffect(() => {
-    const el = textRef.current
-    if (!el) return
+    let timer: ReturnType<typeof setTimeout>
 
-    let wordIdx  = 0
-    let charIdx  = WORDS[0].length // start fully typed
-
-    // Show first word immediately on mount
-    el.textContent = WORDS[0]
-
-    function type() {
-      const word = WORDS[wordIdx]
-      charIdx++
-      el!.textContent = word.slice(0, charIdx)
-
-      if (charIdx < word.length) {
-        timer.current = setTimeout(type, TYPE_SPEED + (Math.random() - 0.5) * 20)
+    const handleTyping = () => {
+      const fullWord = WORDS[currentWordIdx]
+      
+      if (!isDeleting) {
+        // Typing
+        if (displayText.length < fullWord.length) {
+          setDisplayText(fullWord.slice(0, displayText.length + 1))
+          timer = setTimeout(handleTyping, TYPE_SPEED + (Math.random() - 0.5) * 20)
+        } else {
+          // Finished typing word
+          setIsBlinking(true)
+          timer = setTimeout(() => {
+            setIsBlinking(false)
+            setIsDeleting(true)
+          }, PAUSE_AFTER)
+        }
       } else {
-        setBlinking(true)
-        timer.current = setTimeout(() => {
-          setBlinking(false)
-          timer.current = setTimeout(erase, DELETE_SPEED + 80)
-        }, PAUSE_AFTER)
+        // Deleting
+        if (displayText.length > 0) {
+          setDisplayText(fullWord.slice(0, displayText.length - 1))
+          timer = setTimeout(handleTyping, DELETE_SPEED + (Math.random() - 0.5) * 8)
+        } else {
+          // Finished deleting
+          setIsDeleting(false)
+          setCurrentWordIdx((prev) => (prev + 1) % WORDS.length)
+          timer = setTimeout(handleTyping, 160)
+        }
       }
     }
 
-    function erase() {
-      const word = WORDS[wordIdx]
-      charIdx--
-      el!.textContent = word.slice(0, charIdx)
+    timer = setTimeout(handleTyping, isDeleting ? DELETE_SPEED : TYPE_SPEED)
 
-      if (charIdx > 0) {
-        timer.current = setTimeout(erase, DELETE_SPEED + (Math.random() - 0.5) * 8)
-      } else {
-        wordIdx = (wordIdx + 1) % WORDS.length
-        charIdx = 0
-        timer.current = setTimeout(type, 160)
-      }
-    }
-
-    // Begin the cycle after holding the first word
-    setBlinking(true)
-    timer.current = setTimeout(() => {
-      setBlinking(false)
-      timer.current = setTimeout(erase, DELETE_SPEED + 80)
-    }, PAUSE_AFTER)
-
-    return () => {
-      if (timer.current) clearTimeout(timer.current)
-    }
-  }, [])
+    return () => clearTimeout(timer)
+  }, [displayText, isDeleting, currentWordIdx])
 
   return (
-    <span aria-live="polite" aria-atomic="true">
-      <span ref={textRef} />
+    <span aria-live="polite" aria-atomic="true" className="inline-flex items-center">
+      <span>{displayText}</span>
       <span
         aria-hidden="true"
-        className={blinking ? "cursor-blink" : ""}
+        className={isBlinking ? "animate-pulse" : ""}
         style={{
           display: "inline-block",
           width: "2px",
-          height: "0.78em",
+          height: "0.8em",
           background: "currentColor",
-          marginLeft: "3px",
+          marginLeft: "4px",
           verticalAlign: "middle",
           borderRadius: "1px",
         }}
