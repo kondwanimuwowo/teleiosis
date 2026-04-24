@@ -39,7 +39,7 @@ export default async function Home() {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative min-h-dvh flex items-center">
+      <section className="relative min-h-screen flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }}
@@ -47,7 +47,7 @@ export default async function Home() {
         <div className="absolute inset-0 bg-[#2c0e68]/80" />
 
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-24 sm:pt-40 sm:pb-32">
-          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] mb-5">
+          <p className="text-teleiosis-gold text-2xl sm:text-4xl font-semibold tracking-[0.3em] mb-5">
             τελείωσις
           </p>
           <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-6xl text-white tracking-wider mb-5 leading-[1.05]">
@@ -153,7 +153,7 @@ export default async function Home() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {PROGRAMS.map(({ n, title, desc, href, cta }) => (
-                <article key={n} className="bg-white rounded-xl border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm">
+                <article key={n} className="bg-white border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm">
                   <p className="font-serif font-bold text-2xl text-teleiosis-gold mb-3">{n}</p>
                   <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">{desc}</p>
