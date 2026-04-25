@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { Loader2, AlertCircle } from 'lucide-react'
 
 declare global {
   interface Window {
@@ -36,12 +37,12 @@ interface LencoPayButtonProps {
   children: React.ReactNode
   className?: string
   onSuccess?: (reference: string) => void
+  onBeforeOpen?: () => void
   disabled?: boolean
 }
 
-const SANDBOX = process.env.NEXT_PUBLIC_LENCO_SANDBOX === 'true'
-const SCRIPT_URL = SANDBOX
-  ? 'https://sandbox.pay.lenco.co/js/v1/inline.js'
+const SCRIPT_URL = process.env.NEXT_PUBLIC_LENCO_SANDBOX === 'true'
+  ? 'https://pay.sandbox.lenco.co/js/v1/inline.js'
   : 'https://pay.lenco.co/js/v1/inline.js'
 
 function generateReference() {
@@ -60,27 +61,58 @@ export function LencoPayButton({
   children,
   className = '',
   onSuccess,
+  onBeforeOpen,
   disabled = false,
 }: LencoPayButtonProps) {
   const [scriptLoaded, setScriptLoaded] = useState(false)
+  const [scriptError, setScriptError] = useState(false)
+  const [missingKey, setMissingKey] = useState(false)
   const [loading, setLoading] = useState(false)
   const scriptRef = useRef<HTMLScriptElement | null>(null)
 
   useEffect(() => {
+    // If script is already in the DOM (e.g. re-mount), mark as ready immediately
     if (document.querySelector(`script[src="${SCRIPT_URL}"]`)) {
-      setScriptLoaded(true)
+      if (window.LencoPay) setScriptLoaded(true)
+      else {
+        // Script tag exists but not yet executed — wait for it
+        const existing = document.querySelector(`script[src="${SCRIPT_URL}"]`) as HTMLScriptElement
+        existing.addEventListener('load', () => setScriptLoaded(true))
+        existing.addEventListener('error', () => setScriptError(true))
+      }
       return
     }
+
     const script = document.createElement('script')
     script.src = SCRIPT_URL
     script.async = true
     script.onload = () => setScriptLoaded(true)
+    script.onerror = () => setScriptError(true)
     document.head.appendChild(script)
     scriptRef.current = script
   }, [])
 
   const handlePay = async () => {
-    if (!scriptLoaded || !window.LencoPay) return
+    // Always fire onBeforeOpen so the parent can surface validation errors
+    onBeforeOpen?.()
+
+    if (disabled || loading) return
+
+    if (!process.env.NEXT_PUBLIC_LENCO_PUBLIC_KEY) {
+      setMissingKey(true)
+      return
+    }
+
+    if (scriptError) {
+      alert('Payment system failed to load. Please check your connection and try again.')
+      return
+    }
+
+    if (!scriptLoaded || !window.LencoPay) {
+      alert('Payment system is still loading. Please try again in a moment.')
+      return
+    }
+
     const reference = generateReference()
     const [firstname, ...rest] = name.trim().split(' ')
     const lastname = rest.join(' ') || undefined
@@ -91,7 +123,7 @@ export function LencoPayButton({
       key: process.env.NEXT_PUBLIC_LENCO_PUBLIC_KEY!,
       email,
       reference,
-      amount: Math.round(amount * 100), // Lenco expects amount in ngwe (smallest unit)
+      amount, // Lenco expects the actual amount with decimals (e.g. 250.00), NOT converted to lowest unit
       currency: 'ZMW',
       label: label ?? `Teleiosis — ${type}`,
       firstname,
@@ -116,13 +148,37 @@ export function LencoPayButton({
     })
   }
 
+  // Determine display state
+  const isDisabled = disabled || loading
+
   return (
-    <button
-      onClick={handlePay}
-      disabled={disabled || loading || !scriptLoaded}
-      className={className}
-    >
-      {loading ? 'Processing...' : children}
-    </button>
+    <>
+      <button
+        type="button"
+        onClick={handlePay}
+        disabled={isDisabled}
+        className={`relative flex items-center justify-center gap-2.5 transition-all ${className} ${isDisabled ? 'opacity-70 cursor-not-allowed' : ''}`}
+      >
+        {loading ? (
+          <>
+            <Loader2 size={16} className="animate-spin shrink-0" />
+            <span>Processing…</span>
+          </>
+        ) : scriptError ? (
+          <>
+            <AlertCircle size={16} className="shrink-0" />
+            <span>Payment unavailable</span>
+          </>
+        ) : (
+          children
+        )}
+      </button>
+      {missingKey && (
+        <p className="flex items-center justify-center gap-1.5 text-xs text-red-500 mt-2">
+          <AlertCircle size={12} />
+          Payment is not configured. Please contact the site administrator.
+        </p>
+      )}
+    </>
   )
 }
