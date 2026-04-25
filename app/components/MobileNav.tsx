@@ -5,14 +5,40 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Facebook, Instagram, Youtube, Phone, Mail } from "lucide-react"
+import { PartnershipModal } from "./PartnershipModal"
+
+function MobileMenuCTAs({ onClose }: { onClose: () => void }) {
+  const [partnerOpen, setPartnerOpen] = useState(false)
+  return (
+    <>
+      <div className="px-6 py-4 flex flex-col gap-2">
+        <Link
+          href="/contact"
+          onClick={onClose}
+          className="block w-full text-center px-5 py-3 bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20"
+        >
+          Join Us
+        </Link>
+        <button
+          onClick={() => setPartnerOpen(true)}
+          className="block w-full text-center px-5 py-3 border-2 border-[#4a0e68]/30 text-[#4a0e68] text-sm font-bold hover:bg-teleiosis-gold/10 hover:border-teleiosis-gold transition-colors"
+        >
+          Partner with Us
+        </button>
+      </div>
+      <PartnershipModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
+    </>
+  )
+}
 
 const NAV_LINKS = [
-  { href: "/",          label: "Home" },
-  { href: "/about",     label: "About" },
-  { href: "/teachings", label: "Teachings" },
-  { href: "/events",    label: "Events" },
-  { href: "/blog",      label: "Blog" },
-  { href: "/contact",   label: "Contact" },
+  { href: "/",            label: "Home" },
+  { href: "/about",       label: "About" },
+  { href: "/teachings",   label: "Teachings" },
+  { href: "/events",      label: "Events" },
+  { href: "/store",       label: "Store" },
+  { href: "/blog",        label: "Blog" },
+  { href: "/contact",     label: "Contact" },
 ]
 
 export function MobileNav() {
@@ -96,16 +122,8 @@ export function MobileNav() {
               {/* Divider */}
               <div className="h-px bg-[#4a0e68]/10" />
 
-              {/* Join Us Button */}
-              <div className="px-6 py-4">
-                <Link
-                  href="/contact"
-                  onClick={() => setOpen(false)}
-                  className="block w-full text-center px-5 py-3 rounded-lg bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20"
-                >
-                  Join Us
-                </Link>
-              </div>
+              {/* CTAs */}
+              <MobileMenuCTAs onClose={() => setOpen(false)} />
 
               {/* Footer - Social Links */}
               <div className="p-6 flex flex-col items-center gap-4 border-t-4 border-[#4a0e68]/20 bg-[#faf9ff]">

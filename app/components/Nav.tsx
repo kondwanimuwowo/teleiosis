@@ -2,6 +2,7 @@ import Link from "next/link"
 import { NavScrollWrapper } from "./NavScrollWrapper"
 import { DesktopNav } from "./DesktopNav"
 import { MobileNav } from "./MobileNav"
+import { NavCTAs } from "./NavCTAs"
 
 export function Nav() {
   return (
@@ -23,14 +24,9 @@ export function Nav() {
           {/* Desktop nav */}
           <DesktopNav />
 
-          {/* Right, CTA + mobile */}
+          {/* Right: dual-button pill (desktop) + mobile hamburger */}
           <div className="flex items-center gap-3">
-            <Link
-              href="/contact"
-              className="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20"
-            >
-              Join Us
-            </Link>
+            <NavCTAs />
             <MobileNav />
           </div>
 

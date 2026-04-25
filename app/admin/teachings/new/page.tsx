@@ -28,12 +28,15 @@ export default function NewTeachingPage() {
     title: '', speaker: 'Rhema Nyambe', description: '',
     category_id: '', duration_minutes: '', price: '',
     series_id: '', order_in_series: '',
+    program_group_id: '',
     included_in_membership: true,
   })
+  const [groups, setGroups] = useState<{ id: string; name: string }[]>([])
 
   useEffect(() => {
     fetch('/api/admin/categories').then(r => r.json()).then(d => setCategories(d.categories ?? []))
     fetch('/api/admin/series').then(r => r.json()).then(d => setSeriesList(Array.isArray(d) ? d : []))
+    fetch('/api/admin/program-groups').then(r => r.json()).then(d => setGroups(Array.isArray(d) ? d : []))
   }, [])
 
   function set(field: string, value: string | boolean) {
@@ -269,23 +272,38 @@ export default function NewTeachingPage() {
             </select>
           </div>
 
+          {groups.length > 0 && (
+            <div>
+              <label className={labelCls}>Program Group *</label>
+              <select value={form.program_group_id} onChange={e => set('program_group_id', e.target.value)} className={inputCls}>
+                <option value="">— Select a program group —</option>
+                {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
+              </select>
+            </div>
+          )}
+
           <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
             <div>
               <label className={labelCls}>Assign to Series (Optional)</label>
               <select value={form.series_id} onChange={e => set('series_id', e.target.value)} className={inputCls}>
                 <option value="">No Series selected…</option>
-                {seriesList.map(s => <option key={s.id} value={s.id}>{s.title}</option>)}
+                {(form.program_group_id
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  ? seriesList.filter((s: any) => s.program_group_id === form.program_group_id)
+                  : seriesList
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                ).map((s: any) => <option key={s.id} value={s.id}>{s.title}</option>)}
               </select>
             </div>
             <div>
               <label className={labelCls}>Part Number</label>
-              <input 
-                type="number" 
-                value={form.order_in_series} 
-                onChange={e => set('order_in_series', e.target.value)} 
-                placeholder="e.g. 1" 
+              <input
+                type="number"
+                value={form.order_in_series}
+                onChange={e => set('order_in_series', e.target.value)}
+                placeholder="e.g. 1"
                 className={inputCls}
-                disabled={!form.series_id} 
+                disabled={!form.series_id}
               />
             </div>
           </div>

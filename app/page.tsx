@@ -13,13 +13,6 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
-const STATS = [
-  { value: '500+', label: 'Lives Transformed' },
-  { value: '10+',   label: 'Years of Ministry' },
-  { value: '10+',  label: 'Conferences Held' },
-  { value: '1',    label: 'Mandate and Call' },
-]
-
 const PROGRAMS = [
   { n: '01', title: 'Manifested Sons', desc: 'Weekly Saturday classes exploring the revelation of the sons of God and Kingdom authority in daily life.', href: '/about', cta: 'Learn more' },
   { n: '02', title: 'Unto Perfection', desc: 'Annual conferences bringing believers together for intensive teaching and encounters with the Spirit.', href: '/events', cta: 'See events' },
@@ -28,13 +21,15 @@ const PROGRAMS = [
 
 export default async function Home() {
   const supabase = await createSupabaseServerClient()
-  const { data: newsPosts } = await supabase
-    .from('blog_posts')
-    .select('id, slug, category, title, excerpt, published_at, image_url')
-    .order('published_at', { ascending: false })
-    .limit(3)
+
+  const [{ data: newsPosts }, { data: siteStats }, { data: nextEvent }] = await Promise.all([
+    supabase.from('blog_posts').select('id, slug, category, title, excerpt, published_at, image_url').order('published_at', { ascending: false }).limit(3),
+    supabase.from('site_stats').select('*').order('sort_order'),
+    supabase.from('events').select('*').gte('date', new Date().toISOString().split('T')[0]).order('date', { ascending: true }).limit(1).maybeSingle(),
+  ])
 
   const newsPreview = newsPosts ?? []
+  const STATS = siteStats ?? []
 
   return (
     <>
@@ -74,7 +69,7 @@ export default async function Home() {
       <section className="bg-slate-50 py-8 hidden sm:block">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-center">
-            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Spirit · Soul · Body</p>
+            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Resurrection · Oneness · Spirit</p>
             <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
             <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Sonship · Kingdom · Glory</p>
             <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
@@ -168,49 +163,56 @@ export default async function Home() {
       </FadeIn>
 
       {/* ── UPCOMING EVENT ───────────────────────────────────────── */}
-      <FadeIn delay={0.2}>
-        <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-              {/* Poster, portrait */}
-              <div className="flex justify-center lg:justify-start">
-                <div className="w-full max-w-xs sm:max-w-sm overflow-hidden shadow-lg">
-                  <img
-                    src="/images/manifested-sons-of-god-class-light.jpg"
-                    alt="Manifested Sons of God Class, Saturday poster"
-                    className="w-full h-full object-cover"
-                  />
+      {nextEvent && (
+        <FadeIn delay={0.2}>
+          <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                {/* Poster */}
+                <div className="flex justify-center lg:justify-start">
+                  <div className="w-full max-w-xs sm:max-w-sm overflow-hidden shadow-lg">
+                    <img
+                      src={nextEvent.image_url ?? '/images/manifested-sons-of-god-class-light.jpg'}
+                      alt={nextEvent.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+
+                {/* Details */}
+                <div>
+                  <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Next Event</p>
+                  <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-white leading-tight mb-8">
+                    {nextEvent.title}
+                  </h2>
+                  <dl className="space-y-5 mb-10">
+                    {[
+                      { dt: 'When',    dd: new Date(nextEvent.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }) },
+                      { dt: 'Time',    dd: nextEvent.time_start && nextEvent.time_end ? `${nextEvent.time_start} – ${nextEvent.time_end}` : nextEvent.time_start },
+                      { dt: 'Venue',   dd: nextEvent.location },
+                      { dt: 'Speaker', dd: nextEvent.speaker },
+                      { dt: 'Format',  dd: nextEvent.type },
+                    ].filter((r) => r.dd).map(({ dt, dd }) => (
+                      <div key={dt} className="flex gap-4 items-baseline">
+                        <dt className="text-white/40 text-xs tracking-widest uppercase w-20 flex-shrink-0">{dt}</dt>
+                        <dd className="text-white/85 text-base">{dd}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="flex flex-wrap gap-3">
+                    <Link href={`/events/${nextEvent.id}`} className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm">
+                      Learn More
+                    </Link>
+                    <Link href="/events" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition-colors">
+                      All Events
+                    </Link>
+                  </div>
                 </div>
               </div>
-
-              {/* Details */}
-              <div>
-                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Next Event</p>
-                <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-white leading-tight mb-8">
-                  Manifested Sons of God Class
-                </h2>
-                <dl className="space-y-5 mb-10">
-                  {[
-                    { dt: 'When',     dd: 'This Saturday, 11 April 2026' },
-                    { dt: 'Time',     dd: '2:00 PM – 5:00 PM' },
-                    { dt: 'Venue',    dd: 'Emperors Crown Olympia' },
-                    { dt: 'Address',  dd: 'Along Chainama Road, Olympia, Lusaka' },
-                    { dt: 'Format',   dd: 'In Person' },
-                  ].map(({ dt, dd }) => (
-                    <div key={dt} className="flex gap-4 items-baseline">
-                      <dt className="text-white/40 text-xs tracking-widest uppercase w-20 flex-shrink-0">{dt}</dt>
-                      <dd className="text-white/85 text-base">{dd}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <Link href="/events" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm">
-                  View All Events
-                </Link>
-              </div>
             </div>
-          </div>
-        </section>
-      </FadeIn>
+          </section>
+        </FadeIn>
+      )}
 
       {/* ── NEWS & UPDATES ───────────────────────────────────────── */}
       <FadeIn delay={0.1}>

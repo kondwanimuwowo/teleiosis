@@ -1,15 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Loader2, UploadCloud } from 'lucide-react'
+
+type ProgramGroup = { id: string; name: string }
 
 export default function NewSeriesPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [image, setImage] = useState<File | null>(null)
+  const [groups, setGroups] = useState<ProgramGroup[]>([])
+  const [selectedGroup, setSelectedGroup] = useState('')
+
+  useEffect(() => {
+    fetch('/api/admin/program-groups').then((r) => r.json()).then(setGroups).catch(() => {})
+  }, [])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -51,6 +59,22 @@ export default function NewSeriesPage() {
           {error && (
             <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl border border-red-100">
               {error}
+            </div>
+          )}
+
+          {/* Program Group */}
+          {groups.length > 0 && (
+            <div>
+              <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Program Group</label>
+              <select
+                name="program_group_id"
+                value={selectedGroup}
+                onChange={(e) => setSelectedGroup(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-teleiosis-gold focus:bg-white transition-all"
+              >
+                <option value="">— Select a program group —</option>
+                {groups.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}
+              </select>
             </div>
           )}
 

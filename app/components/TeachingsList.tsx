@@ -7,10 +7,10 @@ import { Play, Pause, Music, Calendar, User } from 'lucide-react'
 import { useTeachings, useTeachingCategories } from '@/lib/hooks'
 import { Spinner } from './Spinner'
 
-export function TeachingsList() {
+export function TeachingsList({ search }: { search?: string } = {}) {
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>()
   const [activeTeachingId, setActiveTeachingId] = useState<string | null>(null)
-  const { teachings, loading, error } = useTeachings(selectedCategory)
+  const { teachings, loading, error } = useTeachings(selectedCategory, search)
   const { categories } = useTeachingCategories()
 
   return (

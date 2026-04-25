@@ -4,12 +4,13 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const NAV_LINKS = [
-  { href: "/",          label: "Home" },
-  { href: "/about",     label: "About" },
-  { href: "/teachings", label: "Teachings" },
-  { href: "/events",    label: "Events" },
-  { href: "/blog",      label: "Blog" },
-  { href: "/contact",   label: "Contact" },
+  { href: "/",            label: "Home" },
+  { href: "/about",       label: "About" },
+  { href: "/teachings",   label: "Teachings" },
+  { href: "/events",      label: "Events" },
+  { href: "/store",       label: "Store" },
+  { href: "/blog",        label: "Blog" },
+  { href: "/contact",     label: "Contact" },
 ]
 
 export function DesktopNav() {
