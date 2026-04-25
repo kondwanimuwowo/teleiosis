@@ -62,7 +62,7 @@ export function PartnershipModal({ open, onClose, eventId, eventTitle }: Partner
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="fixed inset-x-4 bottom-0 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 z-[201] w-full sm:w-full sm:max-w-lg bg-white shadow-2xl overflow-hidden rounded-t-2xl sm:rounded-2xl"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[201] w-[calc(100%-2rem)] max-w-lg bg-white shadow-2xl overflow-hidden rounded-2xl"
           >
             {!success ? (
               <>
