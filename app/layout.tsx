@@ -4,6 +4,8 @@ import './globals.css'
 import { PublicShell } from './components/PublicShell'
 import { ProgressBar } from './components/ProgressBar'
 import { Suspense } from 'react'
+import { AudioProvider } from './context/AudioContext'
+import { GlobalAudioPlayer } from './components/GlobalAudioPlayer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -37,12 +39,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${cinzel.variable} font-sans antialiased`} suppressHydrationWarning>
-        <Suspense fallback={null}>
-          <ProgressBar />
-        </Suspense>
-        <PublicShell>
-          {children}
-        </PublicShell>
+        <AudioProvider>
+          <Suspense fallback={null}>
+            <ProgressBar />
+          </Suspense>
+          <PublicShell>
+            {children}
+          </PublicShell>
+          <GlobalAudioPlayer />
+        </AudioProvider>
       </body>
     </html>
   )

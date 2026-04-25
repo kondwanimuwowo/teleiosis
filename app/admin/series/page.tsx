@@ -10,20 +10,24 @@ type TeachingSeries = {
   title: string
   description: string
   thumbnail_url: string | null
+  program_group_id: string | null
   created_at: string
 }
 
 export default function SeriesAdminPage() {
   const [seriesList, setSeriesList] = useState<TeachingSeries[]>([])
+  const [groups, setGroups] = useState<{ id: string; name: string }[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/admin/series')
-      .then(r => r.json())
-      .then(data => {
-        setSeriesList(data)
-        setLoading(false)
-      })
+    Promise.all([
+      fetch('/api/admin/series').then(r => r.json()),
+      fetch('/api/admin/program-groups').then(r => r.json())
+    ]).then(([seriesData, groupsData]) => {
+      setSeriesList(Array.isArray(seriesData) ? seriesData : [])
+      setGroups(Array.isArray(groupsData) ? groupsData : [])
+      setLoading(false)
+    })
   }, [])
 
   async function handleDelete(id: string) {
@@ -70,7 +74,12 @@ export default function SeriesAdminPage() {
                 )}
               </div>
               <div className="p-5 flex flex-col flex-1">
-                <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-2">{series.title}</h3>
+                <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-1">{series.title}</h3>
+                {series.program_group_id && (
+                  <span className="inline-block self-start px-2 py-0.5 bg-[#4a2c9c]/10 text-[#4a2c9c] text-[10px] font-bold uppercase tracking-widest rounded-md mb-2">
+                    {groups.find(g => g.id === series.program_group_id)?.name || 'Unknown Group'}
+                  </span>
+                )}
                 <p className="text-sm text-slate-500 line-clamp-2 mb-4 flex-1">{series.description}</p>
                 <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                   <span className="text-xs text-slate-400">

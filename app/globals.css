@@ -45,6 +45,11 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
+
+  /* ── Premium Glassmorphism ───────────────────────────────────────── */
+  .glass-premium {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+  }
 }
 
 /* ── Scroll padding for fixed nav (h-20 = 80px) ─────────────────── */

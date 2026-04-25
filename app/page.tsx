@@ -148,7 +148,7 @@ export default async function Home() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {PROGRAMS.map(({ n, title, desc, href, cta }) => (
-                <article key={n} className="bg-white border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm">
+                <article key={n} className="bg-white border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm rounded-xl hover:-translate-y-1 hover:shadow-md transition-all duration-300">
                   <p className="font-serif font-bold text-2xl text-teleiosis-gold mb-3">{n}</p>
                   <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">{desc}</p>
@@ -170,7 +170,7 @@ export default async function Home() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 {/* Poster */}
                 <div className="flex justify-center lg:justify-start">
-                  <div className="w-full max-w-xs sm:max-w-sm overflow-hidden shadow-lg">
+                  <div className="w-full max-w-xs sm:max-w-sm overflow-hidden shadow-md rounded-xl">
                     <img
                       src={nextEvent.image_url ?? '/images/manifested-sons-of-god-class-light.jpg'}
                       alt={nextEvent.title}
@@ -227,7 +227,7 @@ export default async function Home() {
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden"
+                  className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden rounded-xl"
                 >
                   <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                     <img

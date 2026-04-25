@@ -79,6 +79,7 @@ tsc_errors.txt
 
 # ── Inspiration / reference designs (not part of production code) ─────────────
 public/inspo/
+public/quotes-devotionals/
 
 # ── macOS ─────────────────────────────────────────────────────────────────────
 .DS_Store

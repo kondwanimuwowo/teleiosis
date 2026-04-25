@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase, Teaching, TeachingCategory } from './supabase'
 
-export function useTeachings(categoryId?: string, search?: string) {
+export function useTeachings(categoryId?: string, search?: string, options?: { programGroupId?: string, standaloneOnly?: boolean }) {
   const [teachings, setTeachings] = useState<Teaching[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -18,6 +18,8 @@ export function useTeachings(categoryId?: string, search?: string) {
           .order('published_date', { ascending: false })
 
         if (categoryId) query = query.eq('category_id', categoryId)
+        if (options?.programGroupId) query = query.eq('program_group_id', options.programGroupId)
+        if (options?.standaloneOnly) query = query.is('series_id', null)
         if (search) query = query.or(`title.ilike.%${search}%,description.ilike.%${search}%,speaker.ilike.%${search}%`)
 
         const { data, error: dbError } = await query
@@ -31,7 +33,7 @@ export function useTeachings(categoryId?: string, search?: string) {
     }
 
     fetchTeachings()
-  }, [categoryId, search])
+  }, [categoryId, search, options?.programGroupId, options?.standaloneOnly])
 
   return { teachings, loading, error }
 }

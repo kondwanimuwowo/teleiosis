@@ -6,18 +6,26 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 import {
   LayoutDashboard, Calendar, Mic2, BookOpen,
-  Quote, Users, LogOut, ExternalLink, ChevronRight, Menu, X, Library, Tag
+  Quote, Users, LogOut, ExternalLink, ChevronRight, Menu, X, Library, Tag,
+  ShoppingBag, CreditCard, Settings, Layers
 } from 'lucide-react'
 
-const NAV = [
+const NAV_CONTENT = [
   { href: '/admin',              label: 'Dashboard',  Icon: LayoutDashboard },
   { href: '/admin/events',       label: 'Events',     Icon: Calendar },
   { href: '/admin/teachings',    label: 'Teachings',  Icon: Mic2 },
+  { href: '/admin/program-groups', label: 'Program Groups', Icon: Layers },
   { href: '/admin/series',       label: 'Series',     Icon: Library },
   { href: '/admin/categories',   label: 'Categories', Icon: Tag },
   { href: '/admin/blog',         label: 'Blog',       Icon: BookOpen },
   { href: '/admin/quotes',       label: 'Quotes',     Icon: Quote },
   { href: '/admin/team',         label: 'Team',       Icon: Users },
+]
+
+const NAV_SYSTEM = [
+  { href: '/admin/products',     label: 'Store',      Icon: ShoppingBag },
+  { href: '/admin/payments',     label: 'Payments',   Icon: CreditCard },
+  { href: '/admin/settings',     label: 'Settings',   Icon: Settings },
 ]
 
 const supabase = createBrowserClient(
@@ -89,27 +97,52 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
-          {NAV.map(({ href, label, Icon }) => {
-            const isActive = href === '/admin'
-              ? pathname === '/admin'
-              : pathname.startsWith(href)
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
-                  isActive
-                    ? 'bg-teleiosis-gold/15 text-teleiosis-gold border border-teleiosis-gold/20'
-                    : 'text-white/50 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Icon size={16} className="flex-shrink-0" />
-                {label}
-                {isActive && <ChevronRight size={12} className="ml-auto opacity-60" />}
-              </Link>
-            )
-          })}
+        <nav className="flex-1 px-3 py-5 overflow-y-auto">
+          <div className="space-y-0.5 mb-6">
+            <p className="px-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white/30 mb-2">Content</p>
+            {NAV_CONTENT.map(({ href, label, Icon }) => {
+              const isActive = href === '/admin'
+                ? pathname === '/admin'
+                : pathname.startsWith(href)
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
+                    isActive
+                      ? 'bg-teleiosis-gold/15 text-teleiosis-gold border border-teleiosis-gold/20'
+                      : 'text-white/50 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Icon size={16} className="flex-shrink-0" />
+                  {label}
+                  {isActive && <ChevronRight size={12} className="ml-auto opacity-60" />}
+                </Link>
+              )
+            })}
+          </div>
+          
+          <div className="space-y-0.5">
+            <p className="px-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white/30 mb-2">System</p>
+            {NAV_SYSTEM.map(({ href, label, Icon }) => {
+              const isActive = pathname.startsWith(href)
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
+                    isActive
+                      ? 'bg-teleiosis-gold/15 text-teleiosis-gold border border-teleiosis-gold/20'
+                      : 'text-white/50 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Icon size={16} className="flex-shrink-0" />
+                  {label}
+                  {isActive && <ChevronRight size={12} className="ml-auto opacity-60" />}
+                </Link>
+              )
+            })}
+          </div>
         </nav>
 
         {/* Bottom */}

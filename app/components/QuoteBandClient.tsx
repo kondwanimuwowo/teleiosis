@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 
 type Quote = { id: string; text: string; scripture: string | null; author: string }
 
@@ -64,6 +64,12 @@ export default function QuoteBandClient() {
         style={{ y, backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }}
         className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none scale-110" 
       />
+      
+      {/* Noise Texture Overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full">
         <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-10 text-center">From The Teacher's Desk</p>
@@ -83,23 +89,32 @@ export default function QuoteBandClient() {
             {isLoading ? (
               <div className="text-white/50 text-sm">Loading quote...</div>
             ) : quote ? (
-              <blockquote className="w-full">
-                <div className="flex flex-col items-center justify-center">
-                  <p className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-6">
-                    "{quote.text}"
-                  </p>
-                  <div className="flex flex-col items-center gap-2">
-                    {quote.scripture && (
-                      <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">
-                        {quote.scripture}
-                      </cite>
-                    )}
-                    <p className="text-white/60 text-xs tracking-[0.15em] font-serif">
-                      — {quote.author}
+              <AnimatePresence mode="wait">
+                <motion.blockquote
+                  key={quote.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
+                  className="w-full"
+                >
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="font-serif font-normal text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed mb-6">
+                      "{quote.text}"
                     </p>
+                    <div className="flex flex-col items-center gap-2">
+                      {quote.scripture && (
+                        <cite className="text-teleiosis-gold text-xs tracking-[0.25em] uppercase font-semibold not-italic">
+                          {quote.scripture}
+                        </cite>
+                      )}
+                      <p className="text-white/60 text-xs tracking-[0.15em] font-serif">
+                        — {quote.author}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </blockquote>
+                </motion.blockquote>
+              </AnimatePresence>
             ) : (
               <div className="text-white/50">No quotes available</div>
             )}

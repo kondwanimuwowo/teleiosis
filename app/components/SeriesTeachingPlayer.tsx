@@ -1,16 +1,17 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+
+import { motion } from 'framer-motion'
 import { Play, Pause, Clock } from 'lucide-react'
 import type { Teaching } from '@/lib/supabase'
+import { useAudio } from '../context/AudioContext'
 
 interface Props {
   teachings: Teaching[]
 }
 
 export function SeriesTeachingPlayer({ teachings }: Props) {
-  const [activeId, setActiveId] = useState<string | null>(null)
+  const { currentTeaching, isPlaying, playTeaching, togglePlay } = useAudio()
 
   const totalMinutes = teachings.reduce((acc, t) => acc + (t.duration_minutes || 0), 0)
   const totalHours   = Math.floor(totalMinutes / 60)
@@ -41,7 +42,7 @@ export function SeriesTeachingPlayer({ teachings }: Props) {
         {/* Track list */}
         <div className="divide-y divide-slate-100">
           {teachings.map((teaching, idx) => {
-            const isActive = activeId === teaching.id
+            const isActive = currentTeaching?.id === teaching.id
             const partNum  = teaching.order_in_series ?? idx + 1
 
             return (
@@ -88,50 +89,20 @@ export function SeriesTeachingPlayer({ teachings }: Props) {
                   {/* Play button */}
                   <button
                     type="button"
-                    onClick={() => setActiveId(isActive ? null : teaching.id)}
-                    aria-label={isActive ? 'Pause' : 'Play'}
+                    onClick={() => isActive ? togglePlay() : playTeaching(teaching)}
+                    aria-label={isActive && isPlaying ? 'Pause' : 'Play'}
                     className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isActive
                         ? 'bg-[#4a0e68] text-white scale-110 shadow-lg shadow-[#4a0e68]/30'
                         : 'bg-white border border-slate-200 text-[#4a0e68] hover:border-[#4a0e68] hover:shadow-md'
                     }`}
                   >
-                    {isActive
+                    {isActive && isPlaying
                       ? <Pause size={18} fill="currentColor" />
                       : <Play  size={18} fill="currentColor" className="ml-0.5" />
                     }
                   </button>
                 </div>
-
-                {/* Inline player */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pb-8 pl-[4.5rem]">
-                        <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-5 shadow-inner relative overflow-hidden">
-                          <div className="absolute top-0 right-0 w-40 h-40 bg-teleiosis-gold/5 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-                          <audio
-                            controls
-                            autoPlay
-                            src={teaching.audio_url}
-                            className="w-full custom-audio-player h-10"
-                          >
-                            Your browser does not support the audio element.
-                          </audio>
-                          <p className="mt-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                            Now Playing — {teaching.title}
-                          </p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </motion.div>
             )
           })}

@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { BookOpen, ChevronDown, ChevronUp, Search, Library, Layers } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { StandaloneTeachingsList } from './StandaloneTeachingsList'
 
 type Series = {
   id: string
@@ -82,44 +84,71 @@ export function TeachingsGroupsClient({
             const isEmpty = totalTeachings === 0
 
             return (
-              <div key={group.id} className={`border ${accent.border} overflow-hidden`}>
+              <div key={group.id} className={`border ${accent.border} overflow-hidden rounded-2xl shadow-sm`}>
                 {/* Group header card */}
                 <button
                   onClick={() => !isEmpty && toggleGroup(group.id)}
                   disabled={isEmpty}
-                  className={`w-full text-left bg-gradient-to-r ${accent.bg} p-6 sm:p-8 flex items-center justify-between gap-4 transition-opacity ${isEmpty ? 'cursor-default' : 'hover:opacity-95'}`}
+                  className={`w-full text-left flex flex-col sm:flex-row items-stretch transition-opacity overflow-hidden ${isEmpty ? 'cursor-default' : 'hover:opacity-95'}`}
                 >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-teleiosis-gold text-xs font-bold tracking-[0.2em] uppercase">
-                        {String(idx + 1).padStart(2, '0')}
-                      </span>
-                      {isEmpty && (
-                        <span className="px-2.5 py-0.5 bg-white/10 text-white/60 text-[10px] font-bold uppercase tracking-widest">
-                          Coming Soon
-                        </span>
-                      )}
-                      {!isEmpty && (
-                        <span className={`px-2.5 py-0.5 ${accent.badge} text-[10px] font-bold uppercase tracking-widest`}>
-                          {totalTeachings} Teaching{totalTeachings !== 1 ? 's' : ''}
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="font-serif font-bold text-xl sm:text-2xl text-white mb-2">{group.name}</h3>
-                    {group.description && (
-                      <p className="text-white/55 text-sm leading-relaxed max-w-2xl">{group.description}</p>
-                    )}
-                  </div>
-                  {!isEmpty && (
-                    <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-white/60">
-                      {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                  {/* Image (Top Mobile / Right Desktop) */}
+                  {group.image_url && (
+                    <div className="w-full sm:w-[35%] lg:w-[40%] aspect-[21/9] sm:aspect-auto sm:order-last relative bg-[#1a0840]">
+                      <img src={group.image_url} alt={group.name} className="absolute inset-0 w-full h-full object-cover" />
+                      {/* Desktop gradient from left */}
+                      <div className={`hidden sm:block absolute inset-0 bg-gradient-to-r ${accent.bg.split(' ')[0]} to-transparent w-full`} />
+                      {/* Mobile gradient from bottom */}
+                      <div className={`sm:hidden absolute inset-0 bg-gradient-to-t ${accent.bg.split(' ')[0]} to-transparent h-full`} />
                     </div>
                   )}
+
+                  {/* Content Area */}
+                  <div className={`flex-1 flex items-center justify-between gap-4 p-6 sm:p-8 bg-gradient-to-r ${accent.bg} relative z-10`}>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-teleiosis-gold text-xs font-bold tracking-[0.2em] uppercase">
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                        {isEmpty && (
+                          <span className="px-2.5 py-0.5 bg-white/10 text-white/60 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                            Coming Soon
+                          </span>
+                        )}
+                        {!isEmpty && (
+                          <span className={`px-2.5 py-0.5 ${accent.badge} text-[10px] font-bold uppercase tracking-widest rounded-full`}>
+                            {totalTeachings} Teaching{totalTeachings !== 1 ? 's' : ''}
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="font-serif font-bold text-xl sm:text-2xl lg:text-3xl text-white mb-3">{group.name}</h3>
+                      {group.description && (
+                        <p className="text-white/70 text-sm leading-relaxed max-w-2xl">{group.description}</p>
+                      )}
+                    </div>
+                    {!isEmpty && (
+                      <div className="flex-shrink-0 ml-4 w-10 h-10 flex items-center justify-center text-white/60">
+                        {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                      </div>
+                    )}
+                  </div>
                 </button>
 
                 {/* Expanded content */}
-                {isExpanded && (
-                  <div className="bg-slate-50 border-t border-slate-100 p-6 sm:p-8">
+                <AnimatePresence initial={false}>
+                  {isExpanded && (
+                    <motion.div
+                      key="content"
+                      initial="collapsed"
+                      animate="open"
+                      exit="collapsed"
+                      variants={{
+                        open: { opacity: 1, height: 'auto' },
+                        collapsed: { opacity: 0, height: 0 }
+                      }}
+                      transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      className="overflow-hidden bg-slate-50"
+                    >
+                      <div className="border-t border-slate-100 p-6 sm:p-8">
                     {/* Series grid */}
                     {group.series.length > 0 && (
                       <div className="mb-8">
@@ -131,7 +160,7 @@ export function TeachingsGroupsClient({
                             <Link
                               key={s.id}
                               href={`/teachings/series/${s.slug}`}
-                              className="bg-white border border-slate-100 overflow-hidden group hover:border-[#4a0e68]/20 hover:shadow-md transition-all duration-300 flex flex-col"
+                              className="bg-white border border-slate-100 overflow-hidden group hover:border-[#4a0e68]/20 hover:shadow-md transition-all duration-300 flex flex-col rounded-xl"
                             >
                               <div className="aspect-[16/9] overflow-hidden bg-[#2c0e68] relative">
                                 {s.thumbnail_url ? (
@@ -142,7 +171,7 @@ export function TeachingsGroupsClient({
                                   </div>
                                 )}
                                 {s.teaching_count > 0 && (
-                                  <span className="absolute top-2 right-2 px-2 py-0.5 bg-teleiosis-gold text-[#2c0e68] text-[10px] font-bold uppercase tracking-widest">
+                                  <span className="absolute top-3 right-3 px-2 py-1 bg-teleiosis-gold rounded-lg text-[#2c0e68] text-[10px] font-bold uppercase tracking-widest shadow-sm">
                                     {s.teaching_count} Part{s.teaching_count !== 1 ? 's' : ''}
                                   </span>
                                 )}
@@ -167,11 +196,11 @@ export function TeachingsGroupsClient({
                         )}
                         <button
                           onClick={() => setExpandedStandalone((prev) => (prev === group.id ? null : group.id))}
-                          className="w-full text-left border-2 border-dashed border-slate-200 bg-white hover:border-[#4a0e68]/30 transition-colors p-5 flex items-center justify-between gap-4"
+                          className={`w-full text-left border-2 border-dashed border-slate-200 bg-white hover:border-[#4a0e68]/30 transition-colors p-5 flex items-center justify-between gap-4 ${expandedStandalone === group.id ? 'rounded-t-2xl border-b-0' : 'rounded-2xl'}`}
                         >
                           <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 bg-slate-50 border border-slate-100 flex items-center justify-center flex-shrink-0">
-                              <BookOpen size={18} className="text-slate-300" />
+                            <div className="w-10 h-10 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                              <BookOpen size={18} className="text-slate-400" />
                             </div>
                             <div>
                               <p className="font-serif font-bold text-sm text-[#2c0e68]">Standalone Teachings</p>
@@ -180,18 +209,35 @@ export function TeachingsGroupsClient({
                           </div>
                           {expandedStandalone === group.id ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
                         </button>
-                        {expandedStandalone === group.id && (
-                          <div className="border border-dashed border-slate-200 border-t-0 bg-white px-5 pb-5 pt-3">
-                            <p className="text-slate-400 text-xs text-center py-4">
-                              Browse all standalone teachings in the full library.{' '}
-                              <button onClick={onViewAll} className="text-teleiosis-gold font-bold hover:underline">View All Teachings →</button>
-                            </p>
-                          </div>
+                        <AnimatePresence initial={false}>
+                          {expandedStandalone === group.id && (
+                            <motion.div
+                              key="standalone-content"
+                              initial="collapsed"
+                              animate="open"
+                              exit="collapsed"
+                              variants={{
+                                open: { opacity: 1, height: 'auto' },
+                                collapsed: { opacity: 0, height: 0 }
+                              }}
+                              transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                              className="overflow-hidden"
+                            >
+                              <div className="border-2 border-dashed border-slate-200 border-t-0 bg-white px-5 pb-5 pt-0 rounded-b-2xl">
+                            <StandaloneTeachingsList programGroupId={group.id} />
+                            <div className="text-center pt-2 border-t border-slate-100 mt-4">
+                                <button onClick={onViewAll} className="text-teleiosis-gold text-xs font-bold uppercase tracking-widest hover:text-[#4a0e68] transition-colors mt-4">Browse All Library →</button>
+                              </div>
+                            </div>
+                          </motion.div>
                         )}
+                        </AnimatePresence>
                       </div>
                     )}
                   </div>
-                )}
+                </motion.div>
+              )}
+              </AnimatePresence>
               </div>
             )
           })}

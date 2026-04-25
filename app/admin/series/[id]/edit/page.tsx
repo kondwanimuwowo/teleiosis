@@ -15,20 +15,31 @@ export default function EditSeriesPage() {
   const [error, setError] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null)
+  const [groups, setGroups] = useState<{ id: string; name: string }[]>([])
   const [form, setForm] = useState({
     title: '',
     description: '',
+    program_group_id: '',
   })
 
   useEffect(() => {
-    async function loadSeries() {
+    async function loadData() {
       try {
-        const res = await fetch(`/api/admin/series/${id}`)
-        if (!res.ok) throw new Error('Failed to load series')
-        const data = await res.json()
+        const [seriesRes, groupsRes] = await Promise.all([
+          fetch(`/api/admin/series/${id}`),
+          fetch('/api/admin/program-groups')
+        ])
+        
+        if (!seriesRes.ok) throw new Error('Failed to load series')
+        
+        const data = await seriesRes.json()
+        const groupsData = await groupsRes.json()
+        
+        setGroups(Array.isArray(groupsData) ? groupsData : [])
         setForm({
           title: data.title || '',
           description: data.description || '',
+          program_group_id: data.program_group_id || '',
         })
         setThumbnailUrl(data.thumbnail_url)
       } catch (err: any) {
@@ -37,7 +48,7 @@ export default function EditSeriesPage() {
         setLoading(false)
       }
     }
-    loadSeries()
+    loadData()
   }, [id])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -48,6 +59,7 @@ export default function EditSeriesPage() {
     const formData = new FormData()
     formData.append('title', form.title)
     formData.append('description', form.description)
+    if (form.program_group_id) formData.append('program_group_id', form.program_group_id)
     if (image) formData.append('image', image)
     if (thumbnailUrl) formData.append('thumbnail_url', thumbnailUrl)
 
@@ -112,6 +124,22 @@ export default function EditSeriesPage() {
               className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-teleiosis-gold focus:bg-white transition-all resize-none"
             />
           </div>
+
+          {groups.length > 0 && (
+            <div>
+              <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Program Group (Optional)</label>
+              <select 
+                value={form.program_group_id}
+                onChange={e => setForm(f => ({ ...f, program_group_id: e.target.value }))}
+                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-teleiosis-gold focus:bg-white transition-all"
+              >
+                <option value="">— No Program Group —</option>
+                {groups.map(g => (
+                  <option key={g.id} value={g.id}>{g.name}</option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <div>
             <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Cover Art</label>

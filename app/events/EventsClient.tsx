@@ -53,7 +53,7 @@ export function EventsClient({ events }: { events: Event[] }) {
                 placeholder="Search by title, speaker, location..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300"
+                className="w-full border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 rounded-xl focus:shadow-md transition-shadow"
               />
             </div>
             <div className="flex gap-2">
@@ -61,7 +61,7 @@ export function EventsClient({ events }: { events: Event[] }) {
                 <button
                   key={t}
                   onClick={() => setTypeFilter(t)}
-                  className={`px-3 py-2 text-xs font-bold border transition-all whitespace-nowrap ${
+                  className={`px-3 py-2 text-xs font-bold border transition-all whitespace-nowrap rounded-xl ${
                     typeFilter === t
                       ? 'bg-[#2c0e68] text-white border-[#2c0e68]'
                       : 'bg-white text-[#2c0e68] border-slate-200 hover:border-[#2c0e68]'
@@ -96,7 +96,7 @@ export function EventsClient({ events }: { events: Event[] }) {
                         alt={event.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm text-center min-w-[3.5rem]">
+                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-sm text-center min-w-[3.5rem]">
                         <p className="text-[10px] font-bold tracking-widest uppercase text-teleiosis-gold leading-none mb-1">{month}</p>
                         <p className="font-serif font-bold text-xl text-[#2c0e68] leading-none">{day}</p>
                       </div>
@@ -131,13 +131,13 @@ export function EventsClient({ events }: { events: Event[] }) {
                       <div className="flex gap-2">
                         <Link
                           href={`/events/${event.id}`}
-                          className="flex-1 inline-flex items-center justify-center px-4 py-2.5 min-h-[44px] bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#2c0e68] transition-colors"
+                          className="flex-1 inline-flex items-center justify-center px-4 py-2.5 min-h-[44px] bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#2c0e68] transition-colors rounded-xl"
                         >
                           Learn More
                         </Link>
                         <button
                           onClick={() => { setPartnerEventId(event.id); setPartnerEventTitle(event.title) }}
-                          className="inline-flex items-center justify-center px-3 py-2.5 min-h-[44px] border-2 border-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/10 transition-colors"
+                          className="inline-flex items-center justify-center px-3 py-2.5 min-h-[44px] border-2 border-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/10 transition-colors rounded-xl"
                           title="Partner with this event"
                         >
                           <Heart size={16} className="text-teleiosis-gold" />

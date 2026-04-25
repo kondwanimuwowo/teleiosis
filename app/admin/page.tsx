@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
-import { Calendar, Mic2, BookOpen, Quote, Users, Library, ShoppingBag, CreditCard, Settings, Layers } from 'lucide-react'
+import { Calendar, Mic2, BookOpen, Quote, Users, Library } from 'lucide-react'
 
 export const metadata = { title: 'Admin Dashboard | Teleiosis' }
 
@@ -91,23 +91,7 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      {/* Additional sections */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-        {[
-          { href: '/admin/payments',       label: 'Payments',        Icon: CreditCard,  color: 'bg-green-500/10 text-green-600' },
-          { href: '/admin/products',        label: 'Store Products',  Icon: ShoppingBag, color: 'bg-orange-500/10 text-orange-600' },
-          { href: '/admin/program-groups',  label: 'Program Groups',  Icon: Layers,      color: 'bg-indigo-500/10 text-indigo-600' },
-          { href: '/admin/settings',        label: 'Site Stats',      Icon: Settings,    color: 'bg-slate-500/10 text-slate-600' },
-        ].map(({ href, label, Icon, color }) => (
-          <Link key={href} href={href}
-            className="flex items-center gap-3 p-4 bg-white border border-slate-100 rounded-xl hover:border-[#4a2c9c]/20 hover:shadow-sm transition-all group">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${color} flex-shrink-0`}>
-              <Icon size={15} />
-            </div>
-            <span className="text-xs font-semibold text-slate-600 group-hover:text-[#2c0e68] transition-colors">{label}</span>
-          </Link>
-        ))}
-      </div>
+
 
       {/* Info banner */}
       <div className="bg-[#1a0840]/5 border border-[#4a2c9c]/15 rounded-2xl p-5">
