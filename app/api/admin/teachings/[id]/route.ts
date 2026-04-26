@@ -25,6 +25,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
       price:                  formData.get('price') ? parseFloat(formData.get('price') as string) : null,
       series_id:              formData.get('series_id') || null,
       order_in_series:        formData.get('order_in_series') ? parseInt(formData.get('order_in_series') as string) : null,
+      program_group_id:       formData.get('program_group_id') || null,
       included_in_membership: formData.get('included_in_membership') === 'true',
     }
 
