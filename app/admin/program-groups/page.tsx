@@ -34,7 +34,7 @@ export default async function AdminProgramGroupsPage() {
       </div>
 
       <div className="mt-8 bg-slate-50 border border-slate-100 p-5 text-xs text-slate-400">
-        Program groups are seeded via the database migration. To add or rename groups, run the SQL migration or contact your developer. Series and teachings are assigned to groups during upload.
+        To add or rename groups, contact your developer. Series and teachings are assigned to groups during upload.
       </div>
     </div>
   )
