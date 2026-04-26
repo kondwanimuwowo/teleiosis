@@ -54,20 +54,24 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
         {MODULES.map(({ href, label, Icon, color, key }) => (
           <Link
             key={key}
             href={href}
-            className="bg-white rounded-2xl border border-slate-100 p-5 flex flex-col gap-3 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group"
+            className="bg-white rounded-2xl border border-slate-100 p-5 flex flex-col justify-between gap-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group min-h-[100px]"
           >
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color}`}>
-              <Icon size={18} />
+            {/* Top row: icon + stat */}
+            <div className="flex items-center gap-4">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${color}`}>
+                <Icon size={18} />
+              </div>
+              <p className="font-serif font-bold text-3xl text-[#2c0e68] leading-none">
+                {stats[key as keyof typeof stats]}
+              </p>
             </div>
-            <div>
-              <p className="font-serif font-bold text-2xl text-[#2c0e68]">{stats[key as keyof typeof stats]}</p>
-              <p className="text-xs text-slate-500 font-medium">{label}</p>
-            </div>
+            {/* Bottom: label */}
+            <p className="text-xs text-slate-500 font-semibold uppercase tracking-widest">{label}</p>
           </Link>
         ))}
       </div>
