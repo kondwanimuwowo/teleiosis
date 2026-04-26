@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { MapPin, Clock, User, Calendar, ArrowLeft } from 'lucide-react'
 import { EventPartnerSection } from './EventPartnerSection'
+import { JsonLd, eventSchema } from '@/app/components/JsonLd'
+import { ShareButtons } from '@/app/components/ShareButtons'
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', {
@@ -12,9 +14,27 @@ function formatDate(iso: string) {
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const supabase = await createSupabaseServerClient()
-  const { data } = await supabase.from('events').select('title, description').eq('id', params.id).single()
+  const { data } = await supabase.from('events').select('title, description, image_url, date').eq('id', params.id).single()
   if (!data) return { title: 'Event | Teleiosis Mandate' }
-  return { title: `${data.title} | Teleiosis Mandate`, description: data.description ?? undefined }
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
+  return {
+    title: data.title,
+    description: data.description ?? `Join us for ${data.title} on ${new Date(data.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
+    alternates: { canonical: `${base}/events/${params.id}` },
+    openGraph: {
+      title: data.title,
+      description: data.description ?? undefined,
+      url: `${base}/events/${params.id}`,
+      type: 'website',
+      images: data.image_url ? [{ url: data.image_url, width: 1200, height: 630 }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: data.title,
+      description: data.description ?? undefined,
+      images: data.image_url ? [data.image_url] : undefined,
+    },
+  }
 }
 
 export default async function EventDetailPage({ params }: { params: { id: string } }) {
@@ -33,8 +53,12 @@ export default async function EventDetailPage({ params }: { params: { id: string
     { icon: MapPin,   label: 'Location', value: event.location },
   ].filter((d) => d.value)
 
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
+  const eventUrl = `${base}/events/${event.id}`
+
   return (
     <>
+      <JsonLd data={eventSchema(event)} />
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative flex items-end" style={{ minHeight: '65vh' }}>
         <div
@@ -92,6 +116,8 @@ export default async function EventDetailPage({ params }: { params: { id: string
                   <p className="text-xs text-slate-500"><span className="font-bold text-[#2c0e68]">Recurring: </span>{event.recurring_label}</p>
                 </div>
               )}
+
+              <ShareButtons url={eventUrl} title={event.title} description={event.description ?? undefined} className="mt-8" />
             </div>
 
             {/* Right — partner section */}

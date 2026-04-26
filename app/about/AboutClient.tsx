@@ -44,13 +44,13 @@ const TIMELINE = [
   {
     year: '2020',
     title: 'Teleiosis Mandate Launched',
-    body: "What began as a devotional movement became a teaching mandate. Rhema launched the Teleiosis Mandate in Lusaka, establishing the Manifested Sons of God Class, a Saturday gathering at Emperor's Crown Olympia, Chainama Road, dedicated to deep systematic teaching.",
+    body: "What began as a devotional movement became a teaching mandate. Rhema launched the Teleiosis Mandate in Lusaka, establishing the Manifested Sons of God Class, a fortnightly Saturday gathering at Emperor's Crown Olympia, Chainama Road, dedicated to deep systematic teaching.",
     scripture: 'Rom 8:19',
   },
   {
     year: '2023',
     title: 'The Audio Library Grows',
-    body: 'The Saturday classes are recorded and released as a growing audio library. Series on The Christ Dimension, Priesthood, Kingship, The God Frequency, and The Ministry of the Word equip believers across Zambia and beyond.',
+    body: 'The fortnightly Saturday classes are recorded and released as a growing audio library. Series on The Christ Dimension, Priesthood, Kingship, The God Frequency, and The Ministry of the Word equip believers across Zambia and beyond.',
     scripture: 'Eph 4:13',
   },
   {
@@ -225,15 +225,15 @@ export function AboutClient({ stats }: { stats: Stat[] }) {
                   <div className="pt-8 lg:pt-0">
                     <h3 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-1">Rhema Nyambe</h3>
                     <p className="text-teleiosis-gold font-semibold text-sm mb-1">Founder &amp; Leader, Teleiosis Mandate</p>
-                    <p className="text-slate-400 text-xs mb-6">Theology Graduate, Rhema Bible Training Center Zambia</p>
+                    <p className="text-slate-400 text-xs mb-6">Theology Graduate, Rhema Bible Training Center Zambia &nbsp;·&nbsp; Architect</p>
                     <p className="text-slate-600 text-base leading-relaxed mb-4">
-                      Rhema is a minister and teacher with a burning passion for the revelation of Christian perfection. A theology graduate of Rhema Bible Training Center Zambia, he leads the Teleiosis Mandate based in Lusaka with a heart to see believers walk in the fullness of their inheritance in Christ — not in theory, but in practical, lived reality.
+                      Rhema is a minister, teacher, and architect with a burning passion for the revelation of Christian perfection. A theology graduate of Rhema Bible Training Center Zambia, he leads the Teleiosis Mandate based in Lusaka with a heart to see believers walk in the fullness of their inheritance in Christ — not in theory, but in practical, lived reality.
                     </p>
                     <p className="text-slate-600 text-base leading-relaxed mb-4">
                       What began as a devotional ministry called <em>GraceGalore</em> in 2014, a daily word of encouragement to a small group of believers, grew into a full teaching and discipleship movement. By 2020, the revelation had deepened: God was calling His people not merely to grace, but to <em>teleiosis</em> — completion, maturity, the fullness of Christ.
                     </p>
                     <p className="text-slate-600 text-base leading-relaxed mb-8">
-                      Through conferences, Saturday classes, and an expanding audio library, Rhema, together with his wife Edith and their daughter Brielle Liseli, presses on to equip believers across Zambia and beyond to manifest Kingdom authority in every area of their lives.
+                      Through conferences, fortnightly Saturday classes, and an expanding audio library, Rhema presses on with his wife Edith by his side to equip believers across Zambia and beyond to manifest Kingdom authority in every area of their lives. Together they are parents to their daughter, Brielle Liseli Nyambe.
                     </p>
                     <div className="flex gap-5">
                       <a href="https://web.facebook.com/Rhemaword27" className="text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px] flex items-center">Facebook</a>

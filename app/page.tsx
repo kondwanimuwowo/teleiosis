@@ -14,9 +14,9 @@ function formatDate(iso: string) {
 }
 
 const PROGRAMS = [
-  { n: '01', title: 'Manifested Sons', desc: 'Weekly Saturday classes exploring the revelation of the sons of God and Kingdom authority in daily life.', href: '/about', cta: 'Learn more' },
-  { n: '02', title: 'Unto Perfection', desc: 'Annual conferences bringing believers together for intensive teaching and encounters with the Spirit.', href: '/events', cta: 'See events' },
-  { n: '03', title: 'The Glorious Mandate', desc: 'Ongoing outreach and discipleship equipping believers to manifest Kingdom reality in their communities.', href: '/about', cta: 'Join us' },
+  { n: '01', title: 'Manifested Sons', desc: 'Fortnightly Saturday classes exploring the revelation of the sons of God and Kingdom authority in daily life.', href: '/about', cta: 'Learn more' },
+  { n: '02', title: 'Unto Perfection', desc: 'Intensive conferences bringing believers together for deep teaching and encounters with the Spirit. Believers are taught to actualise the word of God in their lives.', href: '/events', cta: 'See events' },
+  { n: '03', title: 'Resurrection Life Conferences', desc: 'Intensive practical conferences where believers encounter and activate the realities of Kingdom life — Spirit, Soul, and Body.', href: '/events', cta: 'See events' },
 ]
 
 export default async function Home() {

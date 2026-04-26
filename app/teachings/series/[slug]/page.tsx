@@ -5,6 +5,7 @@ import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { SeriesTeachingPlayer } from '@/app/components/SeriesTeachingPlayer'
 import { FadeIn } from '@/app/components/FadeIn'
 import { ArrowLeft, BookOpen } from 'lucide-react'
+import { ShareButtons } from '@/app/components/ShareButtons'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -15,14 +16,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = await createSupabaseServerClient()
   const { data } = await supabase
     .from('teaching_series')
-    .select('title, description')
+    .select('title, description, thumbnail_url')
     .eq('slug', slug)
     .single()
 
   if (!data) return { title: 'Series Not Found' }
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
   return {
-    title: `${data.title} | Teaching Series`,
+    title: data.title,
     description: data.description ?? undefined,
+    alternates: { canonical: `${base}/teachings/series/${slug}` },
+    openGraph: {
+      title: data.title,
+      description: data.description ?? undefined,
+      url: `${base}/teachings/series/${slug}`,
+      type: 'website',
+      images: data.thumbnail_url ? [{ url: data.thumbnail_url, width: 1200, height: 630 }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: data.title,
+      description: data.description ?? undefined,
+      images: data.thumbnail_url ? [data.thumbnail_url] : undefined,
+    },
   }
 }
 
@@ -63,6 +79,8 @@ export default async function SeriesDetailPage({ params }: Props) {
     : null
 
   const hasCover = !!series.thumbnail_url
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
+  const seriesUrl = `${base}/teachings/series/${series.slug}`
 
   return (
     <>
@@ -127,10 +145,12 @@ export default async function SeriesDetailPage({ params }: Props) {
 
           {/* Description */}
           {series.description && (
-            <p className="text-white/65 text-base sm:text-lg leading-relaxed max-w-2xl">
+            <p className="text-white/65 text-base sm:text-lg leading-relaxed max-w-2xl mb-6">
               {series.description}
             </p>
           )}
+
+          <ShareButtons url={seriesUrl} title={series.title} description={series.description ?? undefined} />
         </div>
       </section>
 

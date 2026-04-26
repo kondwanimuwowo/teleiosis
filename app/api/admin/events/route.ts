@@ -42,18 +42,23 @@ export async function POST(request: Request) {
       imageUrl = `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${key}`
     }
 
+    const intervalDays = formData.get('recurrence_interval_days')
+
     const { error } = await supabaseAdmin.from('events').insert({
-      title:           formData.get('title'),
-      date:            formData.get('date'),
-      time_start:      formData.get('time_start'),
-      time_end:        formData.get('time_end'),
-      location:        formData.get('location'),
-      speaker:         formData.get('speaker'),
-      type:            formData.get('type') || 'In Person',
-      description:     formData.get('description'),
-      is_recurring:    formData.get('is_recurring') === 'true',
-      recurring_label: formData.get('recurring_label'),
-      image_url:       imageUrl,
+      title:                    formData.get('title'),
+      date:                     formData.get('date'),
+      time_start:               formData.get('time_start'),
+      time_end:                 formData.get('time_end'),
+      location:                 formData.get('location'),
+      speaker:                  formData.get('speaker'),
+      type:                     formData.get('type') || 'In Person',
+      description:              formData.get('description'),
+      is_recurring:             formData.get('is_recurring') === 'true',
+      recurring_label:          formData.get('recurring_label'),
+      recurrence_frequency:     formData.get('recurrence_frequency') || null,
+      recurrence_interval_days: intervalDays ? parseInt(intervalDays as string) : null,
+      recurrence_day_of_week:   formData.get('recurrence_day_of_week') || null,
+      image_url:                imageUrl,
     })
 
     if (error) return NextResponse.json({ error: error.message }, { status: 400 })

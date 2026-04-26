@@ -5,6 +5,8 @@ import { ArrowLeft, BookOpen, Clock, CalendarDays } from 'lucide-react'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { FadeIn } from '@/app/components/FadeIn'
 import { NewsletterSection } from '@/app/components/NewsletterSection'
+import { JsonLd, articleSchema } from '@/app/components/JsonLd'
+import { ShareButtons } from '@/app/components/ShareButtons'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -19,14 +21,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = await createSupabaseServerClient()
   const { data } = await supabase
     .from('blog_posts')
-    .select('title, excerpt')
+    .select('title, excerpt, image_url')
     .eq('slug', slug)
     .single()
 
   if (!data) return {}
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
   return {
-    title: `${data.title} | Teleiosis Blog`,
-    description: data.excerpt,
+    title: data.title,
+    description: data.excerpt ?? undefined,
+    alternates: { canonical: `${base}/blog/${slug}` },
+    openGraph: {
+      title: data.title,
+      description: data.excerpt ?? undefined,
+      url: `${base}/blog/${slug}`,
+      type: 'article',
+      images: data.image_url ? [{ url: data.image_url, width: 1200, height: 630 }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: data.title,
+      description: data.excerpt ?? undefined,
+      images: data.image_url ? [data.image_url] : undefined,
+    },
   }
 }
 
@@ -57,8 +74,12 @@ export default async function BlogPostPage({ params }: Props) {
 
   const related = relatedPosts ?? []
 
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
+  const postUrl = `${base}/blog/${post.slug}`
+
   return (
     <>
+      <JsonLd data={articleSchema(post)} />
       {/* ── HERO ────────────────────────────────────────────── */}
       <section className="relative flex items-end" style={{ minHeight: '65vh' }}>
         <div
@@ -131,12 +152,15 @@ export default async function BlogPostPage({ params }: Props) {
               ))}
             </div>
 
-            {/* Tags / category row */}
+            {/* Tags / category row + share */}
             <div className="mt-12 pt-8 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${CATEGORY_COLORS[post.category] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
-                {post.category}
-              </span>
-              <p className="text-xs text-slate-400">{post.scripture}</p>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${CATEGORY_COLORS[post.category] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                  {post.category}
+                </span>
+                <p className="text-xs text-slate-400">{post.scripture}</p>
+              </div>
+              <ShareButtons url={postUrl} title={post.title} description={post.excerpt} />
             </div>
           </div>
         </div>

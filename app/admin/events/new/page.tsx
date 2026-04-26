@@ -12,8 +12,21 @@ const SATURDAY_TEMPLATE = {
   speaker: 'Rhema Nyambe',
   type: 'In Person',
   is_recurring: true,
-  recurring_label: 'Manifested Sons of God Saturday Class',
+  recurring_label: 'Manifested Sons of God Class — Fortnightly Saturday',
+  recurrence_frequency: 'fortnightly',
+  recurrence_interval_days: '',
+  recurrence_day_of_week: 'saturday',
 }
+
+const FREQUENCIES = [
+  { value: 'daily',       label: 'Daily' },
+  { value: 'weekly',      label: 'Weekly' },
+  { value: 'fortnightly', label: 'Fortnightly (every 2 weeks)' },
+  { value: 'monthly',     label: 'Monthly' },
+  { value: 'custom',      label: 'Custom (specify days)' },
+]
+
+const DAYS_OF_WEEK = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 
 export default function NewEventPage() {
   const router = useRouter()
@@ -31,6 +44,9 @@ export default function NewEventPage() {
     description: '',
     is_recurring: false,
     recurring_label: '',
+    recurrence_frequency: '',
+    recurrence_interval_days: '',
+    recurrence_day_of_week: '',
   })
 
   function set(field: string, value: string | boolean) {
@@ -158,6 +174,7 @@ export default function NewEventPage() {
           <textarea value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Brief event description…" className={`${inputCls} resize-none`} />
         </div>
 
+        {/* Recurring */}
         <div className="flex items-center gap-3 pt-1">
           <input
             type="checkbox"
@@ -166,8 +183,40 @@ export default function NewEventPage() {
             onChange={e => set('is_recurring', e.target.checked)}
             className="w-4 h-4 accent-[#4a2c9c]"
           />
-          <label htmlFor="is_recurring" className="text-sm text-slate-600">This is a recurring class</label>
+          <label htmlFor="is_recurring" className="text-sm text-slate-600">This is a recurring event</label>
         </div>
+
+        {form.is_recurring && (
+          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 space-y-4">
+            <div>
+              <label className={labelCls}>Frequency</label>
+              <select value={form.recurrence_frequency} onChange={e => set('recurrence_frequency', e.target.value)} className={inputCls}>
+                <option value="">— Select frequency —</option>
+                {FREQUENCIES.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+              </select>
+            </div>
+
+            {form.recurrence_frequency === 'custom' && (
+              <div>
+                <label className={labelCls}>Every how many days?</label>
+                <input type="number" min="1" value={form.recurrence_interval_days} onChange={e => set('recurrence_interval_days', e.target.value)} placeholder="e.g. 14" className={inputCls} />
+              </div>
+            )}
+
+            <div>
+              <label className={labelCls}>Day of week (optional)</label>
+              <select value={form.recurrence_day_of_week} onChange={e => set('recurrence_day_of_week', e.target.value)} className={inputCls}>
+                <option value="">— Any day —</option>
+                {DAYS_OF_WEEK.map(d => <option key={d} value={d} className="capitalize">{d.charAt(0).toUpperCase() + d.slice(1)}</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label className={labelCls}>Recurring label (optional)</label>
+              <input type="text" value={form.recurring_label} onChange={e => set('recurring_label', e.target.value)} placeholder="e.g. Manifested Sons of God Class" className={inputCls} />
+            </div>
+          </div>
+        )}
 
         {error && (
           <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>

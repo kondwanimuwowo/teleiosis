@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { BookOpen, ChevronDown, ChevronUp, Search, Library, Layers } from 'lucide-react'
+import { BookOpen, ChevronDown, ChevronUp, Layers } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { StandaloneTeachingsList } from './StandaloneTeachingsList'
 
@@ -35,13 +35,9 @@ const GROUP_ACCENTS = [
 export function TeachingsGroupsClient({
   groups,
   onViewAll,
-  search,
-  onSearchChange,
 }: {
   groups: ProgramGroup[]
   onViewAll: () => void
-  search: string
-  onSearchChange: (v: string) => void
 }) {
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null)
   const [expandedStandalone, setExpandedStandalone] = useState<string | null>(null)
@@ -54,27 +50,6 @@ export function TeachingsGroupsClient({
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Top controls */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-12">
-          <div className="relative flex-1">
-            <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search teachings, series, speakers..."
-              value={search}
-              onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full border border-slate-200 pl-10 pr-4 py-2.5 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300"
-            />
-          </div>
-          <button
-            onClick={onViewAll}
-            className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-[#2c0e68] text-[#2c0e68] text-sm font-bold hover:bg-[#2c0e68] hover:text-white transition-all whitespace-nowrap"
-          >
-            <Library size={15} />
-            View All Teachings
-          </button>
-        </div>
-
         {/* Program group cards */}
         <div className="space-y-4">
           {groups.map((group, idx) => {
