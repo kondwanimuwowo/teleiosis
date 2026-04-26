@@ -45,7 +45,7 @@ export default async function Home() {
           <p className="text-teleiosis-gold text-2xl sm:text-4xl font-semibold tracking-[0.3em] mb-5">
             τελείωσις
           </p>
-          <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-6xl text-white tracking-wider mb-5 leading-[1.05]">
+          <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-6xl text-white tracking-wider mb-5 leading-[1.05] min-h-[1.05em]">
             <FlipText />
           </h1>
           <p className="text-white/55 text-base sm:text-lg font-serif mb-6 max-w-xl leading-relaxed">

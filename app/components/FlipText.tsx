@@ -52,8 +52,8 @@ export function FlipText() {
   }, [displayText, isDeleting, currentWordIdx])
 
   return (
-    <span aria-live="polite" aria-atomic="true" className="inline-flex items-center">
-      <span>{displayText}</span>
+    <span aria-live="polite" aria-atomic="true" className="inline-flex items-center min-h-[1em]">
+      <span className="inline-block min-w-[2px]">{displayText}</span>
       <span
         aria-hidden="true"
         className={isBlinking ? "animate-pulse" : ""}
