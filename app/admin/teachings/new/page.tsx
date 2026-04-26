@@ -337,7 +337,7 @@ export default function NewTeachingPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className={labelCls}>Duration (minutes)</label>
-              <input type="number" value={form.duration_minutes} onChange={e => set('duration_minutes', e.target.value)} placeholder="45" className={inputCls} />
+              <input type="number" min="1" value={form.duration_minutes} onChange={e => set('duration_minutes', e.target.value)} placeholder="45" className={inputCls} />
             </div>
             <div>
               <label className={labelCls}>Price (USD, leave blank if free)</label>
