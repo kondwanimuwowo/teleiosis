@@ -272,56 +272,29 @@ export default function NewTeachingPage() {
             </select>
           </div>
 
-            {groups.length > 0 && (
-              <div>
-                <label className={labelCls}>Program Group *</label>
-                <select 
-                  value={form.program_group_id} 
-                  onChange={e => {
-                    set('program_group_id', e.target.value)
-                    set('series_id', '') // reset series when group changes
-                  }} 
-                  className={inputCls}
-                  disabled={!!form.series_id}
-                >
-                  <option value="">— Select a program group —</option>
-                  {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
-                </select>
-                {form.series_id && (
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1.5">
-                    Inherited from selected series
-                  </p>
-                )}
-              </div>
-            )}
-
+          {/* Series selector — drives program group automatically */}
           <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
             <div>
               <label className={labelCls}>Assign to Series (Optional)</label>
-              <select 
-                value={form.series_id} 
+              <select
+                value={form.series_id}
                 onChange={e => {
                   const sid = e.target.value
                   set('series_id', sid)
+                  // Auto-fill program group from the selected series
                   if (sid) {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const series = seriesList.find((s: any) => s.id === sid)
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    if (series && (series as any).program_group_id) {
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      set('program_group_id', (series as any).program_group_id)
-                    }
+                    const s = seriesList.find((s: any) => s.id === sid) as any
+                    if (s?.program_group_id) set('program_group_id', s.program_group_id)
+                  } else {
+                    set('program_group_id', '')
                   }
-                }} 
+                }}
                 className={inputCls}
               >
-                <option value="">No Series selected…</option>
-                {(form.program_group_id
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  ? seriesList.filter((s: any) => s.program_group_id === form.program_group_id)
-                  : seriesList
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                ).map((s: any) => <option key={s.id} value={s.id}>{s.title}</option>)}
+                <option value="">No Series (standalone)</option>
+                {// eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (seriesList as any[]).map((s: any) => <option key={s.id} value={s.id}>{s.title}</option>)}
               </select>
             </div>
             <div>
@@ -336,6 +309,25 @@ export default function NewTeachingPage() {
               />
             </div>
           </div>
+
+          {/* Program group — auto-filled from series, or manual for standalone teachings */}
+          {groups.length > 0 && (
+            <div>
+              <label className={labelCls}>
+                Program Group
+                {form.series_id && <span className="ml-2 text-teleiosis-gold normal-case font-normal tracking-normal">auto-filled from series</span>}
+              </label>
+              <select
+                value={form.program_group_id}
+                onChange={e => set('program_group_id', e.target.value)}
+                className={`${inputCls} ${form.series_id ? 'opacity-60 cursor-not-allowed' : ''}`}
+                disabled={!!form.series_id}
+              >
+                <option value="">— Select a program group —</option>
+                {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
+              </select>
+            </div>
+          )}
 
           <div>
             <label className={labelCls}>Description *</label>
