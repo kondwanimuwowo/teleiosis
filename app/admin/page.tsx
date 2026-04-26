@@ -1,6 +1,8 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
-import { Calendar, Mic2, BookOpen, Quote, Users, Library } from 'lucide-react'
+import { Calendar, Mic2, BookOpen, Quote, Users, Library, HardDrive } from 'lucide-react'
+import { StorageWidget } from './StorageWidget'
 
 export const metadata = { title: 'Admin Dashboard | Teleiosis' }
 
@@ -75,6 +77,20 @@ export default async function AdminDashboard() {
           </Link>
         ))}
       </div>
+
+      {/* Storage widget */}
+      <Suspense fallback={
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-6 flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center animate-pulse">
+            <HardDrive size={16} className="text-slate-300" />
+          </div>
+          <p className="text-xs text-slate-300 animate-pulse">Checking storage…</p>
+        </div>
+      }>
+        <div className="mb-6">
+          <StorageWidget />
+        </div>
+      </Suspense>
 
       {/* Quick actions */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-8">

@@ -318,6 +318,7 @@ export default function NewTeachingPage() {
                 {form.series_id && <span className="ml-2 text-teleiosis-gold normal-case font-normal tracking-normal">auto-filled from series</span>}
               </label>
               <select
+                required
                 value={form.program_group_id}
                 onChange={e => set('program_group_id', e.target.value)}
                 className={`${inputCls} ${form.series_id ? 'opacity-60 cursor-not-allowed' : ''}`}
