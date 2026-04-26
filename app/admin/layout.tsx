@@ -76,8 +76,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       )}
 
       {/* ── Sidebar ─────────────────────────────────────── */}
-      <aside 
-        className={`w-64 min-h-screen bg-[#1a0840] flex flex-col fixed top-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+      <aside
+        className={`w-64 h-screen bg-[#1a0840] flex flex-col fixed top-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -97,7 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-5 overflow-y-auto">
+        <nav className="flex-1 px-3 py-5 overflow-y-auto scrollbar-admin">
           <div className="space-y-0.5 mb-6">
             <p className="px-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white/30 mb-2">Content</p>
             {NAV_CONTENT.map(({ href, label, Icon }) => {

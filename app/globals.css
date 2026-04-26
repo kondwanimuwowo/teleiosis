@@ -76,6 +76,13 @@ em, cite, i {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 
+/* Admin sidebar thin scrollbar */
+.scrollbar-admin { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+.scrollbar-admin::-webkit-scrollbar { width: 3px; }
+.scrollbar-admin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-admin::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 9999px; }
+.scrollbar-admin::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
 /* ── Prevent horizontal overflow on all devices ─────────────────── */
 body {
   overflow-x: hidden;
