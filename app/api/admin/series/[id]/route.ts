@@ -44,12 +44,15 @@ export async function PATCH(request: Request, { params }: { params: { id: string
       thumbnailUrl = `${process.env.NEXT_PUBLIC_CLOUDFLARE_CDN_URL}/${key}`
     }
 
+    const programGroupId = formData.get('program_group_id') as string | null
+
     const { error } = await supabaseAdmin
       .from('teaching_series')
       .update({
         title: formData.get('title'),
         description: formData.get('description'),
         thumbnail_url: thumbnailUrl,
+        program_group_id: programGroupId || null,
       })
       .eq('id', params.id)
 

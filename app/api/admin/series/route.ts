@@ -46,11 +46,14 @@ export async function POST(request: Request) {
     }
 
     const title = formData.get('title') as string
+    const programGroupId = formData.get('program_group_id') as string | null
+
     const { error } = await supabaseAdmin.from('teaching_series').insert({
       title,
       slug: toSlug(title),
       description: formData.get('description'),
       thumbnail_url: thumbnailUrl,
+      program_group_id: programGroupId || null,
     })
 
     if (error) return NextResponse.json({ error: error.message }, { status: 400 })
