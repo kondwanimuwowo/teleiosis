@@ -34,9 +34,9 @@ export default async function Home() {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-hero-zoom will-change-transform origin-center"
           style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }}
         />
         <div className="absolute inset-0 bg-[#2c0e68]/80" />

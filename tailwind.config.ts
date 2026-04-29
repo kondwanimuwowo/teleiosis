@@ -68,10 +68,15 @@ const config: Config = {
           from: { opacity: "0", transform: "translateY(32px)" },
           to:   { opacity: "1", transform: "translateY(0)" },
         },
+        "hero-zoom": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.1)" },
+        },
       },
       animation: {
         "fade-in-up":      "fade-in-up 0.4s ease-out both",
         "fade-in-section": "fade-in-section 0.5s ease-out both",
+        "hero-zoom":       "hero-zoom 30s ease-in-out infinite",
       },
     },
   },
