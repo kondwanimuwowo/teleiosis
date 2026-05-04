@@ -8,7 +8,10 @@ export const metadata = {
 
 export default async function AboutPage() {
   const supabase = await createSupabaseServerClient()
-  const { data: stats } = await supabase.from('site_stats').select('*').order('sort_order')
+  const [{ data: stats }, { data: team }] = await Promise.all([
+    supabase.from('site_stats').select('*').order('sort_order'),
+    supabase.from('co_labourers').select('*').order('sort_order'),
+  ])
 
-  return <AboutClient stats={stats ?? []} />
+  return <AboutClient stats={stats ?? []} team={team ?? []} />
 }

@@ -6,6 +6,7 @@ import { Users, ScrollText, Handshake } from 'lucide-react'
 import { CTASection } from '../components/CTASection'
 
 type Stat = { id: string; value: string; label: string; sort_order: number }
+type TeamMember = { id: string; name: string; initials: string; title: string | null; location: string | null; bio: string | null; image_url: string | null; sort_order: number }
 
 const TABS = [
   { id: 'who-we-are',    label: 'Who We Are',   Icon: Users },
@@ -61,12 +62,6 @@ const TIMELINE = [
   },
 ]
 
-const CO_LABOURERS = [
-  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Dedicated to supporting the ministry's vision through spiritual and practical assistance, ensuring the message of Teleiosis is advanced with integrity and excellence." },
-  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Focused on upholding the leadership and facilitating the flow of the Word, providing a strong foundation of support and intercession for the mandate." },
-  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Committed to the protection and preparation of the ministry's resources and personnel, embodying the heart of a servant to see the fullness of Christ manifested." },
-  { initials: 'KM', name: 'Kondwani Muwowo', title: 'Armour Bearer', location: 'Lusaka, Zambia', bio: "Serving as a faithful companion in the gospel, handling the responsibilities of the house of God with diligence and a spirit of honor." },
-]
 
 import type { Variants } from 'framer-motion'
 
@@ -76,7 +71,7 @@ const panelVariants: Variants = {
   exit:    { opacity: 0, y: -10, transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } },
 }
 
-export function AboutClient({ stats }: { stats: Stat[] }) {
+export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[] }) {
   const STATS = stats.length > 0 ? stats : [
     { id: '1', value: '500+', label: 'Lives Transformed', sort_order: 0 },
     { id: '2', value: '10+',  label: 'Years of Ministry', sort_order: 1 },
@@ -349,23 +344,51 @@ export function AboutClient({ stats }: { stats: Stat[] }) {
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
                   Our Co-Labourers
                 </h2>
-                <ul className="divide-y divide-slate-100">
-                  {CO_LABOURERS.map(({ initials, name, title, location, bio }) => (
-                    <li key={name} className="py-8 sm:py-10">
-                      <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
-                        <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 bg-[#4a0e68]/10 border-2 border-teleiosis-gold/30 flex items-center justify-center">
-                          <span className="font-serif font-bold text-lg text-[#4a0e68]">{initials}</span>
+                {team.length === 0 ? (
+                  <div className="py-20 text-center border border-dashed border-slate-200 rounded-2xl">
+                    <p className="text-slate-400 text-sm">Team members will appear here once added.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {team.map((member) => (
+                      <div
+                        key={member.id}
+                        className="group bg-white border border-slate-100 rounded-2xl p-6 flex flex-col gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                      >
+                        {/* Avatar */}
+                        <div className="flex items-center gap-4">
+                          {member.image_url ? (
+                            <img
+                              src={member.image_url}
+                              alt={member.name}
+                              className="w-14 h-14 rounded-full object-cover flex-shrink-0 border-2 border-teleiosis-gold/20"
+                            />
+                          ) : (
+                            <div className="w-14 h-14 rounded-full bg-[#2c0e68]/6 border border-teleiosis-gold/25 flex items-center justify-center flex-shrink-0">
+                              <span className="font-serif font-bold text-base text-[#4a0e68]">{member.initials}</span>
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <h3 className="font-serif font-bold text-base text-[#2c0e68] leading-tight truncate">{member.name}</h3>
+                            {member.title && (
+                              <p className="text-teleiosis-gold text-xs font-semibold mt-0.5 truncate">{member.title}</p>
+                            )}
+                            {member.location && (
+                              <p className="text-slate-400 text-[10px] tracking-widest uppercase mt-0.5">{member.location}</p>
+                            )}
+                          </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#2c0e68] mb-0.5">{name}</h3>
-                          <p className="text-teleiosis-gold font-semibold text-sm mb-0.5">{title}</p>
-                          <p className="text-slate-400 text-xs tracking-widest uppercase mb-4">{location}</p>
-                          <p className="text-slate-600 text-base leading-relaxed max-w-2xl">{bio}</p>
-                        </div>
+
+                        {/* Bio */}
+                        {member.bio && (
+                          <p className="text-slate-500 text-sm leading-relaxed border-t border-slate-100 pt-4">
+                            {member.bio}
+                          </p>
+                        )}
                       </div>
-                    </li>
-                  ))}
-                </ul>
+                    ))}
+                  </div>
+                )}
               </div>
             </section>
 
