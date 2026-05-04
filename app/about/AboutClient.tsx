@@ -361,11 +361,11 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                             <img
                               src={member.image_url}
                               alt={member.name}
-                              className="w-14 h-14 rounded-full object-cover flex-shrink-0 border-2 border-teleiosis-gold/20"
+                              className="w-16 h-20 rounded-xl object-cover flex-shrink-0 border border-teleiosis-gold/20"
                             />
                           ) : (
-                            <div className="w-14 h-14 rounded-full bg-[#2c0e68]/6 border border-teleiosis-gold/25 flex items-center justify-center flex-shrink-0">
-                              <span className="font-serif font-bold text-base text-[#4a0e68]">{member.initials}</span>
+                            <div className="w-16 h-20 rounded-xl bg-[#2c0e68]/6 border border-teleiosis-gold/25 flex items-center justify-center flex-shrink-0">
+                              <span className="font-serif font-bold text-lg text-[#4a0e68]">{member.initials}</span>
                             </div>
                           )}
                           <div className="min-w-0">
