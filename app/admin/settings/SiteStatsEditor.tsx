@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Trash2, Check, X } from 'lucide-react'
+import { Plus, Trash2, Check, X, Pencil } from 'lucide-react'
 
 type Stat = { id: string; key: string; value: string; label: string; sort_order: number }
 
@@ -89,9 +89,9 @@ export function SiteStatsEditor({ initialStats }: { initialStats: Stat[] }) {
               <span className="flex-1 text-sm text-[#2c0e68] font-semibold">{stat.label}</span>
               <button
                 onClick={() => { setEditingId(stat.id); setEditValue(stat.value); setEditLabel(stat.label) }}
-                className="text-xs font-semibold text-slate-400 hover:text-[#2c0e68] transition-colors px-2"
+                className="text-slate-400 hover:text-[#2c0e68] transition-colors p-1"
               >
-                Edit
+                <Pencil size={14} />
               </button>
               <button onClick={() => deleteStat(stat.id)} className="text-slate-300 hover:text-red-500 transition-colors p-1">
                 <Trash2 size={14} />
