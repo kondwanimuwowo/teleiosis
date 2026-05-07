@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Trash2, Loader2, Users, Pencil, X, Check } from 'lucide-react'
+import { Plus, Trash2, Loader2, Users, Pencil } from 'lucide-react'
 
 type Member = { id: string; name: string; initials: string; title: string; location: string; bio: string; image_url: string | null }
 type FormState = { name: string; initials: string; title: string; location: string; bio: string }
