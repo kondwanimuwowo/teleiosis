@@ -43,13 +43,18 @@ export const metadata: Metadata = {
     url: BASE,
     title: 'Teleiosis Mandate — That Which Is Perfect Is Come',
     description: 'A community devoted to the practical revelation of the risen Christ, training the sons of God into Christian perfection and Kingdom authority.',
-    images: [{ url: '/og-default.jpg', width: 1200, height: 630, alt: 'Teleiosis Mandate' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Teleiosis Mandate' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Teleiosis Mandate — That Which Is Perfect Is Come',
     description: 'Training believers into Christian perfection and Kingdom authority. Based in Lusaka, Zambia.',
-    images: ['/og-default.jpg'],
+    images: ['/og-image.png'],
+  },
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
   alternates: {
     canonical: BASE,
