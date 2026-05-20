@@ -1,6 +1,6 @@
 import { FadeIn } from '../components/FadeIn'
-import { Button } from '../components/ui/button'
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react'
+import { ContactForm } from './ContactForm'
 
 export const metadata = {
   title: 'Contact Us | Teleiosis Mandate',
@@ -50,60 +50,7 @@ export default function ContactPage() {
                     </p>
                   </div>
                   
-                  <form className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
-                    <div className="space-y-2">
-                      <label htmlFor="name" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-                        Full Name
-                      </label>
-                      <input
-                        id="name" type="text" name="name" required
-                        placeholder="John Doe"
-                        className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base placeholder-slate-300 focus:outline-none focus:border-teleiosis-gold transition-colors"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-                        Email Address
-                      </label>
-                      <input
-                        id="email" type="email" name="email" required
-                        placeholder="john@example.com"
-                        className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base placeholder-slate-300 focus:outline-none focus:border-teleiosis-gold transition-colors"
-                      />
-                    </div>
-                    <div className="sm:col-span-2 space-y-2">
-                      <label htmlFor="subject" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-                        Subject
-                      </label>
-                      <select
-                        id="subject" name="subject"
-                        className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base focus:outline-none focus:border-teleiosis-gold transition-colors appearance-none"
-                      >
-                        <option value="general">General Inquiry</option>
-                        <option value="programs">Programs & Training</option>
-                        <option value="events">Events & Conferences</option>
-                        <option value="teachings">Audio Library</option>
-                      </select>
-                    </div>
-                    <div className="sm:col-span-2 space-y-2">
-                      <label htmlFor="message" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-                        How can we help you?
-                      </label>
-                      <textarea
-                        id="message" name="message" rows={4} required
-                        placeholder="Your message here..."
-                        className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base placeholder-slate-300 focus:outline-none focus:border-teleiosis-gold transition-colors resize-none"
-                      />
-                    </div>
-                    <div className="sm:col-span-2 pt-4">
-                      <Button
-                        type="submit"
-                        className="w-full sm:w-auto h-14 px-10 rounded-full bg-[#4a0e68] text-white font-bold hover:bg-[#2c0e68] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                      >
-                        Send Message
-                      </Button>
-                    </div>
-                  </form>
+                  <ContactForm />
                 </div>
               </FadeIn>
             </div>

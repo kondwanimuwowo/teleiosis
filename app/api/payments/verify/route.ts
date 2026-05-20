@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { sendPaymentConfirmation, sendAdminPaymentNotification } from '@/lib/email'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -48,6 +49,26 @@ export async function POST(req: NextRequest) {
     if (error) {
       console.error('Supabase insert error:', error)
       return NextResponse.json({ error: 'Failed to record payment' }, { status: 500 })
+    }
+
+    // Fetch event/product title for richer emails
+    let eventTitle: string | undefined
+    let productTitle: string | undefined
+    if (eventId) {
+      const { data: ev } = await supabase.from('events').select('title').eq('id', eventId).single()
+      eventTitle = ev?.title
+    }
+    if (productId) {
+      const { data: pr } = await supabase.from('products').select('name').eq('id', productId).single()
+      productTitle = pr?.name
+    }
+
+    // Send emails non-blocking — don't let email failure block the payment response
+    if (status === 'verified' && email) {
+      Promise.all([
+        sendPaymentConfirmation({ to: email, name: name || email, amount, reference, type, eventTitle, message }),
+        sendAdminPaymentNotification({ name: name || 'Unknown', email, amount, reference, type, eventTitle, productTitle, message }),
+      ]).catch((err) => console.error('Email send error:', err))
     }
 
     return NextResponse.json({ success: true, status, reference })

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { NewsletterForm } from './NewsletterForm'
 
 const NAVIGATE = [
   { href: "/",          label: "Home" },
@@ -48,19 +49,7 @@ export function Footer() {
               <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                 Stay Updated
               </p>
-              <form className="flex flex-col sm:flex-row gap-3 max-w-sm">
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  className="flex-1 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-white/25 focus:outline-none focus:border-teleiosis-gold/60 transition-all"
-                />
-                <button
-                  type="submit"
-                  className="h-11 px-6 rounded-full bg-teleiosis-gold text-[#2c0e68] text-xs font-bold uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300 whitespace-nowrap"
-                >
-                  Join Us
-                </button>
-              </form>
+              <NewsletterForm />
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { createHmac } from 'crypto'
+import { sendAdminPaymentNotification } from '@/lib/email'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -29,10 +30,28 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true })
     }
 
+    const { data: existing } = await supabase
+      .from('payments')
+      .select('*')
+      .eq('reference', data.reference)
+      .single()
+
     await supabase
       .from('payments')
       .update({ status: 'verified', lenco_data: data })
       .eq('reference', data.reference)
+
+    // Only fire admin email if the verify route hasn't already sent it
+    if (existing && existing.status !== 'verified') {
+      sendAdminPaymentNotification({
+        name: existing.name || 'Unknown',
+        email: existing.email,
+        amount: existing.amount,
+        reference: data.reference,
+        type: existing.type,
+        message: existing.message,
+      }).catch((err) => console.error('Webhook email error:', err))
+    }
 
     return NextResponse.json({ received: true })
   } catch (err) {
