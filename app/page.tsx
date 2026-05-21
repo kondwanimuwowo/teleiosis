@@ -39,7 +39,7 @@ export default async function Home() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-hero-zoom will-change-transform origin-center"
           style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }}
         />
-        <div className="absolute inset-0 bg-[#2c0e68]/80" />
+        <div className="absolute inset-0 bg-[#2c0e68]/70" />
 
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-24 sm:pt-40 sm:pb-32">
           <p className="text-teleiosis-gold text-2xl sm:text-4xl font-semibold tracking-[0.3em] mb-5">
@@ -69,7 +69,7 @@ export default async function Home() {
       </section>
 
       {/* ── PILLARS BAR ──────────────────────────────────────────── */}
-      <section className="bg-slate-50 py-8 hidden sm:block">
+      <section className="bg-slate-50 py-4 hidden sm:block">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-center">
             <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Resurrection · Oneness · Spirit</p>
@@ -89,7 +89,7 @@ export default async function Home() {
 
               {/* Text */}
               <div>
-                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Who We Are</p>
+                <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Who We Are</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-6">
                   Called to a Higher Standard
                 </h2>
@@ -120,8 +120,7 @@ export default async function Home() {
                         '0 0 30% 0'
                     }}
                     className={`h-40 w-40 p-4 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
-                      i === 0 ? 'bg-[#4a0e68] text-white' :
-                      i === 3 ? 'bg-[#2c0e68] text-white' :
+                      i === 0 || i === 3 ? 'bg-[#2c0e68] text-white' :
                       'bg-slate-50 border border-slate-100 text-[#2c0e68]'
                     }`}
                   >
@@ -145,14 +144,13 @@ export default async function Home() {
       <FadeIn delay={0.1}>
         <section className="bg-slate-50 py-20 sm:py-28 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Programs</p>
+            <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Programs</p>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
               Training Into Perfection
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {PROGRAMS.map(({ n, title, desc, href, cta }) => (
                 <article key={n} className="bg-white border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm rounded-xl hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                  <p className="font-serif font-bold text-2xl text-teleiosis-gold mb-3">{n}</p>
                   <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">{desc}</p>
                   <Link href={href} className="inline-flex items-center gap-1 text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px]">
@@ -170,9 +168,9 @@ export default async function Home() {
         <FadeIn delay={0.2}>
           <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-0 items-center">
                 {/* Poster */}
-                <div className="flex justify-center lg:justify-start">
+                <div className="flex justify-center lg:justify-end lg:pr-10">
                   <div className="w-full max-w-xs sm:max-w-sm overflow-hidden shadow-md rounded-xl">
                     <img
                       src={nextEvent.image_url ?? '/images/manifested-sons-of-god-class-light.jpg'}
@@ -182,9 +180,12 @@ export default async function Home() {
                   </div>
                 </div>
 
+                {/* Vertical rule */}
+                <div className="hidden lg:block w-px self-stretch bg-white/15 mx-0" />
+
                 {/* Details */}
-                <div>
-                  <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Next Event</p>
+                <div className="lg:pl-10">
+                  <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Next Event</p>
                   <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-white leading-tight mb-8">
                     {nextEvent.title}
                   </h2>
@@ -221,7 +222,7 @@ export default async function Home() {
       <FadeIn delay={0.1}>
         <section className="bg-white py-20 sm:py-28 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Latest</p>
+            <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Latest</p>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
               News &amp; Updates
             </h2>

@@ -15,10 +15,6 @@ export function Nav() {
             <span className="font-serif font-bold text-[1.35rem] text-white tracking-[0.2em] group-hover:text-white/90 transition-colors">
               TELEIOSIS
             </span>
-            <span className="w-px h-5 bg-white/20 hidden sm:block" />
-            <span className="hidden sm:block text-teleiosis-gold text-[0.65rem] tracking-[0.25em] font-sans font-semibold uppercase">
-              Mandate
-            </span>
           </Link>
 
           {/* Desktop nav */}

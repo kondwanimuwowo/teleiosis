@@ -22,7 +22,7 @@ export default async function StorePage() {
         <div className="absolute inset-0 bg-[#2c0e68]" />
         <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-5">The Store</p>
+          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">The Store</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
             Resources &amp; Merch
           </h1>

@@ -20,7 +20,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#1a0840]/90 via-transparent to-transparent" />
 
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pb-20">
-          <p className="text-teleiosis-gold text-xs font-bold tracking-[0.4em] uppercase mb-4">Get in Touch</p>
+          <p className="text-teleiosis-gold/30 text-xs font-bold tracking-[0.4em] uppercase mb-4">Get in Touch</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-7xl text-white leading-[1.1] mb-6 max-w-3xl">
             Contact Us
           </h1>

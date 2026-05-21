@@ -101,7 +101,7 @@ export default async function BlogPostPage({ params }: Props) {
           </Link>
 
           {/* Category badge */}
-          <p className="text-teleiosis-gold text-xs font-bold tracking-[0.3em] uppercase mb-5">
+          <p className="text-teleiosis-gold/30 text-xs font-bold tracking-[0.3em] uppercase mb-5">
             {post.category}
           </p>
 
@@ -171,7 +171,7 @@ export default async function BlogPostPage({ params }: Props) {
         <FadeIn delay={0.1}>
           <section className="bg-slate-50 py-16 sm:py-20">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <p className="text-teleiosis-gold text-xs font-bold tracking-[0.3em] uppercase mb-4">Continue Reading</p>
+              <p className="text-teleiosis-gold/30 text-xs font-bold tracking-[0.3em] uppercase mb-4">Continue Reading</p>
               <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-10">More from Teleiosis</h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

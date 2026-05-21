@@ -26,7 +26,7 @@ export function CTASection({ kicker, title, description, buttonText, buttonHref,
         </p>
         <Link
           href={buttonHref}
-          className="inline-flex items-center justify-center px-8 py-3.5 min-h-[44px] rounded-full bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#4a0e68]/90 transition-all duration-300 shadow-sm hover:-translate-y-0.5 hover:shadow-md"
+          className="inline-flex items-center justify-center px-8 py-3.5 min-h-[44px] rounded-full bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#2c0e68]/90 transition-all duration-300 shadow-sm hover:-translate-y-0.5 hover:shadow-md"
         >
           {buttonText}
         </Link>

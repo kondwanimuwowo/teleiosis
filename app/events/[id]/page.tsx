@@ -91,7 +91,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
 
             {/* Left — event details */}
             <div>
-              <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-6">Event Details</p>
+              <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-6">Event Details</p>
               <dl className="space-y-5 mb-10">
                 {details.map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex gap-4 items-start">
@@ -106,7 +106,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
 
               {event.description && (
                 <div>
-                  <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">About This Event</p>
+                  <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">About This Event</p>
                   <p className="text-slate-600 text-base leading-relaxed">{event.description}</p>
                 </div>
               )}

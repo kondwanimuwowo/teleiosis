@@ -43,7 +43,7 @@ export default async function TeachingsPage() {
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/pexels-bible-1869164_1280.jpg')" }} />
         <div className="absolute inset-0 bg-[#2c0e68]/85" />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-5">Audio Library</p>
+          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">Audio Library</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
             Teachings &amp; Series
           </h1>

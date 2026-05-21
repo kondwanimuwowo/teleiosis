@@ -81,9 +81,6 @@ export function TeachingsGroupsClient({
                   <div className={`flex-1 flex items-center justify-between gap-4 p-6 sm:p-8 bg-gradient-to-r ${accent.bg} relative z-10`}>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <span className="text-teleiosis-gold text-xs font-bold tracking-[0.2em] uppercase">
-                          {String(idx + 1).padStart(2, '0')}
-                        </span>
                         {isEmpty && (
                           <span className="px-2.5 py-0.5 bg-white/10 text-white/60 text-[10px] font-bold uppercase tracking-widest rounded-full">
                             Coming Soon

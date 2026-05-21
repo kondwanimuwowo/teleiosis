@@ -88,7 +88,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/image_3.jpg')" }} />
         <div className="absolute inset-0 bg-[#2c0e68]/85" />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-5">The Ministry</p>
+          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">The Ministry</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
             About Teleiosis
           </h1>
@@ -153,7 +153,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                   <div>
-                    <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Mission</p>
+                    <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Mission</p>
                     <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-6">
                       Called to a Higher Standard
                     </h2>
@@ -184,8 +184,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                             '0 0 30% 0'
                         }}
                         className={`h-40 w-40 p-4 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
-                          i === 0 ? 'bg-[#4a0e68] text-white' :
-                          i === 3 ? 'bg-[#2c0e68] text-white' :
+                          i === 0 || i === 3 ? 'bg-[#2c0e68] text-white' :
                           'bg-slate-50 border border-slate-100 text-[#2c0e68]'
                         }`}
                       >
@@ -205,7 +204,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
             {/* Leadership */}
             <section className="bg-slate-50 py-20 sm:py-28 lg:py-32">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Leadership</p>
+                <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Leadership</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
                   Meet Rhema Nyambe
                 </h2>
@@ -248,7 +247,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                   <div>
-                    <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Definition</p>
+                    <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Definition</p>
                     <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-6">
                       What Is Teleiosis?
                     </h2>
@@ -273,7 +272,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
             {/* Origins Timeline */}
             <section className="bg-white py-20 sm:py-28 lg:py-32">
               <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">The Journey</p>
+                <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">The Journey</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-4">
                   How Teleiosis Was Born
                 </h2>
@@ -300,16 +299,15 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
             {/* Three Pillars */}
             <section className="bg-slate-50 py-20 sm:py-28 lg:py-32">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Foundation</p>
+                <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Foundation</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
                   The Three Pillars
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {PILLARS.map(({ number, title, description }) => (
-                    <div key={number} className="bg-white border-t-2 border-t-teleiosis-gold border border-slate-100 p-6 sm:p-8">
-                      <p className="font-serif font-bold text-4xl text-teleiosis-gold mb-4">{number}</p>
-                      <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#2c0e68] mb-4">{title}</h3>
-                      <p className="text-slate-600 text-base leading-relaxed">{description}</p>
+                    <div key={number} className="bg-white border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm rounded-xl hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                      <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
+                      <p className="text-slate-600 text-sm leading-relaxed flex-1">{description}</p>
                     </div>
                   ))}
                 </div>
@@ -319,7 +317,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
             {/* Commitments */}
             <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Commitment</p>
+                <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Commitment</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight mb-12">
                   Walking In The Fullness
                 </h2>
@@ -340,7 +338,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
           <motion.div key="co-labourers" variants={panelVariants} initial="hidden" animate="visible" exit="exit">
             <section className="bg-white py-20 sm:py-28 lg:py-32">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Global Team</p>
+                <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Global Team</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
                   Our Co-Labourers
                 </h2>

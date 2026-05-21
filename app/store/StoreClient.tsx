@@ -26,7 +26,7 @@ function EmptyState() {
         <div className="w-20 h-20 bg-slate-50 border border-slate-100 flex items-center justify-center mx-auto mb-8">
           <span className="font-serif font-bold text-3xl text-slate-200">T</span>
         </div>
-        <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-3">Coming Soon</p>
+        <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-3">Coming Soon</p>
         <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-4">
           Something Special is Coming
         </h2>

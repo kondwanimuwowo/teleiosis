@@ -43,7 +43,7 @@ export default function PartnershipPage() {
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }} />
         <div className="absolute inset-0 bg-[#2c0e68]/85" />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-5">Ministry Partnership</p>
+          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">Ministry Partnership</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
             Partner with the Mandate
           </h1>
@@ -56,7 +56,7 @@ export default function PartnershipPage() {
       {/* ── WHY PARTNER ──────────────────────────────────────────── */}
       <section className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Your Impact</p>
+          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Your Impact</p>
           <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-12 max-w-xl">
             What Your Partnership Does
           </h2>
@@ -81,7 +81,7 @@ export default function PartnershipPage() {
 
             {/* Left — copy */}
             <div className="lg:pt-4">
-              <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4">Give</p>
+              <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Give</p>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-6">
                 Sow Into the Kingdom
               </h2>
