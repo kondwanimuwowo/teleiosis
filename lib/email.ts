@@ -2,7 +2,7 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const FROM = process.env.RESEND_FROM || 'Teleiosis Mandate <noreply@teleiosis.org>'
+const FROM = process.env.RESEND_FROM || 'Teleiosis Mandate <noreply@notifications.teleiosis.org>'
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@teleiosis.org'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
 
