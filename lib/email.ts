@@ -225,7 +225,7 @@ export async function sendAdminContactNotification({
 
 // ─── 5. Newsletter welcome → user ────────────────────────────────────────────
 
-export async function sendNewsletterWelcome({ to, email }: { to?: string; email: string }) {
+export async function sendNewsletterWelcome({ email }: { email: string }) {
   const body = layout(`
     ${heading("You're In!")}
     ${para('Thank you for subscribing to the Teleiosis Mandate newsletter. You will be among the first to know about upcoming events, new teachings, and word from the teacher.')}

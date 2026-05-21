@@ -13,7 +13,6 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS // ~100.5
 export default function QuoteBandClient() {
   const [quote, setQuote] = useState<Quote | null>(null)
   const [isPaused, setIsPaused] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const containerRef = useRef<HTMLElement>(null)
 
@@ -52,8 +51,6 @@ export default function QuoteBandClient() {
     <section
       ref={containerRef}
       className="bg-[#2c0e68] min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden group"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
     >
       <style>{`
         @keyframes progress-ring {
