@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Heart, CheckCircle, AlertCircle } from 'lucide-react'
+import { X, Heart, CheckCircle, AlertCircle, Clock, RotateCcw } from 'lucide-react'
 import { LencoPayButton } from './LencoPayButton'
 
 const PRESET_AMOUNTS = [100, 250, 500, 1000]
@@ -45,7 +45,7 @@ export function PartnershipModal({ open, onClose, eventId, eventTitle }: Partner
   const [selectedAmount, setSelectedAmount] = useState<number | null>(250)
   const [customAmount, setCustomAmount] = useState('')
   const [message, setMessage] = useState('')
-  const [success, setSuccess] = useState(false)
+  const [paymentState, setPaymentState] = useState<'idle' | 'success' | 'abandoned' | 'pending'>('idle')
   const [reference, setReference] = useState('')
   const [touched, setTouched] = useState<Touched>({ name: false, email: false, amount: false })
 
@@ -94,7 +94,7 @@ export function PartnershipModal({ open, onClose, eventId, eventTitle }: Partner
     setSelectedAmount(250)
     setCustomAmount('')
     setMessage('')
-    setSuccess(false)
+    setPaymentState('idle')
     setReference('')
     setTouched({ name: false, email: false, amount: false })
     // NOTE: intentionally keep name + email (they came from cache, user can reuse them)
@@ -138,7 +138,7 @@ export function PartnershipModal({ open, onClose, eventId, eventTitle }: Partner
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
               className="relative w-full max-w-lg bg-white shadow-2xl rounded-2xl flex flex-col pointer-events-auto my-auto"
             >
-            {!success ? (
+            {paymentState !== 'success' && paymentState !== 'pending' ? (
               <>
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
@@ -264,7 +264,9 @@ export function PartnershipModal({ open, onClose, eventId, eventTitle }: Partner
                     message={message}
                     disabled={!canPay}
                     onBeforeOpen={touchAll}
-                    onSuccess={(ref) => { setReference(ref); setSuccess(true) }}
+                    onSuccess={(ref) => { setReference(ref); setPaymentState('success') }}
+                    onAbandoned={() => setPaymentState('abandoned')}
+                    onPending={() => setPaymentState('pending')}
                     className={`w-full py-3.5 text-sm font-bold transition-all rounded-xl ${
                       canPay
                         ? 'bg-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/85 cursor-pointer'
@@ -281,12 +283,28 @@ export function PartnershipModal({ open, onClose, eventId, eventTitle }: Partner
                     </p>
                   )}
 
+                  {paymentState === 'abandoned' && (
+                    <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-sm">
+                      <RotateCcw size={15} className="text-amber-500 shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-amber-800 font-medium">Payment not completed.</p>
+                        <p className="text-amber-700 text-xs mt-0.5">You can try again whenever you&apos;re ready.</p>
+                      </div>
+                      <button
+                        onClick={() => setPaymentState('idle')}
+                        className="text-xs font-bold text-amber-700 underline underline-offset-2 shrink-0"
+                      >
+                        Try again
+                      </button>
+                    </div>
+                  )}
+
                   <p className="text-[10px] text-slate-400 text-center">
                     Payments are processed securely via Lenco. You will receive a confirmation email.
                   </p>
                 </div>
               </>
-            ) : (
+            ) : paymentState === 'success' ? (
               /* Success state */
               <div className="px-8 py-12 flex flex-col items-center text-center">
                 <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-5">
@@ -300,6 +318,24 @@ export function PartnershipModal({ open, onClose, eventId, eventTitle }: Partner
                 <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-8">
                   You are sowing into the revelation of Christ and the perfection of the saints. May God multiply your seed pressed down, shaken together, and running over.
                 </p>
+                <button
+                  onClick={handleClose}
+                  className="px-8 py-3 bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#3a1878] transition-colors rounded-xl"
+                >
+                  Close
+                </button>
+              </div>
+            ) : (
+              /* Pending state */
+              <div className="px-8 py-12 flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-5">
+                  <Clock size={32} className="text-blue-500" />
+                </div>
+                <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Payment Processing</h3>
+                <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-2">
+                  Your payment is being confirmed by your mobile network. We&apos;ll send a confirmation email once it clears.
+                </p>
+                {reference && <p className="text-slate-400 text-xs mb-6">Reference: {reference}</p>}
                 <button
                   onClick={handleClose}
                   className="px-8 py-3 bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#3a1878] transition-colors rounded-xl"

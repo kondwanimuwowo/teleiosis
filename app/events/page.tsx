@@ -1,5 +1,6 @@
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { EventsClient } from './EventsClient'
+import { NewsletterSection } from '../components/NewsletterSection'
 
 export const metadata = {
   title: 'Upcoming Events | Teleiosis Mandate',
@@ -34,6 +35,7 @@ export default async function EventsPage() {
       </section>
 
       <EventsClient events={events ?? []} />
+      <NewsletterSection />
     </>
   )
 }

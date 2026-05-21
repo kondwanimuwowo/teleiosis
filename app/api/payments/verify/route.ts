@@ -5,6 +5,7 @@ import {
   sendAdminPaymentNotification,
   sendEventRegistrationConfirmation,
   sendStorePurchaseConfirmation,
+  sendPaymentPendingEmail,
 } from '@/lib/email'
 
 const supabase = createClient(
@@ -73,6 +74,11 @@ export async function POST(req: NextRequest) {
     }
 
     // Send emails non-blocking — don't let email failure block the payment response
+    if (status === 'pending' && email) {
+      sendPaymentPendingEmail({ to: email, name: name || email, amount, reference, type })
+        .catch((err) => console.error('Pending email error:', err))
+    }
+
     if (status === 'verified' && email) {
       const userEmail = name || email
       const adminPromise = sendAdminPaymentNotification({

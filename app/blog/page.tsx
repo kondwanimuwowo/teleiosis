@@ -92,7 +92,11 @@ export default async function BlogPage() {
 
       {/* ── NEWSLETTER CTA ───────────────────────────────────────── */}
       <FadeIn>
-        <NewsletterSection className="bg-slate-50 py-16 sm:py-20 lg:py-24" />
+        <NewsletterSection
+          title="Never Miss a Teaching"
+          description="Subscribe to be the first to know about new audio releases, teaching series, and upcoming conferences."
+          className="bg-slate-50 py-16 sm:py-20 lg:py-24"
+        />
       </FadeIn>
     </>
   )

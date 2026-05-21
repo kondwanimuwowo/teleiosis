@@ -358,6 +358,102 @@ export async function sendEventReminder({
   })
 }
 
+// ─── Payment pending → user ──────────────────────────────────────────────────
+
+export async function sendPaymentPendingEmail({
+  to, name, amount, reference, type,
+}: {
+  to: string; name: string; amount: number; reference: string; type: string
+}) {
+  const typeLabel = type === 'partnership' ? 'partnership gift' : type === 'event' ? 'event registration' : type === 'store' ? 'store purchase' : 'payment'
+  const body = layout(`
+    ${heading(`Your Payment Is Being Processed`)}
+    ${para(`Hi ${name.split(' ')[0]}, we have received your ${typeLabel} request and it is currently being confirmed by your mobile network.`)}
+    ${para(`You will receive a separate confirmation email as soon as the payment clears. This usually takes a few minutes.`)}
+    ${divider()}
+    <table cellpadding="0" cellspacing="0" width="100%">
+      ${dataRow('Amount', `ZMW ${Number(amount).toLocaleString('en-ZM', { minimumFractionDigits: 2 })}`)}
+      ${dataRow('Reference', reference)}
+      ${dataRow('Status', 'Pending confirmation')}
+      ${dataRow('Date', new Date().toLocaleDateString('en-ZM', { day: 'numeric', month: 'long', year: 'numeric' }))}
+    </table>
+    ${divider()}
+    <p style="margin:0;font-size:13px;color:#9090a8;font-family:Arial,sans-serif;">
+      If you have any questions, contact us at
+      <a href="mailto:info@teleiosis.org" style="color:#4a0e68;">info@teleiosis.org</a>.
+    </p>
+  `)
+
+  return getResend().emails.send({
+    from: FROM,
+    to,
+    subject: `Your payment is being processed — Teleiosis Mandate`,
+    html: body,
+  })
+}
+
+// ─── General registration confirmation → user ────────────────────────────────
+
+export async function sendGeneralRegistrationConfirmation({
+  to, name,
+}: {
+  to: string; name: string
+}) {
+  const body = layout(`
+    ${heading(`Welcome to the Community, ${name.split(' ')[0]}!`)}
+    ${para(`Thank you for registering with the Teleiosis Mandate. You are now part of a community devoted to the practical revelation of the risen Christ and the training of believers into Christian perfection.`)}
+    ${divider()}
+    ${para('Here are some great ways to get started:')}
+    <ul style="margin:0 0 20px;padding-left:20px;font-size:14px;color:#444466;font-family:Arial,sans-serif;line-height:2;">
+      <li>Browse the <a href="${SITE_URL}/teachings" style="color:#4a0e68;">teachings library</a> for audio series and conferences</li>
+      <li>Check <a href="${SITE_URL}/events" style="color:#4a0e68;">upcoming events</a> and register for gatherings near you</li>
+      <li>Learn more <a href="${SITE_URL}/about" style="color:#4a0e68;">about the mandate</a> and its vision</li>
+    </ul>
+    ${divider()}
+    ${para('We look forward to walking with you on this journey into perfection, purpose, and power.')}
+    ${goldButton('Explore Teachings', `${SITE_URL}/teachings`)}
+  `)
+
+  return getResend().emails.send({
+    from: FROM,
+    to,
+    subject: `Welcome to the Teleiosis Mandate`,
+    html: body,
+  })
+}
+
+// ─── Registration notification → admin ───────────────────────────────────────
+
+export async function sendAdminRegistrationNotification({
+  name, email, phone, type, eventTitle,
+}: {
+  name: string; email: string; phone?: string; type: string; eventTitle?: string
+}) {
+  const typeLabel = type === 'event' ? 'Event Registration' : 'General Registration'
+  const body = layout(`
+    ${adminBadge(`New ${typeLabel}`)}
+    ${heading(`${typeLabel} Received`)}
+    ${divider()}
+    <table cellpadding="0" cellspacing="0" width="100%">
+      ${dataRow('Name', name)}
+      ${dataRow('Email', `<a href="mailto:${email}" style="color:#4a0e68;">${email}</a>`)}
+      ${phone ? dataRow('Phone', phone) : ''}
+      ${dataRow('Type', typeLabel)}
+      ${eventTitle ? dataRow('Event', eventTitle) : ''}
+      ${dataRow('Date', new Date().toLocaleString('en-ZM', { dateStyle: 'long', timeStyle: 'short' }))}
+    </table>
+    ${divider()}
+    ${goldButton('View in Dashboard', `${SITE_URL}/admin/registrations`)}
+  `)
+
+  return getResend().emails.send({
+    from: FROM,
+    to: ADMIN_EMAIL,
+    subject: `[Teleiosis] New ${typeLabel} — ${name}`,
+    html: body,
+  })
+}
+
 // ─── 9. Store purchase confirmation → user ───────────────────────────────────
 
 export async function sendStorePurchaseConfirmation({

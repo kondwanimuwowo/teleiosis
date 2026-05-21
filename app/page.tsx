@@ -270,7 +270,7 @@ export default async function Home() {
         title="Ready to Go Deeper?"
         description="Join a community of believers pursuing the fullness of Christ and the manifestation of Kingdom authority."
         buttonText="Get Started"
-        buttonHref="/contact"
+        buttonHref="/register"
       />
     </>
   )

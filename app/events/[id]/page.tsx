@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { MapPin, Clock, User, Calendar, ArrowLeft } from 'lucide-react'
 import { EventPartnerSection } from './EventPartnerSection'
+import { EventRegisterSection } from './EventRegisterSection'
 import { JsonLd, eventSchema } from '@/app/components/JsonLd'
 import { ShareButtons } from '@/app/components/ShareButtons'
 
@@ -120,8 +121,11 @@ export default async function EventDetailPage({ params }: { params: { id: string
               <ShareButtons url={eventUrl} title={event.title} description={event.description ?? undefined} className="mt-8" />
             </div>
 
-            {/* Right — partner section */}
-            <EventPartnerSection eventId={event.id} eventTitle={event.title} />
+            {/* Right — register + partner */}
+            <div className="space-y-6">
+              <EventRegisterSection eventId={event.id} eventTitle={event.title} />
+              <EventPartnerSection eventId={event.id} eventTitle={event.title} />
+            </div>
           </div>
         </div>
       </section>

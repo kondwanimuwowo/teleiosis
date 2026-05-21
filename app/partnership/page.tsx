@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { BookOpen, Mic2, Globe, CheckCircle } from 'lucide-react'
+import { BookOpen, Mic2, Globe, CheckCircle, Clock, RotateCcw } from 'lucide-react'
 import { LencoPayButton } from '../components/LencoPayButton'
 
 const PRESET_AMOUNTS = [100, 250, 500, 1000]
@@ -30,7 +30,7 @@ export default function PartnershipPage() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(250)
   const [customAmount, setCustomAmount] = useState('')
   const [message, setMessage] = useState('')
-  const [success, setSuccess] = useState(false)
+  const [paymentState, setPaymentState] = useState<'idle' | 'success' | 'abandoned' | 'pending'>('idle')
   const [reference, setReference] = useState('')
 
   const amount = (selectedAmount ?? parseFloat(customAmount)) || 0
@@ -98,7 +98,32 @@ export default function PartnershipPage() {
 
             {/* Right — form */}
             <div className="bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
-              {!success ? (
+              {paymentState === 'success' ? (
+                <div className="flex flex-col items-center text-center py-8">
+                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-5">
+                    <CheckCircle size={32} className="text-green-500" />
+                  </div>
+                  <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Thank You!</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-1">
+                    Your gift of <span className="font-bold text-[#2c0e68]">ZMW {amount.toLocaleString()}</span> has been received.
+                  </p>
+                  <p className="text-slate-400 text-xs mb-6">Reference: {reference}</p>
+                  <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
+                    May God multiply your seed pressed down, shaken together, and running over. You are advancing the revelation of Christ.
+                  </p>
+                </div>
+              ) : paymentState === 'pending' ? (
+                <div className="flex flex-col items-center text-center py-8">
+                  <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-5">
+                    <Clock size={32} className="text-blue-500" />
+                  </div>
+                  <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Payment Processing</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-2">
+                    Your payment is being confirmed by your mobile network. We&apos;ll send a confirmation email once it clears.
+                  </p>
+                  {reference && <p className="text-slate-400 text-xs">Reference: {reference}</p>}
+                </div>
+              ) : (
                 <div className="space-y-5">
                   {/* Amount picker */}
                   <div>
@@ -176,7 +201,9 @@ export default function PartnershipPage() {
                     type="partnership"
                     message={message}
                     disabled={!canPay}
-                    onSuccess={(ref) => { setReference(ref); setSuccess(true) }}
+                    onSuccess={(ref) => { setReference(ref); setPaymentState('success') }}
+                    onAbandoned={() => setPaymentState('abandoned')}
+                    onPending={() => setPaymentState('pending')}
                     className={`w-full py-4 text-sm font-bold transition-all ${
                       canPay
                         ? 'bg-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/85 cursor-pointer'
@@ -186,22 +213,24 @@ export default function PartnershipPage() {
                     Give ZMW {amount > 0 ? amount.toLocaleString() : '—'}
                   </LencoPayButton>
 
+                  {paymentState === 'abandoned' && (
+                    <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 p-3.5 text-sm">
+                      <RotateCcw size={15} className="text-amber-500 shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-amber-800 font-medium">Payment not completed.</p>
+                        <p className="text-amber-700 text-xs mt-0.5">You can try again whenever you&apos;re ready.</p>
+                      </div>
+                      <button
+                        onClick={() => setPaymentState('idle')}
+                        className="text-xs font-bold text-amber-700 underline underline-offset-2 shrink-0"
+                      >
+                        Try again
+                      </button>
+                    </div>
+                  )}
+
                   <p className="text-[10px] text-slate-400 text-center">
-                    Secure payments via Lenco · ZMW only · You'll receive a confirmation email
-                  </p>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center text-center py-8">
-                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-5">
-                    <CheckCircle size={32} className="text-green-500" />
-                  </div>
-                  <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Thank You!</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-1">
-                    Your gift of <span className="font-bold text-[#2c0e68]">ZMW {amount.toLocaleString()}</span> has been received.
-                  </p>
-                  <p className="text-slate-400 text-xs mb-6">Reference: {reference}</p>
-                  <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
-                    May God multiply your seed pressed down, shaken together, and running over. You are advancing the revelation of Christ.
+                    Secure payments via Lenco · ZMW only · You&apos;ll receive a confirmation email
                   </p>
                 </div>
               )}

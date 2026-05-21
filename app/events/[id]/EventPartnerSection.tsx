@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Heart, CheckCircle } from 'lucide-react'
+import { Heart, CheckCircle, Clock, RotateCcw } from 'lucide-react'
 import { LencoPayButton } from '../../components/LencoPayButton'
 
 const PRESET_AMOUNTS = [50, 100, 250, 500]
+
+type PaymentState = 'idle' | 'success' | 'abandoned' | 'pending'
 
 export function EventPartnerSection({ eventId, eventTitle }: { eventId: string; eventTitle: string }) {
   const [name, setName] = useState('')
@@ -12,13 +14,13 @@ export function EventPartnerSection({ eventId, eventTitle }: { eventId: string; 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(100)
   const [customAmount, setCustomAmount] = useState('')
   const [message, setMessage] = useState('')
-  const [success, setSuccess] = useState(false)
+  const [paymentState, setPaymentState] = useState<PaymentState>('idle')
   const [reference, setReference] = useState('')
 
   const amount = (selectedAmount ?? parseFloat(customAmount)) || 0
   const canPay = name.trim() && email.trim() && amount >= 10
 
-  if (success) {
+  if (paymentState === 'success') {
     return (
       <div className="flex flex-col items-center text-center py-12">
         <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-5">
@@ -29,6 +31,21 @@ export function EventPartnerSection({ eventId, eventTitle }: { eventId: string; 
           Your gift of <span className="font-bold text-[#2c0e68]">ZMW {amount.toLocaleString()}</span> toward <em>{eventTitle}</em> has been received.
         </p>
         <p className="text-slate-400 text-xs">Reference: {reference}</p>
+      </div>
+    )
+  }
+
+  if (paymentState === 'pending') {
+    return (
+      <div className="flex flex-col items-center text-center py-12">
+        <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-5">
+          <Clock size={32} className="text-blue-500" />
+        </div>
+        <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Payment Processing</h3>
+        <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
+          Your payment is being confirmed by your mobile network. We&apos;ll send a confirmation email once it clears.
+        </p>
+        {reference && <p className="text-slate-400 text-xs mt-2">Reference: {reference}</p>}
       </div>
     )
   }
@@ -98,7 +115,9 @@ export function EventPartnerSection({ eventId, eventTitle }: { eventId: string; 
           label={`Event Partnership — ${eventTitle}`}
           type="event" eventId={eventId} message={message}
           disabled={!canPay}
-          onSuccess={(ref) => { setReference(ref); setSuccess(true) }}
+          onSuccess={(ref) => { setReference(ref); setPaymentState('success') }}
+          onAbandoned={() => setPaymentState('abandoned')}
+          onPending={() => setPaymentState('pending')}
           className={`w-full py-3.5 text-sm font-bold transition-all ${
             canPay
               ? 'bg-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/85 cursor-pointer'
@@ -107,6 +126,22 @@ export function EventPartnerSection({ eventId, eventTitle }: { eventId: string; 
         >
           Give ZMW {amount > 0 ? amount.toLocaleString() : '—'}
         </LencoPayButton>
+
+        {paymentState === 'abandoned' && (
+          <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 p-3.5 text-sm">
+            <RotateCcw size={15} className="text-amber-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-amber-800 font-medium">Payment not completed.</p>
+              <p className="text-amber-700 text-xs mt-0.5">You can try again whenever you&apos;re ready.</p>
+            </div>
+            <button
+              onClick={() => setPaymentState('idle')}
+              className="ml-auto text-xs font-bold text-amber-700 underline underline-offset-2 shrink-0"
+            >
+              Try again
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

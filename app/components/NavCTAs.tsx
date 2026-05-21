@@ -12,7 +12,7 @@ export function NavCTAs() {
       {/* Desktop split pill */}
       <div className="hidden md:inline-flex overflow-hidden border border-teleiosis-gold/40 shadow-sm shadow-teleiosis-gold/20 rounded-full">
         <Link
-          href="/contact"
+          href="/register"
           className="px-5 py-2 bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors whitespace-nowrap"
         >
           Join Us
@@ -38,7 +38,7 @@ export function MobileNavCTAs() {
     <>
       <div className="px-6 py-4 flex flex-col gap-2">
         <Link
-          href="/contact"
+          href="/register"
           className="block w-full text-center px-5 py-3 bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20"
         >
           Join Us

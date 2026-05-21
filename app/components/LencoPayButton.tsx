@@ -22,7 +22,7 @@ interface LencoOptions {
   lastname?: string
   onSuccess: (data: { reference: string }) => void
   onClose: () => void
-  onConfirmationPending?: (data: { reference: string }) => void
+  onConfirmationPending?: () => void
 }
 
 interface LencoPayButtonProps {
@@ -37,6 +37,8 @@ interface LencoPayButtonProps {
   children: React.ReactNode
   className?: string
   onSuccess?: (reference: string) => void
+  onAbandoned?: () => void
+  onPending?: () => void
   onBeforeOpen?: () => void
   disabled?: boolean
 }
@@ -61,6 +63,8 @@ export function LencoPayButton({
   children,
   className = '',
   onSuccess,
+  onAbandoned,
+  onPending,
   onBeforeOpen,
   disabled = false,
 }: LencoPayButtonProps) {
@@ -69,6 +73,7 @@ export function LencoPayButton({
   const [missingKey, setMissingKey] = useState(false)
   const [loading, setLoading] = useState(false)
   const scriptRef = useRef<HTMLScriptElement | null>(null)
+  const referenceRef = useRef<string>('')
 
   useEffect(() => {
     // If script is already in the DOM (e.g. re-mount), mark as ready immediately
@@ -114,6 +119,7 @@ export function LencoPayButton({
     }
 
     const reference = generateReference()
+    referenceRef.current = reference
     const [firstname, ...rest] = name.trim().split(' ')
     const lastname = rest.join(' ') || undefined
 
@@ -140,10 +146,22 @@ export function LencoPayButton({
           setLoading(false)
         }
       },
-      onClose: () => setLoading(false),
-      onConfirmationPending: ({ reference: ref }) => {
-        onSuccess?.(ref)
+      onClose: () => {
         setLoading(false)
+        onAbandoned?.()
+      },
+      onConfirmationPending: async () => {
+        const ref = referenceRef.current
+        try {
+          await fetch('/api/payments/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reference: ref, type, eventId, productId, name, email, amount, message }),
+          })
+        } finally {
+          setLoading(false)
+          onPending?.()
+        }
       },
     })
   }

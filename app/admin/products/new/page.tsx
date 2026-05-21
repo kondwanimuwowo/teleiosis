@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { ImageUploader } from '../../components/ImageUploader'
 
 const CATEGORIES = ['book', 'merch', 'resource']
 
@@ -74,12 +75,12 @@ export default function NewProductPage() {
             className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] resize-none" />
         </div>
 
-        <div>
-          <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Image URL</label>
-          <input type="url" value={form.image_url} onChange={(e) => set('image_url', e.target.value)}
-            placeholder="https://..."
-            className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300" />
-        </div>
+        <ImageUploader
+          value={form.image_url}
+          onUpload={(url) => set('image_url', url)}
+          folder="products"
+          label="Product Image"
+        />
 
         <div className="flex items-center gap-3">
           <input type="checkbox" id="in_stock" checked={form.in_stock} onChange={(e) => set('in_stock', e.target.checked)}
