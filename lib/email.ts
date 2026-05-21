@@ -93,7 +93,7 @@ export async function sendPaymentConfirmation({
   to: string; name: string; amount: number; reference: string
   type: string; eventTitle?: string; message?: string
 }) {
-  const typeLabel = type === 'partnership' ? 'Partnership Gift' : type === 'event' ? 'Event Registration' : 'Payment'
+  const typeLabel = type === 'partnership' ? 'Partnership Gift' : type === 'event' ? 'Event Registration' : type === 'store' ? 'Store Purchase' : 'Payment'
   const body = layout(`
     ${heading(`Thank You, ${name.split(' ')[0]}!`)}
     ${para(`Your ${typeLabel.toLowerCase()} has been received and confirmed. We are grateful for your support of the Teleiosis Mandate.`)}
@@ -267,6 +267,121 @@ export async function sendAdminNewsletterNotification({ email }: { email: string
     from: FROM,
     to: ADMIN_EMAIL,
     subject: `[Teleiosis] New newsletter subscriber — ${email}`,
+    html: body,
+  })
+}
+
+// ─── 7. Event registration confirmation → user ──────────────────────────────
+
+export type EventDetails = {
+  id: string; title: string; date: string
+  time_start?: string | null; time_end?: string | null
+  location?: string | null; speaker?: string | null; type?: string | null
+}
+
+export async function sendEventRegistrationConfirmation({
+  to, name, amount, reference, event,
+}: {
+  to: string; name: string; amount: number; reference: string; event: EventDetails
+}) {
+  const eventDate = new Date(event.date).toLocaleDateString('en-ZM', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+  const timeStr = event.time_start && event.time_end
+    ? `${event.time_start} – ${event.time_end}`
+    : event.time_start ?? null
+
+  const body = layout(`
+    ${heading(`You're Registered, ${name.split(' ')[0]}!`)}
+    ${para(`Your registration for <strong style="color:#2c0e68;">${event.title}</strong> has been confirmed. We look forward to seeing you there.`)}
+    ${divider()}
+    <table cellpadding="0" cellspacing="0" width="100%">
+      ${dataRow('Event', event.title)}
+      ${dataRow('Date', eventDate)}
+      ${timeStr ? dataRow('Time', timeStr) : ''}
+      ${event.location ? dataRow('Venue', event.location) : ''}
+      ${event.speaker ? dataRow('Speaker', event.speaker) : ''}
+      ${event.type ? dataRow('Format', event.type) : ''}
+      ${dataRow('Amount Paid', `ZMW ${Number(amount).toLocaleString('en-ZM', { minimumFractionDigits: 2 })}`)}
+      ${dataRow('Reference', reference)}
+    </table>
+    ${divider()}
+    ${para('Please save this email as your confirmation. We will send you a reminder closer to the event date.')}
+    ${goldButton('View Event Details', `${SITE_URL}/events/${event.id}`)}
+  `)
+
+  return resend.emails.send({
+    from: FROM,
+    to,
+    subject: `You're registered: ${event.title} — Teleiosis Mandate`,
+    html: body,
+  })
+}
+
+// ─── 8. Event reminder → registrant (sent ~24h before) ──────────────────────
+
+export async function sendEventReminder({
+  to, name, event,
+}: {
+  to: string; name: string; event: EventDetails
+}) {
+  const eventDate = new Date(event.date).toLocaleDateString('en-ZM', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+  const timeStr = event.time_start && event.time_end
+    ? `${event.time_start} – ${event.time_end}`
+    : event.time_start ?? null
+
+  const body = layout(`
+    <p style="margin:0 0 16px;display:inline-block;padding:6px 14px;background:#d4af37;color:#2c0e68;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;font-family:Arial,sans-serif;">Tomorrow</p>
+    ${heading(`See You Tomorrow, ${name.split(' ')[0]}!`)}
+    ${para(`This is a reminder that <strong style="color:#2c0e68;">${event.title}</strong> is happening tomorrow. We are looking forward to seeing you.`)}
+    ${divider()}
+    <table cellpadding="0" cellspacing="0" width="100%">
+      ${dataRow('Event', event.title)}
+      ${dataRow('Date', eventDate)}
+      ${timeStr ? dataRow('Time', timeStr) : ''}
+      ${event.location ? dataRow('Venue', event.location) : ''}
+      ${event.speaker ? dataRow('Speaker', event.speaker) : ''}
+      ${event.type ? dataRow('Format', event.type) : ''}
+    </table>
+    ${divider()}
+    ${para('Please come prepared with an open heart and expectation. God is going to move!')}
+    ${goldButton('View Event Details', `${SITE_URL}/events/${event.id}`)}
+  `)
+
+  return resend.emails.send({
+    from: FROM,
+    to,
+    subject: `Reminder: ${event.title} is tomorrow — Teleiosis Mandate`,
+    html: body,
+  })
+}
+
+// ─── 9. Store purchase confirmation → user ───────────────────────────────────
+
+export async function sendStorePurchaseConfirmation({
+  to, name, amount, reference, productName,
+}: {
+  to: string; name: string; amount: number; reference: string; productName: string
+}) {
+  const body = layout(`
+    ${heading(`Order Confirmed, ${name.split(' ')[0]}!`)}
+    ${para(`Thank you for your purchase. Your order has been received and confirmed.`)}
+    ${divider()}
+    <table cellpadding="0" cellspacing="0" width="100%">
+      ${dataRow('Item', productName)}
+      ${dataRow('Amount', `ZMW ${Number(amount).toLocaleString('en-ZM', { minimumFractionDigits: 2 })}`)}
+      ${dataRow('Reference', reference)}
+      ${dataRow('Date', new Date().toLocaleDateString('en-ZM', { day: 'numeric', month: 'long', year: 'numeric' }))}
+    </table>
+    ${divider()}
+    ${para('If you have any questions about your order, please reply to this email or contact us directly.')}
+    <p style="margin:0;font-size:13px;color:#9090a8;font-family:Arial,sans-serif;">
+      <a href="mailto:info@teleiosis.org" style="color:#4a0e68;">info@teleiosis.org</a>
+    </p>
+  `)
+
+  return resend.emails.send({
+    from: FROM,
+    to,
+    subject: `Order confirmed: ${productName} — Teleiosis Mandate`,
     html: body,
   })
 }

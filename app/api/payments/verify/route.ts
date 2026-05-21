@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { sendPaymentConfirmation, sendAdminPaymentNotification } from '@/lib/email'
+import {
+  sendPaymentConfirmation,
+  sendAdminPaymentNotification,
+  sendEventRegistrationConfirmation,
+  sendStorePurchaseConfirmation,
+} from '@/lib/email'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -51,24 +56,40 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to record payment' }, { status: 500 })
     }
 
-    // Fetch event/product title for richer emails
-    let eventTitle: string | undefined
-    let productTitle: string | undefined
+    // Fetch full event or product details for richer emails
+    let eventData: any = null
+    let productData: any = null
     if (eventId) {
-      const { data: ev } = await supabase.from('events').select('title').eq('id', eventId).single()
-      eventTitle = ev?.title
+      const { data } = await supabase
+        .from('events')
+        .select('id, title, date, time_start, time_end, location, speaker, type')
+        .eq('id', eventId)
+        .single()
+      eventData = data
     }
     if (productId) {
-      const { data: pr } = await supabase.from('products').select('name').eq('id', productId).single()
-      productTitle = pr?.name
+      const { data } = await supabase.from('products').select('name').eq('id', productId).single()
+      productData = data
     }
 
     // Send emails non-blocking — don't let email failure block the payment response
     if (status === 'verified' && email) {
-      Promise.all([
-        sendPaymentConfirmation({ to: email, name: name || email, amount, reference, type, eventTitle, message }),
-        sendAdminPaymentNotification({ name: name || 'Unknown', email, amount, reference, type, eventTitle, productTitle, message }),
-      ]).catch((err) => console.error('Email send error:', err))
+      const userEmail = name || email
+      const adminPromise = sendAdminPaymentNotification({
+        name: name || 'Unknown', email, amount, reference, type,
+        eventTitle: eventData?.title, productTitle: productData?.name, message,
+      })
+
+      let userPromise: Promise<any>
+      if (type === 'event' && eventData) {
+        userPromise = sendEventRegistrationConfirmation({ to: email, name: userEmail, amount, reference, event: eventData })
+      } else if (type === 'store' && productData) {
+        userPromise = sendStorePurchaseConfirmation({ to: email, name: userEmail, amount, reference, productName: productData.name })
+      } else {
+        userPromise = sendPaymentConfirmation({ to: email, name: userEmail, amount, reference, type, message })
+      }
+
+      Promise.all([userPromise, adminPromise]).catch((err) => console.error('Email send error:', err))
     }
 
     return NextResponse.json({ success: true, status, reference })
