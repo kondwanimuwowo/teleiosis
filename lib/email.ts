@@ -1,6 +1,10 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+let _resend: Resend | null = null
+function getResend() {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY)
+  return _resend
+}
 
 const FROM = process.env.RESEND_FROM || 'Teleiosis Mandate <noreply@notifications.teleiosis.org>'
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@teleiosis.org'
@@ -114,7 +118,7 @@ export async function sendPaymentConfirmation({
     </p>
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `Thank you for your ${typeLabel.toLowerCase()} — Teleiosis Mandate`,
@@ -151,7 +155,7 @@ export async function sendAdminPaymentNotification({
     ${goldButton('View in Dashboard', `${SITE_URL}/admin/payments`)}
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: ADMIN_EMAIL,
     subject: `[Teleiosis] New ${typeLabel} — ZMW ${amount} from ${name || email}`,
@@ -180,7 +184,7 @@ export async function sendContactConfirmation({
     ${goldButton('Explore Teachings', `${SITE_URL}/teachings`)}
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `We received your message — Teleiosis Mandate`,
@@ -214,7 +218,7 @@ export async function sendAdminContactNotification({
     ${goldButton('Reply to ' + name.split(' ')[0], `mailto:${email}`)}
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: ADMIN_EMAIL,
     replyTo: email,
@@ -242,7 +246,7 @@ export async function sendNewsletterWelcome({ email }: { email: string }) {
     ${goldButton('Explore Teachings', `${SITE_URL}/teachings`)}
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: email,
     subject: `Welcome to the Teleiosis Mandate newsletter`,
@@ -263,7 +267,7 @@ export async function sendAdminNewsletterNotification({ email }: { email: string
     </table>
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: ADMIN_EMAIL,
     subject: `[Teleiosis] New newsletter subscriber — ${email}`,
@@ -308,7 +312,7 @@ export async function sendEventRegistrationConfirmation({
     ${goldButton('View Event Details', `${SITE_URL}/events/${event.id}`)}
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `You're registered: ${event.title} — Teleiosis Mandate`,
@@ -346,7 +350,7 @@ export async function sendEventReminder({
     ${goldButton('View Event Details', `${SITE_URL}/events/${event.id}`)}
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `Reminder: ${event.title} is tomorrow — Teleiosis Mandate`,
@@ -378,7 +382,7 @@ export async function sendStorePurchaseConfirmation({
     </p>
   `)
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `Order confirmed: ${productName} — Teleiosis Mandate`,
