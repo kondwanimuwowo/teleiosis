@@ -13,11 +13,12 @@ interface ShareButtonsProps {
 export function ShareButtons({ url, title, description, className = '' }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false)
 
-  const encodedUrl = encodeURIComponent(url)
+  const fullUrl = url.startsWith('http') ? url : `https://${url}`
+  const encodedUrl = encodeURIComponent(fullUrl)
   const encodedText = encodeURIComponent(description ? `${title} — ${description}` : title)
 
   function copyLink() {
-    navigator.clipboard.writeText(url).then(() => {
+    navigator.clipboard.writeText(fullUrl).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     })
