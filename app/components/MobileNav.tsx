@@ -27,8 +27,8 @@ const SOCIALS = [
 
 const panelVariants = {
   hidden: { x: "100%" },
-  visible: { x: 0, transition: { type: "spring", damping: 28, stiffness: 220 } },
-  exit:   { x: "100%", transition: { type: "spring", damping: 28, stiffness: 220 } },
+  visible: { x: 0, transition: { type: "spring" as const, damping: 28, stiffness: 220 } },
+  exit:   { x: "100%", transition: { type: "spring" as const, damping: 28, stiffness: 220 } },
 }
 
 const listVariants = {
@@ -38,7 +38,7 @@ const listVariants = {
 
 const linkVariants = {
   hidden:  { opacity: 0, x: 18 },
-  visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 22, stiffness: 280 } },
+  visible: { opacity: 1, x: 0, transition: { type: "spring" as const, damping: 22, stiffness: 280 } },
 }
 
 export function MobileNav() {
