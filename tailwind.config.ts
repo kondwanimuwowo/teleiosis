@@ -58,6 +58,8 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        card: "var(--radius)",          // default card / container rounding (12px)
+        input: "calc(var(--radius) / 2)", // input field rounding (6px)
       },
       keyframes: {
         "fade-in-up": {

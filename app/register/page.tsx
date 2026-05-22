@@ -56,7 +56,7 @@ export default function RegisterPage() {
             </div>
 
             {/* Right — form */}
-            <div className="bg-slate-50 border border-slate-100 p-6 sm:p-10 shadow-sm">
+            <div className="bg-slate-50 border border-slate-100 p-6 sm:p-10 shadow-sm rounded-xl">
               <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-6">Register Today</h3>
               <RegisterForm />
             </div>

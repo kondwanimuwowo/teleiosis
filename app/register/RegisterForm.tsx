@@ -54,13 +54,13 @@ export function RegisterForm() {
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/events"
-            className="px-6 py-3 bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#3a1878] transition-colors"
+            className="px-6 py-3 rounded-full bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#3a1878] transition-colors"
           >
             View Events
           </Link>
           <Link
             href="/teachings"
-            className="px-6 py-3 border-2 border-[#2c0e68] text-[#2c0e68] text-sm font-bold hover:bg-slate-50 transition-colors"
+            className="px-6 py-3 rounded-full border-2 border-[#2c0e68] text-[#2c0e68] text-sm font-bold hover:bg-slate-50 transition-colors"
           >
             Explore Teachings
           </Link>
@@ -69,7 +69,7 @@ export function RegisterForm() {
     )
   }
 
-  const inputCls = 'w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 bg-white'
+  const inputCls = 'w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] rounded-lg focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 bg-white transition-colors'
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -132,7 +132,7 @@ export function RegisterForm() {
       <button
         type="submit"
         disabled={loading}
-        className={`w-full py-4 text-sm font-bold transition-all ${
+        className={`w-full py-4 text-sm font-bold rounded-xl transition-all ${
           loading ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-[#2c0e68] text-white hover:bg-[#3a1878] cursor-pointer'
         }`}
       >

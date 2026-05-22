@@ -58,72 +58,67 @@ export function ContactForm() {
     )
   }
 
+  const inputCls = 'w-full bg-white border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] rounded-lg focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 transition-colors'
+  const labelCls = 'block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5'
+
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
-      <div className="space-y-2">
-        <label htmlFor="name" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-          Full Name
-        </label>
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
+      <div>
+        <label htmlFor="name" className={labelCls}>Full Name</label>
         <input
           id="name" type="text" name="name" required
           placeholder="John Doe"
           value={form.name}
           onChange={(e) => set('name', e.target.value)}
-          className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base placeholder-slate-300 focus:outline-none focus:border-teleiosis-gold transition-colors"
+          className={inputCls}
         />
       </div>
-      <div className="space-y-2">
-        <label htmlFor="email" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-          Email Address
-        </label>
+      <div>
+        <label htmlFor="email" className={labelCls}>Email Address</label>
         <input
           id="email" type="email" name="email" required
           placeholder="john@example.com"
           value={form.email}
           onChange={(e) => set('email', e.target.value)}
-          className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base placeholder-slate-300 focus:outline-none focus:border-teleiosis-gold transition-colors"
+          className={inputCls}
         />
       </div>
-      <div className="sm:col-span-2 space-y-2">
-        <label htmlFor="subject" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-          Subject
-        </label>
+      <div className="sm:col-span-2">
+        <label htmlFor="subject" className={labelCls}>Subject</label>
         <select
           id="subject" name="subject"
           value={form.subject}
           onChange={(e) => set('subject', e.target.value)}
-          className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base focus:outline-none focus:border-teleiosis-gold transition-colors appearance-none"
+          className={inputCls + ' appearance-none'}
         >
           {SUBJECTS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
         </select>
       </div>
-      <div className="sm:col-span-2 space-y-2">
-        <label htmlFor="message" className="block text-[11px] font-bold tracking-widest uppercase text-slate-400">
-          How can we help you?
-        </label>
+      <div className="sm:col-span-2">
+        <label htmlFor="message" className={labelCls}>How can we help you?</label>
         <textarea
           id="message" name="message" rows={4} required
           placeholder="Your message here..."
           value={form.message}
           onChange={(e) => set('message', e.target.value)}
-          className="w-full bg-white px-0 py-3 border-b border-slate-200 text-slate-900 text-base placeholder-slate-300 focus:outline-none focus:border-teleiosis-gold transition-colors resize-none"
+          className={inputCls + ' resize-none'}
         />
       </div>
 
       {status === 'error' && (
-        <div className="sm:col-span-2 text-sm text-red-600 bg-red-50 border border-red-100 px-4 py-3">
+        <div className="sm:col-span-2 text-sm text-red-600 bg-red-50 border border-red-100 px-4 py-3 rounded-lg">
           {errorMsg}
         </div>
       )}
 
-      <div className="sm:col-span-2 pt-4">
+      <div className="sm:col-span-2 pt-2">
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="inline-flex items-center gap-2.5 h-14 px-10 rounded-full bg-[#4a0e68] text-white font-bold hover:bg-[#2c0e68] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-none"
+          className="inline-flex items-center gap-2.5 h-12 px-8 rounded-full bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#2c0e68] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {status === 'loading' ? (
-            <><Loader2 size={16} className="animate-spin" /> Sending…</>
+            <><Loader2 size={15} className="animate-spin" /> Sending…</>
           ) : 'Send Message'}
         </button>
       </div>

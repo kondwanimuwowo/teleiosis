@@ -135,7 +135,7 @@ export default function PartnershipPage() {
                         <button
                           key={a}
                           onClick={() => { setSelectedAmount(a); setCustomAmount('') }}
-                          className={`py-3 text-sm font-bold border transition-all ${
+                          className={`py-3 text-sm font-bold rounded-lg border transition-all ${
                             selectedAmount === a
                               ? 'bg-[#2c0e68] text-white border-[#2c0e68]'
                               : 'bg-white text-[#2c0e68] border-slate-200 hover:border-[#2c0e68]'
@@ -151,7 +151,7 @@ export default function PartnershipPage() {
                       placeholder="Custom amount"
                       value={customAmount}
                       onChange={(e) => { setCustomAmount(e.target.value); setSelectedAmount(null) }}
-                      className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300"
+                      className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] rounded-lg focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 transition-colors"
                     />
                   </div>
 
@@ -164,7 +164,7 @@ export default function PartnershipPage() {
                         placeholder="Your name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300"
+                        className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] rounded-lg focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 transition-colors"
                       />
                     </div>
                     <div>
@@ -174,7 +174,7 @@ export default function PartnershipPage() {
                         placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300"
+                        className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] rounded-lg focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 transition-colors"
                       />
                     </div>
                   </div>
@@ -189,7 +189,7 @@ export default function PartnershipPage() {
                       placeholder="A word with your giving..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 resize-none"
+                      className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] rounded-lg focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 resize-none transition-colors"
                     />
                   </div>
 
@@ -204,7 +204,7 @@ export default function PartnershipPage() {
                     onSuccess={(ref) => { setReference(ref); setPaymentState('success') }}
                     onAbandoned={() => setPaymentState('abandoned')}
                     onPending={() => setPaymentState('pending')}
-                    className={`w-full py-4 text-sm font-bold transition-all ${
+                    className={`w-full py-4 text-sm font-bold rounded-xl transition-all ${
                       canPay
                         ? 'bg-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/85 cursor-pointer'
                         : 'bg-slate-100 text-slate-400 cursor-not-allowed'
@@ -214,7 +214,7 @@ export default function PartnershipPage() {
                   </LencoPayButton>
 
                   {paymentState === 'abandoned' && (
-                    <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 p-3.5 text-sm">
+                    <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 p-3.5 rounded-lg text-sm">
                       <RotateCcw size={15} className="text-amber-500 shrink-0 mt-0.5" />
                       <div className="flex-1">
                         <p className="text-amber-800 font-medium">Payment not completed.</p>

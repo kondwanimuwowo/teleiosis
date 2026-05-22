@@ -42,14 +42,11 @@ export default function ContactPage() {
             {/* Form Section */}
             <div className="lg:col-span-7">
               <FadeIn>
-                <div className="space-y-10">
-                  <div>
-                    <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] mb-4">Send a Message</h2>
-                    <p className="text-slate-500 text-sm sm:text-base max-w-lg">
-                      Fill out the form below and our team will get back to you as soon as possible.
-                    </p>
-                  </div>
-                  
+                <div className="bg-slate-50 border border-slate-100 p-6 sm:p-10 shadow-sm rounded-xl">
+                  <h2 className="font-serif font-bold text-xl text-[#2c0e68] mb-1">Send a Message</h2>
+                  <p className="text-slate-500 text-sm mb-8">
+                    Fill out the form below and we will get back to you as soon as possible.
+                  </p>
                   <ContactForm />
                 </div>
               </FadeIn>
