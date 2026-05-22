@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 type Quote = { id: string; text: string; scripture: string | null; author: string }
 
@@ -14,14 +14,6 @@ export default function QuoteBandClient() {
   const [quote, setQuote] = useState<Quote | null>(null)
   const [isPaused, setIsPaused] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const containerRef = useRef<HTMLElement>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%'])
 
   const fetchQuote = async () => {
     try {
@@ -49,9 +41,13 @@ export default function QuoteBandClient() {
 
   return (
     <section
-      ref={containerRef}
-      className="min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden group"
-      style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
+      className="min-h-[calc(100vh-80px)] flex items-center relative group"
+      style={{
+        backgroundImage: "linear-gradient(160deg, rgba(44,14,104,0.88) 0%, rgba(20,8,43,0.94) 100%), url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')",
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
     >
       <style>{`
         @keyframes progress-ring {
@@ -59,12 +55,6 @@ export default function QuoteBandClient() {
           to   { stroke-dashoffset: 0; }
         }
       `}</style>
-
-      {/* Background parallax */}
-      <motion.div
-        style={{ y, backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }}
-        className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none scale-110 will-change-transform"
-      />
 
       {/* Noise texture */}
       <div
