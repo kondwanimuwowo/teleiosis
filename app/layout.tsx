@@ -7,6 +7,7 @@ import { Suspense } from 'react'
 import { AudioProvider } from './context/AudioContext'
 import { GlobalAudioPlayer } from './components/GlobalAudioPlayer'
 import { JsonLd, organizationSchema } from './components/JsonLd'
+import SmoothScroll from './components/SmoothScroll'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -78,13 +79,15 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${cinzel.variable} font-sans antialiased`} suppressHydrationWarning>
         <AudioProvider>
-          <Suspense fallback={null}>
-            <ProgressBar />
-          </Suspense>
-          <PublicShell>
-            {children}
-          </PublicShell>
-          <GlobalAudioPlayer />
+          <SmoothScroll>
+            <Suspense fallback={null}>
+              <ProgressBar />
+            </Suspense>
+            <PublicShell>
+              {children}
+            </PublicShell>
+            <GlobalAudioPlayer />
+          </SmoothScroll>
         </AudioProvider>
       </body>
     </html>
