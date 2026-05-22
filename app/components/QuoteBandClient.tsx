@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
 
 type Quote = { id: string; text: string; scripture: string | null; author: string }
 
@@ -21,7 +21,8 @@ export default function QuoteBandClient() {
     offset: ['start end', 'end start'],
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%'])
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 60, damping: 20, restDelta: 0.001 })
+  const y = useTransform(smoothProgress, [0, 1], ['-6%', '6%'])
 
   const fetchQuote = async () => {
     try {
@@ -62,7 +63,7 @@ export default function QuoteBandClient() {
 
       {/* Background parallax */}
       <motion.div
-        style={{ y, backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }}
+        style={{ y, backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')", translateZ: 0 }}
         className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none scale-110 will-change-transform"
       />
 
