@@ -204,10 +204,10 @@ export default async function Home() {
                     ))}
                   </dl>
                   <div className="flex flex-wrap gap-3">
-                    <Link href={`/events/${nextEvent.id}`} className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm">
+                    <Link href={`/events/${nextEvent.id}`} className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] rounded-full bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm">
                       Learn More
                     </Link>
-                    <Link href="/events" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition-colors">
+                    <Link href="/events" className="inline-flex items-center justify-center px-6 py-3 min-h-[44px] rounded-full border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition-colors">
                       All Events
                     </Link>
                   </div>
@@ -220,7 +220,7 @@ export default async function Home() {
 
       {/* ── NEWS & UPDATES ───────────────────────────────────────── */}
       <FadeIn delay={0.1}>
-        <section className="bg-white py-20 sm:py-28 lg:py-32">
+        <section className="bg-[#f8f7ff] py-20 sm:py-28 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Latest</p>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
@@ -231,7 +231,7 @@ export default async function Home() {
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden rounded-xl"
+                  className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md shadow-sm transition-all duration-300 overflow-hidden rounded-xl"
                 >
                   <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                     <img
@@ -260,6 +260,14 @@ export default async function Home() {
                   </div>
                 </Link>
               ))}
+            </div>
+            <div className="mt-10 text-center">
+              <Link
+                href="/blog"
+                className="inline-block px-8 py-3 border-2 border-[#2c0e68] text-[#2c0e68] text-sm font-semibold tracking-wide hover:bg-[#2c0e68] hover:text-white transition-colors duration-200 rounded-full"
+              >
+                View All Posts
+              </Link>
             </div>
           </div>
         </section>

@@ -53,7 +53,7 @@ export default async function AdminPaymentsPage() {
           { label: 'Partnerships', value: partnerships.length },
           { label: 'Event Gifts', value: events.length },
         ].map(({ label, value }) => (
-          <div key={label} className="bg-white border border-slate-100 p-5">
+          <div key={label} className="bg-white border border-slate-100 p-5 rounded-xl">
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">{label}</p>
             <p className="font-serif font-bold text-2xl text-[#2c0e68]">{value}</p>
           </div>

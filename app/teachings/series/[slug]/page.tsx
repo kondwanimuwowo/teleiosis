@@ -190,7 +190,7 @@ export default async function SeriesDetailPage({ params }: Props) {
                   <Link
                     key={s.id}
                     href={`/teachings/series/${s.slug}`}
-                    className="group bg-white border border-slate-100 overflow-hidden hover:border-[#4a0e68]/20 hover:shadow-lg transition-all duration-300"
+                    className="group bg-white border border-slate-100 overflow-hidden hover:border-[#4a0e68]/20 hover:shadow-lg transition-all duration-300 rounded-xl"
                   >
                     <div className="aspect-[16/9] overflow-hidden bg-[#2c0e68] relative">
                       {s.thumbnail_url ? (

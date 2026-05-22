@@ -97,7 +97,7 @@ export default function PartnershipPage() {
             </div>
 
             {/* Right — form */}
-            <div className="bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
+            <div className="bg-white border border-slate-100 p-6 sm:p-8 shadow-sm rounded-xl">
               {paymentState === 'success' ? (
                 <div className="flex flex-col items-center text-center py-8">
                   <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-5">

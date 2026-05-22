@@ -179,7 +179,7 @@ export default async function BlogPostPage({ params }: Props) {
                   <Link
                     key={rel.id}
                     href={`/blog/${rel.slug}`}
-                    className="group bg-white border border-slate-100 overflow-hidden hover:border-[#4a0e68]/20 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col"
+                    className="group bg-white border border-slate-100 overflow-hidden hover:border-[#4a0e68]/20 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col rounded-xl"
                   >
                     <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                       <img

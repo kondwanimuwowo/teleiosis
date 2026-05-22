@@ -17,7 +17,7 @@ export default async function AdminProgramGroupsPage() {
 
       <div className="space-y-4">
         {(groups ?? []).map((group, i) => (
-          <div key={group.id} className="bg-white border border-slate-100 p-5 flex items-start gap-5">
+          <div key={group.id} className="bg-white border border-slate-100 p-5 flex items-start gap-5 rounded-xl">
             <div className="w-10 h-10 bg-[#2c0e68]/5 border border-[#2c0e68]/10 flex items-center justify-center flex-shrink-0">
               <Layers size={18} className="text-[#4a0e68]" />
             </div>

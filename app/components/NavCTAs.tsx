@@ -39,13 +39,13 @@ export function MobileNavCTAs() {
       <div className="px-6 py-4 flex flex-col gap-2">
         <Link
           href="/register"
-          className="block w-full text-center px-5 py-3 bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20"
+          className="block w-full text-center px-5 py-3 bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20 rounded-full"
         >
           Join Us
         </Link>
         <button
           onClick={() => setPartnerOpen(true)}
-          className="block w-full text-center px-5 py-3 border-2 border-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/10 transition-colors"
+          className="block w-full text-center px-5 py-3 border-2 border-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/10 transition-colors rounded-full"
         >
           Partner with Us
         </button>

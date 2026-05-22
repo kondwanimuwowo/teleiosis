@@ -7,51 +7,47 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Facebook, Instagram, Youtube, Phone, Mail } from "lucide-react"
 import { PartnershipModal } from "./PartnershipModal"
 
-function MobileMenuCTAs({ onClose }: { onClose: () => void }) {
-  const [partnerOpen, setPartnerOpen] = useState(false)
-  return (
-    <>
-      <div className="px-6 py-4 flex flex-col gap-2">
-        <Link
-          href="/contact"
-          onClick={onClose}
-          className="block w-full text-center px-5 py-3 bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors shadow-sm shadow-teleiosis-gold/20"
-        >
-          Join Us
-        </Link>
-        <button
-          onClick={() => setPartnerOpen(true)}
-          className="block w-full text-center px-5 py-3 border-2 border-[#4a0e68]/30 text-[#4a0e68] text-sm font-bold hover:bg-teleiosis-gold/10 hover:border-teleiosis-gold transition-colors"
-        >
-          Partner with Us
-        </button>
-      </div>
-      <PartnershipModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
-    </>
-  )
+const NAV_LINKS = [
+  { href: "/",          label: "Home" },
+  { href: "/about",     label: "About" },
+  { href: "/teachings", label: "Teachings" },
+  { href: "/events",    label: "Events" },
+  { href: "/store",     label: "Store" },
+  { href: "/blog",      label: "Blog" },
+  { href: "/contact",   label: "Contact" },
+]
+
+const SOCIALS = [
+  { icon: Facebook,  href: 'https://web.facebook.com/Rhemaword27' },
+  { icon: Instagram, href: 'https://instagram.com' },
+  { icon: Youtube,   href: 'https://youtube.com' },
+  { icon: Phone,     href: 'tel:+260977964076' },
+  { icon: Mail,      href: 'mailto:info@teleiosis.org' },
+]
+
+const panelVariants = {
+  hidden: { x: "100%" },
+  visible: { x: 0, transition: { type: "spring", damping: 28, stiffness: 220 } },
+  exit:   { x: "100%", transition: { type: "spring", damping: 28, stiffness: 220 } },
 }
 
-const NAV_LINKS = [
-  { href: "/",            label: "Home" },
-  { href: "/about",       label: "About" },
-  { href: "/teachings",   label: "Teachings" },
-  { href: "/events",      label: "Events" },
-  { href: "/store",       label: "Store" },
-  { href: "/blog",        label: "Blog" },
-  { href: "/contact",     label: "Contact" },
-]
+const listVariants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
+}
+
+const linkVariants = {
+  hidden:  { opacity: 0, x: 18 },
+  visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 22, stiffness: 280 } },
+}
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)
+  const [partnerOpen, setPartnerOpen] = useState(false)
   const pathname = usePathname()
 
-  // Prevent scrolling when menu is open
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
+    document.body.style.overflow = open ? 'hidden' : 'unset'
     return () => { document.body.style.overflow = 'unset' }
   }, [open])
 
@@ -59,13 +55,13 @@ export function MobileNav() {
     <div className="md:hidden">
       <button
         onClick={() => setOpen(true)}
-        className="p-2 rounded-lg text-white/70 hover:text-teleiosis-gold transition-colors"
+        className="p-2 text-white/70 hover:text-teleiosis-gold transition-colors"
         aria-label="Open menu"
       >
         <Menu className="w-6 h-6" />
       </button>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {open && (
           <>
             {/* Backdrop */}
@@ -74,85 +70,120 @@ export function MobileNav() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-[100] bg-black/40"
+              className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
             />
 
-            {/* Side Menu */}
+            {/* Panel */}
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-[101] w-[70%] max-w-[300px] bg-[#f8f7ff] flex flex-col overflow-hidden shadow-2xl"
+              variants={panelVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed inset-y-0 right-0 z-[101] w-[72%] max-w-[300px] flex flex-col overflow-hidden"
+              style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}
             >
+              {/* Gold top accent line */}
+              <div className="h-px bg-gradient-to-r from-transparent via-teleiosis-gold/60 to-transparent" />
+
               {/* Header */}
-              <div className="p-6 flex items-center justify-between border-b-4 border-[#4a0e68]/20 bg-[#faf9ff]">
-                <span className="font-serif font-bold text-xl text-[#2c0e68] tracking-[0.2em]">
-                  TELEIOSIS
-                </span>
+              <div className="px-6 pt-6 pb-5 flex items-start justify-between border-b border-white/8">
+                <div>
+                  <p className="font-serif font-bold text-lg text-white tracking-[0.25em] leading-none mb-1">
+                    TELEIOSIS
+                  </p>
+                  <p className="text-teleiosis-gold/40 text-[10px] tracking-[0.2em]">τελείωσις</p>
+                </div>
                 <button
                   onClick={() => setOpen(false)}
-                  className="p-2 text-[#4a0e68]/60 hover:text-teleiosis-gold transition-colors"
+                  className="p-1.5 text-white/30 hover:text-teleiosis-gold transition-colors mt-0.5"
+                  aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Navigation Links */}
-              <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+              {/* Nav links */}
+              <motion.nav
+                variants={listVariants}
+                initial="hidden"
+                animate="visible"
+                className="flex-1 overflow-y-auto py-5 px-4 space-y-0.5"
+              >
                 {NAV_LINKS.map(({ href, label }) => {
                   const isActive = pathname === href
                   return (
-                    <Link
-                      key={href}
-                      href={href}
-                      onClick={() => setOpen(false)}
-                      className={`block px-4 py-3 rounded-lg transition-all font-bold text-sm tracking-wide ${
-                        isActive
-                          ? 'text-teleiosis-gold bg-teleiosis-gold/5'
-                          : 'text-[#4a0e68]/80 hover:text-teleiosis-gold hover:bg-teleiosis-gold/5'
-                      }`}
-                    >
-                      {label}
-                    </Link>
+                    <motion.div key={href} variants={linkVariants}>
+                      <Link
+                        href={href}
+                        onClick={() => setOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold tracking-wide transition-all duration-200 ${
+                          isActive
+                            ? 'text-teleiosis-gold bg-white/5'
+                            : 'text-white/55 hover:text-white hover:bg-white/5'
+                        }`}
+                      >
+                        {/* Active indicator */}
+                        <span className={`flex-shrink-0 w-0.5 h-4 rounded-full transition-all duration-200 ${
+                          isActive ? 'bg-teleiosis-gold' : 'bg-transparent'
+                        }`} />
+                        {label}
+                      </Link>
+                    </motion.div>
                   )
                 })}
-              </nav>
+              </motion.nav>
 
               {/* Divider */}
-              <div className="h-px bg-[#4a0e68]/10" />
+              <div className="h-px bg-white/8 mx-6" />
 
               {/* CTAs */}
-              <MobileMenuCTAs onClose={() => setOpen(false)} />
+              <div className="px-6 py-5 flex flex-col gap-2.5">
+                <Link
+                  href="/register"
+                  onClick={() => setOpen(false)}
+                  className="block w-full text-center px-5 py-3 bg-teleiosis-gold text-[#14082b] text-sm font-bold hover:bg-teleiosis-gold/90 transition-colors rounded-full"
+                >
+                  Join Us
+                </Link>
+                <button
+                  onClick={() => setPartnerOpen(true)}
+                  className="block w-full text-center px-5 py-3 border border-white/15 text-white/60 text-sm font-semibold hover:border-teleiosis-gold/50 hover:text-teleiosis-gold transition-all duration-200 rounded-full"
+                >
+                  Partner with Us
+                </button>
+              </div>
 
-              {/* Footer - Social Links */}
-              <div className="p-6 flex flex-col items-center gap-4 border-t-4 border-[#4a0e68]/20 bg-[#faf9ff]">
-                <p className="text-[#4a0e68]/70 text-[10px] font-bold tracking-[0.3em] uppercase">Connect with us</p>
+              {/* Divider */}
+              <div className="h-px bg-white/8 mx-6" />
 
-                <div className="flex justify-center gap-3">
-                  {[
-                    { icon: Facebook,  href: 'https://web.facebook.com/Rhemaword27' },
-                    { icon: Instagram, href: 'https://instagram.com' },
-                    { icon: Youtube,   href: 'https://youtube.com' },
-                    { icon: Phone,     href: 'tel:+260977964076' },
-                    { icon: Mail,      href: 'mailto:info@teleiosis.org' },
-                  ].map((social, i) => (
+              {/* Social + scripture */}
+              <div className="px-6 py-5 flex flex-col items-center gap-3">
+                <div className="flex justify-center gap-2">
+                  {SOCIALS.map((s, i) => (
                     <a
                       key={i}
-                      href={social.href}
-                      target={social.href.startsWith('http') ? '_blank' : undefined}
-                      rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="w-9 h-9 rounded-full border border-[#4a0e68]/20 flex items-center justify-center text-[#4a0e68]/60 hover:text-teleiosis-gold hover:bg-teleiosis-gold/10 hover:border-teleiosis-gold transition-all duration-200"
+                      href={s.href}
+                      target={s.href.startsWith('http') ? '_blank' : undefined}
+                      rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-teleiosis-gold hover:border-teleiosis-gold/40 transition-all duration-200"
                     >
-                      <social.icon size={16} />
+                      <s.icon size={14} />
                     </a>
                   ))}
                 </div>
+                <p className="text-white/15 text-[9px] text-center tracking-[0.15em] uppercase font-medium">
+                  "That Which Is Perfect Is Come"
+                </p>
               </div>
+
+              {/* Gold bottom accent line */}
+              <div className="h-px bg-gradient-to-r from-transparent via-teleiosis-gold/30 to-transparent" />
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      <PartnershipModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
     </div>
   )
 }

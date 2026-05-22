@@ -32,7 +32,7 @@ async function BlogData() {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden"
+                className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden rounded-xl"
               >
                 <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                   <img
@@ -83,7 +83,7 @@ function BlogGridSkeleton() {
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="bg-white border border-slate-100 overflow-hidden animate-pulse"
+              className="bg-white border border-slate-100 overflow-hidden animate-pulse rounded-xl"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="aspect-[16/9] bg-slate-100" />
