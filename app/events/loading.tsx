@@ -1,7 +1,7 @@
-export default function EventsLoading() {
+﻿export default function EventsLoading() {
   return (
     <div>
-      <section className="relative flex items-center" style={{ minHeight: '70vh', background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }} />
+      <section className="relative flex items-center" style={{ minHeight: '70vh', background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }} />
       <section className="bg-white py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex gap-2 mb-10">
@@ -31,3 +31,4 @@ export default function EventsLoading() {
     </div>
   )
 }
+

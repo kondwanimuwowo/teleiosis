@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 import { NewsletterForm } from './NewsletterForm'
 
 const NAVIGATE = [
@@ -20,12 +20,12 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-white/10" style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}>
+    <footer className="border-t border-white/10" style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}>
       <div className="mx-auto max-w-7xl px-5 lg:px-10 py-16">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
 
-          {/* ── Brand + newsletter ─────────────────────── */}
+          {/* â”€â”€ Brand + newsletter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           <div className="sm:col-span-2 lg:col-span-2 flex flex-col gap-5">
 
             {/* Wordmark */}
@@ -53,7 +53,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* ── Navigate (Left on mobile/tablet) ───────────────────────────────── */}
+          {/* â”€â”€ Navigate (Left on mobile/tablet) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           <div className="flex flex-col gap-1">
             <h3 className="font-serif font-bold text-sm text-white uppercase tracking-widest mb-3">
               Navigate
@@ -69,7 +69,7 @@ export function Footer() {
             ))}
           </div>
 
-          {/* ── Connect With Us (Right on mobile/tablet) ────────────── */}
+          {/* â”€â”€ Connect With Us (Right on mobile/tablet) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           <div className="flex flex-col gap-8">
 
             {/* Programs */}
@@ -134,14 +134,14 @@ export function Footer() {
           <p className="text-white/35 text-xs">
             &copy; {year} Teleiosis Mandate. All rights reserved.
           </p>
-          {/* Admin portal — intentionally subtle */}
+          {/* Admin portal â€” intentionally subtle */}
           <a
             href="/admin"
             aria-label="Admin"
             className="text-[#2c0e68] hover:text-white/15 transition-colors duration-500 text-[10px] select-none"
             tabIndex={-1}
           >
-            τ
+            Ï„
           </a>
         </div>
 
@@ -149,3 +149,4 @@ export function Footer() {
     </footer>
   )
 }
+

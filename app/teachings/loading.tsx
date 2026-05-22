@@ -1,10 +1,10 @@
-// Shown only for the very brief moment before streaming begins.
+﻿// Shown only for the very brief moment before streaming begins.
 // The hero renders immediately once streaming starts, so we only
 // need a skeleton for the list area here.
 export default function TeachingsLoading() {
   return (
     <div>
-      <section className="relative flex items-center" style={{ minHeight: '70vh', background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }} />
+      <section className="relative flex items-center" style={{ minHeight: '70vh', background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }} />
 
       <div className="bg-white border-b border-slate-100 py-4 sticky top-20 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center gap-3">
@@ -39,3 +39,4 @@ export default function TeachingsLoading() {
     </div>
   )
 }
+

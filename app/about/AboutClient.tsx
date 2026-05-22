@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -76,14 +76,14 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
     { id: '1', value: '500+', label: 'Lives Transformed', sort_order: 0 },
     { id: '2', value: '10+',  label: 'Years of Ministry', sort_order: 1 },
     { id: '3', value: '10+',  label: 'Conferences Held',  sort_order: 2 },
-    { id: '4', value: '∞',    label: "God's Grace",       sort_order: 3 },
+    { id: '4', value: 'âˆž',    label: "God's Grace",       sort_order: 3 },
   ]
 
   const [activeTab, setActiveTab] = useState<TabId>('who-we-are')
 
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────── */}
+      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="relative flex items-center" style={{ minHeight: '70vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/image_3.jpg')" }} />
         <div className="absolute inset-0 bg-[#2c0e68]/85" />
@@ -98,7 +98,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
         </div>
       </section>
 
-      {/* ── TAB BAR ──────────────────────────────────────────────── */}
+      {/* â”€â”€ TAB BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="bg-white border-b border-slate-100 sticky top-20 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center py-3">
@@ -144,7 +144,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
         </div>
       </div>
 
-      {/* ── TAB CONTENT ──────────────────────────────────────────── */}
+      {/* â”€â”€ TAB CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <AnimatePresence mode="wait">
         {activeTab === 'who-we-are' && (
           <motion.div key="who-we-are" variants={panelVariants} initial="hidden" animate="visible" exit="exit">
@@ -219,12 +219,12 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                   <div className="pt-8 lg:pt-0">
                     <h3 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-1">Rhema Nyambe</h3>
                     <p className="text-teleiosis-gold font-semibold text-sm mb-1">Founder &amp; Leader, Teleiosis Mandate</p>
-                    <p className="text-slate-400 text-xs mb-6">Theology Graduate, Rhema Bible Training Center Zambia &nbsp;·&nbsp; Architect</p>
+                    <p className="text-slate-400 text-xs mb-6">Theology Graduate, Rhema Bible Training Center Zambia &nbsp;Â·&nbsp; Architect</p>
                     <p className="text-slate-600 text-base leading-relaxed mb-4">
-                      Rhema is a minister, teacher, and architect with a burning passion for the revelation of Christian perfection. A theology graduate of Rhema Bible Training Center Zambia, he leads the Teleiosis Mandate based in Lusaka with a heart to see believers walk in the fullness of their inheritance in Christ — not in theory, but in practical, lived reality.
+                      Rhema is a minister, teacher, and architect with a burning passion for the revelation of Christian perfection. A theology graduate of Rhema Bible Training Center Zambia, he leads the Teleiosis Mandate based in Lusaka with a heart to see believers walk in the fullness of their inheritance in Christ â€” not in theory, but in practical, lived reality.
                     </p>
                     <p className="text-slate-600 text-base leading-relaxed mb-4">
-                      What began as a devotional ministry called <em>GraceGalore</em> in 2014, a daily word of encouragement to a small group of believers, grew into a full teaching and discipleship movement. By 2020, the revelation had deepened: God was calling His people not merely to grace, but to <em>teleiosis</em> — completion, maturity, the fullness of Christ.
+                      What began as a devotional ministry called <em>GraceGalore</em> in 2014, a daily word of encouragement to a small group of believers, grew into a full teaching and discipleship movement. By 2020, the revelation had deepened: God was calling His people not merely to grace, but to <em>teleiosis</em> â€” completion, maturity, the fullness of Christ.
                     </p>
                     <p className="text-slate-600 text-base leading-relaxed mb-8">
                       Through conferences, fortnightly Saturday classes, and an expanding audio library, Rhema presses on with his wife Edith by his side to equip believers across Zambia and beyond to manifest Kingdom authority in every area of their lives. Together they are parents to their daughter, Brielle Liseli Nyambe.
@@ -252,7 +252,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                       What Is Teleiosis?
                     </h2>
                     <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-5">
-                      Teleiosis comes from the Greek word τελείωσις (teleiósis), which means "perfection," "completion," "maturity," or "full development."
+                      Teleiosis comes from the Greek word Ï„ÎµÎ»ÎµÎ¯Ï‰ÏƒÎ¹Ï‚ (teleiÃ³sis), which means "perfection," "completion," "maturity," or "full development."
                     </p>
                     <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
                       In the New Testament, it refers specifically to the process of believers being brought to their full spiritual maturity and completeness in Christ, not just salvation, but the full realisation of what it means to be a son or daughter of God.
@@ -315,7 +315,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
             </section>
 
             {/* Commitments */}
-            <section className="py-20 sm:py-28 lg:py-32" style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}>
+            <section className="py-20 sm:py-28 lg:py-32" style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Commitment</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight mb-12">
@@ -404,3 +404,4 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
     </>
   )
 }
+

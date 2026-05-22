@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
@@ -51,7 +51,7 @@ export default function QuoteBandClient() {
     <section
       ref={containerRef}
       className="min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden group"
-      style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}
+      style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
     >
       <style>{`
         @keyframes progress-ring {
@@ -112,7 +112,7 @@ export default function QuoteBandClient() {
                         </cite>
                       )}
                       <p className="text-white/60 text-xs tracking-[0.15em] font-serif">
-                        — {quote.author}
+                        â€” {quote.author}
                       </p>
                     </div>
                   </div>
@@ -202,3 +202,4 @@ export default function QuoteBandClient() {
     </section>
   )
 }
+

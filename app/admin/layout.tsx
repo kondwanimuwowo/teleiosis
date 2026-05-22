@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -55,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-slate-50 flex">
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 z-30 flex items-center justify-between px-4 shadow-md" style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}>
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 z-30 flex items-center justify-between px-4 shadow-md" style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}>
         <div className="flex flex-col">
           <p className="font-serif font-bold text-sm text-white tracking-[0.2em]">TELEIOSIS</p>
           <p className="text-teleiosis-gold text-[0.5rem] tracking-[0.25em] font-semibold uppercase">Admin Portal</p>
@@ -76,12 +76,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         />
       )}
 
-      {/* ── Sidebar ─────────────────────────────────────── */}
+      {/* â”€â”€ Sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <aside
         className={`w-64 h-screen flex flex-col fixed top-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}
+        style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
       >
 
         {/* Brand */}
@@ -168,15 +168,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
 
-      {/* ── Main content ─────────────────────────────────── */}
+      {/* â”€â”€ Main content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="flex-1 lg:ml-64 flex flex-col min-h-screen pt-16 lg:pt-0">
         <main className="flex-1 p-8">
           {children}
         </main>
         <footer className="px-8 py-4 border-t border-slate-200">
-          <p className="text-xs text-slate-400">Teleiosis Mandate Admin — Internal Use Only</p>
+          <p className="text-xs text-slate-400">Teleiosis Mandate Admin â€” Internal Use Only</p>
         </footer>
       </div>
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 
@@ -18,9 +18,10 @@ export function NavScrollWrapper({ children }: { children: React.ReactNode }) {
       className={`w-full fixed top-0 left-0 right-0 z-50 border-b border-white/10 transition-shadow duration-300 ${
         scrolled ? "shadow-md shadow-black/20" : ""
       }`}
-      style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}
+      style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
     >
       {children}
     </nav>
   )
 }
+
