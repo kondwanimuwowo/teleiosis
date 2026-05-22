@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { FlipText } from './components/FlipText'
 import { CTASection } from './components/CTASection'
 import { QuoteBand } from './components/QuoteBand'
@@ -16,7 +16,7 @@ function formatDate(iso: string) {
 const PROGRAMS = [
   { n: '01', title: 'Manifested Sons', desc: 'Fortnightly Saturday classes exploring the revelation of the sons of God and Kingdom authority in daily life.', href: '/about', cta: 'Learn more' },
   { n: '02', title: 'Unto Perfection', desc: 'Intensive conferences bringing believers together for deep teaching and encounters with the Spirit. Believers are taught to actualise the word of God in their lives.', href: '/events', cta: 'See events' },
-  { n: '03', title: 'Resurrection Life Conferences', desc: 'Intensive practical conferences where believers encounter and activate the realities of Kingdom life â€” Spirit, Soul, and Body.', href: '/events', cta: 'See events' },
+  { n: '03', title: 'Resurrection Life Conferences', desc: 'Intensive practical conferences where believers encounter and activate the realities of Kingdom life — Spirit, Soul, and Body.', href: '/events', cta: 'See events' },
 ]
 
 export default async function Home() {
@@ -33,7 +33,7 @@ export default async function Home() {
 
   return (
     <>
-      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-hero-zoom will-change-transform origin-center"
@@ -43,12 +43,12 @@ export default async function Home() {
 
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-24 sm:pt-40 sm:pb-32">
           <p className="text-teleiosis-gold text-2xl sm:text-4xl font-semibold tracking-[0.3em] mb-5">
-            Ï„ÎµÎ»ÎµÎ¯Ï‰ÏƒÎ¹Ï‚
+            τελείωσις
           </p>
           <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-6xl text-white tracking-wider mb-5 leading-[1.05] relative">
-            {/* Ghost text â€” invisible, always holds the height of the longest word */}
+            {/* Ghost text — invisible, always holds the height of the longest word */}
             <span aria-hidden="true" className="invisible select-none">Resurrection</span>
-            {/* Animated text â€” sits on top absolutely so height never changes */}
+            {/* Animated text — sits on top absolutely so height never changes */}
             <span className="absolute top-0 left-0"><FlipText /></span>
           </h1>
           <p className="text-white/55 text-base sm:text-lg font-serif mb-6 max-w-xl leading-relaxed">
@@ -68,20 +68,20 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ PILLARS BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── PILLARS BAR ──────────────────────────────────────────── */}
       <section className="bg-slate-50 py-4 hidden sm:block">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-center">
-            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Resurrection Â· Oneness Â· Spirit</p>
+            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Resurrection · Oneness · Spirit</p>
             <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
-            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Sonship Â· Kingdom Â· Glory</p>
+            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Sonship · Kingdom · Glory</p>
             <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
-            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Perfection Â· Purpose Â· Power</p>
+            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Perfection · Purpose · Power</p>
           </div>
         </div>
       </section>
 
-      {/* â”€â”€ WHO WE ARE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── WHO WE ARE ───────────────────────────────────────────── */}
       <FadeIn>
         <section className="bg-white py-20 sm:py-28 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -140,7 +140,7 @@ export default async function Home() {
 
       <QuoteBand />
 
-      {/* â”€â”€ PROGRAMS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── PROGRAMS ─────────────────────────────────────────────── */}
       <FadeIn delay={0.1}>
         <section className="bg-slate-50 py-20 sm:py-28 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -154,7 +154,7 @@ export default async function Home() {
                   <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">{desc}</p>
                   <Link href={href} className="inline-flex items-center gap-1 text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px]">
-                    {cta} â†’
+                    {cta} →
                   </Link>
                 </article>
               ))}
@@ -163,9 +163,9 @@ export default async function Home() {
         </section>
       </FadeIn>
 
-      {/* â”€â”€ UPCOMING EVENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── UPCOMING EVENT ───────────────────────────────────────── */}
       {nextEvent && (
-        <FadeIn delay={0.1} direction="none">
+        <FadeIn delay={0.2}>
           <section className="py-20 sm:py-28 lg:py-32" style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-0 items-center">
@@ -192,7 +192,7 @@ export default async function Home() {
                   <dl className="space-y-5 mb-10">
                     {[
                       { dt: 'When',    dd: new Date(nextEvent.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }) },
-                      { dt: 'Time',    dd: nextEvent.time_start && nextEvent.time_end ? `${nextEvent.time_start} â€“ ${nextEvent.time_end}` : nextEvent.time_start },
+                      { dt: 'Time',    dd: nextEvent.time_start && nextEvent.time_end ? `${nextEvent.time_start} – ${nextEvent.time_end}` : nextEvent.time_start },
                       { dt: 'Venue',   dd: nextEvent.location },
                       { dt: 'Speaker', dd: nextEvent.speaker },
                       { dt: 'Format',  dd: nextEvent.type },
@@ -218,7 +218,7 @@ export default async function Home() {
         </FadeIn>
       )}
 
-      {/* â”€â”€ NEWS & UPDATES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── NEWS & UPDATES ───────────────────────────────────────── */}
       <FadeIn delay={0.1}>
         <section className="bg-[#f8f7ff] py-20 sm:py-28 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -255,7 +255,7 @@ export default async function Home() {
                       {post.title}
                     </h3>
                     <span className="text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors pt-4 border-t border-slate-100 mt-auto">
-                      Read â†’
+                      Read →
                     </span>
                   </div>
                 </Link>
@@ -273,7 +273,7 @@ export default async function Home() {
         </section>
       </FadeIn>
 
-      {/* â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── CTA ──────────────────────────────────────────────────── */}
       <CTASection
         title="Ready to Go Deeper?"
         description="Join a community of believers pursuing the fullness of Christ and the manifestation of Kingdom authority."
@@ -283,5 +283,3 @@ export default async function Home() {
     </>
   )
 }
-
-

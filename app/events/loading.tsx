@@ -1,4 +1,4 @@
-﻿export default function EventsLoading() {
+export default function EventsLoading() {
   return (
     <div>
       <section className="relative flex items-center" style={{ minHeight: '70vh', background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }} />
@@ -31,4 +31,3 @@
     </div>
   )
 }
-

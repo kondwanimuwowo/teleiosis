@@ -1,4 +1,4 @@
-﻿import { Suspense } from 'react'
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
@@ -59,7 +59,7 @@ async function BlogData() {
                   <div className="flex justify-between items-center pt-4 border-t border-slate-100">
                     <p className="text-xs text-slate-400 font-semibold">{post.scripture}</p>
                     <span className="text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors">
-                      Read â†’
+                      Read →
                     </span>
                   </div>
                 </div>
@@ -112,7 +112,7 @@ function BlogGridSkeleton() {
 export default function BlogPage() {
   return (
     <>
-      {/* â”€â”€ HERO â€” static â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── HERO — static ─────────────────────────────────────────── */}
       <section className="relative flex items-center" style={{ minHeight: '70vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/peter-hammer-SXTj90G1f5c-unsplash.jpg')" }} />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
@@ -127,12 +127,12 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* â”€â”€ DATA â€” skeleton while loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── DATA — skeleton while loading ─────────────────────────── */}
       <Suspense fallback={<BlogGridSkeleton />}>
         <BlogData />
       </Suspense>
 
-      {/* â”€â”€ NEWSLETTER â€” static â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── NEWSLETTER — static ───────────────────────────────────── */}
       <FadeIn>
         <NewsletterSection
           title="Never Miss a Teaching"
@@ -143,4 +143,3 @@ export default function BlogPage() {
     </>
   )
 }
-

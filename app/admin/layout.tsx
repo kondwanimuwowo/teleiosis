@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -76,7 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         />
       )}
 
-      {/* â”€â”€ Sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Sidebar ─────────────────────────────────────── */}
       <aside
         className={`w-64 h-screen flex flex-col fixed top-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
@@ -168,16 +168,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
 
-      {/* â”€â”€ Main content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Main content ─────────────────────────────────── */}
       <div className="flex-1 lg:ml-64 flex flex-col min-h-screen pt-16 lg:pt-0">
         <main className="flex-1 p-8">
           {children}
         </main>
         <footer className="px-8 py-4 border-t border-slate-200">
-          <p className="text-xs text-slate-400">Teleiosis Mandate Admin â€” Internal Use Only</p>
+          <p className="text-xs text-slate-400">Teleiosis Mandate Admin — Internal Use Only</p>
         </footer>
       </div>
     </div>
   )
 }
-

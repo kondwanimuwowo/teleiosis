@@ -1,4 +1,4 @@
-﻿import { FadeIn } from '../components/FadeIn'
+import { FadeIn } from '../components/FadeIn'
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react'
 import { ContactForm } from './ContactForm'
 
@@ -10,7 +10,7 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative flex items-end" style={{ minHeight: '65vh' }}>
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
@@ -30,7 +30,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* â”€â”€ CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── CONTENT ──────────────────────────────────────────────── */}
       <section className="bg-white py-20 sm:py-28 lg:py-32 overflow-hidden relative">
         {/* Subtle background flair */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4a0e68]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
@@ -126,4 +126,3 @@ export default function ContactPage() {
     </>
   )
 }
-

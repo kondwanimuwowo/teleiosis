@@ -1,4 +1,4 @@
-﻿import { Suspense } from 'react'
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { StoreClient } from './StoreClient'
@@ -52,9 +52,9 @@ function StoreGridSkeleton() {
 export default function StorePage() {
   return (
     <>
-      {/* â”€â”€ HERO â€” static â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── HERO — static ─────────────────────────────────────────── */}
       <section className="relative flex items-center" style={{ minHeight: '50vh' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.95) 0%, rgba(20,8,43,0.95) 100%)' }} />
         <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
           <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">The Store</p>
@@ -67,11 +67,10 @@ export default function StorePage() {
         </div>
       </section>
 
-      {/* â”€â”€ DATA â€” skeleton while loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── DATA — skeleton while loading ─────────────────────────── */}
       <Suspense fallback={<StoreGridSkeleton />}>
         <StoreData />
       </Suspense>
     </>
   )
 }
-

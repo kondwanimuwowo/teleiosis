@@ -1,4 +1,4 @@
-﻿// Shown only for the very brief moment before streaming begins.
+// Shown only for the very brief moment before streaming begins.
 // The hero renders immediately once streaming starts, so we only
 // need a skeleton for the list area here.
 export default function TeachingsLoading() {
@@ -39,4 +39,3 @@ export default function TeachingsLoading() {
     </div>
   )
 }
-

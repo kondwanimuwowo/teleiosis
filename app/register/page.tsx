@@ -1,8 +1,8 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { RegisterForm } from './RegisterForm'
 
 export const metadata: Metadata = {
-  title: 'Join Us â€” Teleiosis Mandate',
+  title: 'Join Us — Teleiosis Mandate',
   description: 'Become part of a community devoted to Christian perfection, Kingdom authority, and the revelation of the risen Christ.',
 }
 
@@ -29,11 +29,11 @@ export default function RegisterPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-            {/* Left â€” copy */}
+            {/* Left — copy */}
             <div className="lg:pt-4">
               <p className="text-teleiosis-gold/60 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Why Join</p>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-6">
-                Spirit Â· Soul Â· Body
+                Spirit · Soul · Body
               </h2>
               <p className="text-slate-600 text-base leading-relaxed mb-8">
                 The Teleiosis Mandate is a training community, not just a church service. When you join, you become part of an active programme of discipleship aimed at bringing every believer to full maturity in Christ.
@@ -55,7 +55,7 @@ export default function RegisterPage() {
               </ul>
             </div>
 
-            {/* Right â€” form */}
+            {/* Right — form */}
             <div className="bg-slate-50 border border-slate-100 p-6 sm:p-10 shadow-sm">
               <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-6">Register Today</h3>
               <RegisterForm />
@@ -66,4 +66,3 @@ export default function RegisterPage() {
     </>
   )
 }
-

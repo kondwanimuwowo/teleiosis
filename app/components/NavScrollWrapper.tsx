@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useEffect, useState } from "react"
 
@@ -24,4 +24,3 @@ export function NavScrollWrapper({ children }: { children: React.ReactNode }) {
     </nav>
   )
 }
-
