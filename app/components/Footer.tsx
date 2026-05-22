@@ -132,22 +132,22 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 mt-14 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-white/35 text-xs">
-            &copy; {year} Teleiosis Mandate. All rights reserved.
+            &copy; {year} Teleiosis Mandate. All rights reserved.{' '}
+            {/* Admin portal — intentionally subtle */}
+            <a
+              href="/admin"
+              aria-label="Admin"
+              className="text-[#2c0e68] hover:text-white/15 transition-colors duration-500 select-none"
+              tabIndex={-1}
+            >
+              τ
+            </a>
           </p>
           <div className="flex items-center gap-5">
             <Link href="/privacy" className="text-white/30 hover:text-white/60 text-xs transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="text-white/30 hover:text-white/60 text-xs transition-colors">Terms of Service</Link>
             <Link href="/cookie-policy" className="text-white/30 hover:text-white/60 text-xs transition-colors">Cookie Policy</Link>
           </div>
-          {/* Admin portal — intentionally subtle */}
-          <a
-            href="/admin"
-            aria-label="Admin"
-            className="text-[#2c0e68] hover:text-white/15 transition-colors duration-500 text-[10px] select-none"
-            tabIndex={-1}
-          >
-            τ
-          </a>
         </div>
 
       </div>
