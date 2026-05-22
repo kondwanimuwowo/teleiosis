@@ -1,7 +1,7 @@
 export default function StoreLoading() {
   return (
     <div>
-      <section className="relative flex items-center bg-[#2c0e68]" style={{ minHeight: '50vh' }} />
+      <section className="relative flex items-center" style={{ minHeight: '50vh', background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }} />
       <section className="bg-white py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

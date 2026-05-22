@@ -166,7 +166,7 @@ export default async function Home() {
       {/* ── UPCOMING EVENT ───────────────────────────────────────── */}
       {nextEvent && (
         <FadeIn delay={0.2}>
-          <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
+          <section className="py-20 sm:py-28 lg:py-32" style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-0 items-center">
                 {/* Poster */}

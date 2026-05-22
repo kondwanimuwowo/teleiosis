@@ -315,7 +315,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
             </section>
 
             {/* Commitments */}
-            <section className="bg-[#2c0e68] py-20 sm:py-28 lg:py-32">
+            <section className="py-20 sm:py-28 lg:py-32" style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our Commitment</p>
                 <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight mb-12">

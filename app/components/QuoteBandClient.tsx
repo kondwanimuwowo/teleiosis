@@ -50,7 +50,8 @@ export default function QuoteBandClient() {
   return (
     <section
       ref={containerRef}
-      className="bg-[#2c0e68] min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden group"
+      className="min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden group"
+      style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}
     >
       <style>{`
         @keyframes progress-ring {
