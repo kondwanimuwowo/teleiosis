@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+﻿import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { TeachingsPageClient } from './TeachingsPageClient'
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Access the Teleiosis Mandate audio library. Systematic teachings on the Christ Dimension, Priesthood, Kingship, and the Ministry of the Spirit.',
 }
 
-// Async component — fetches data, streams in after hero is already visible
+// Async component â€” fetches data, streams in after hero is already visible
 async function TeachingsData() {
   const supabase = await createSupabaseServerClient()
 
@@ -77,26 +77,26 @@ function ListSkeleton() {
   )
 }
 
-// Sync page component — hero renders immediately via streaming
+// Sync page component â€” hero renders immediately via streaming
 export default function TeachingsPage() {
   return (
     <>
-      {/* ── HERO — static, no data needed, streams to browser instantly ── */}
+      {/* â”€â”€ HERO â€” static, no data needed, streams to browser instantly â”€â”€ */}
       <section className="relative flex items-center" style={{ minHeight: '70vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/pexels-bible-1869164_1280.jpg')" }} />
-        <div className="absolute inset-0 bg-[#2c0e68]/85" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
           <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">Audio Library</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
             Teachings &amp; Series
           </h1>
           <p className="text-white/65 text-base sm:text-lg max-w-2xl leading-relaxed">
-            Access a growing library of teachings organised by program — covering Kingdom authority, sonship, Christian perfection, and the practical revelation of Christ.
+            Access a growing library of teachings organised by program â€” covering Kingdom authority, sonship, Christian perfection, and the practical revelation of Christ.
           </p>
         </div>
       </section>
 
-      {/* ── DATA — skeleton shows while Supabase queries run ── */}
+      {/* â”€â”€ DATA â€” skeleton shows while Supabase queries run â”€â”€ */}
       <Suspense fallback={<ListSkeleton />}>
         <TeachingsData />
       </Suspense>
@@ -110,3 +110,4 @@ export default function TeachingsPage() {
     </>
   )
 }
+

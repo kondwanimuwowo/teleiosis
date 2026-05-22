@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+﻿import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
@@ -59,7 +59,7 @@ async function BlogData() {
                   <div className="flex justify-between items-center pt-4 border-t border-slate-100">
                     <p className="text-xs text-slate-400 font-semibold">{post.scripture}</p>
                     <span className="text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors">
-                      Read →
+                      Read â†’
                     </span>
                   </div>
                 </div>
@@ -112,10 +112,10 @@ function BlogGridSkeleton() {
 export default function BlogPage() {
   return (
     <>
-      {/* ── HERO — static ─────────────────────────────────────────── */}
+      {/* â”€â”€ HERO â€” static â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="relative flex items-center" style={{ minHeight: '70vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/peter-hammer-SXTj90G1f5c-unsplash.jpg')" }} />
-        <div className="absolute inset-0 bg-[#2c0e68]/85" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
           <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">News &amp; Insights</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
@@ -127,12 +127,12 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* ── DATA — skeleton while loading ─────────────────────────── */}
+      {/* â”€â”€ DATA â€” skeleton while loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Suspense fallback={<BlogGridSkeleton />}>
         <BlogData />
       </Suspense>
 
-      {/* ── NEWSLETTER — static ───────────────────────────────────── */}
+      {/* â”€â”€ NEWSLETTER â€” static â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <FadeIn>
         <NewsletterSection
           title="Never Miss a Teaching"
@@ -143,3 +143,4 @@ export default function BlogPage() {
     </>
   )
 }
+

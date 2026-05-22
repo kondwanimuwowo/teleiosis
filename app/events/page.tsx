@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+﻿import { Suspense } from 'react'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { EventsClient } from './EventsClient'
 import { NewsletterSection } from '../components/NewsletterSection'
@@ -55,10 +55,10 @@ function EventsListSkeleton() {
 export default function EventsPage() {
   return (
     <>
-      {/* ── HERO — static ─────────────────────────────────────────── */}
+      {/* â”€â”€ HERO â€” static â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="relative flex items-center" style={{ minHeight: '70vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/event-1.jpg')" }} />
-        <div className="absolute inset-0 bg-[#2c0e68]/85" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
           <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">
             Upcoming Events
@@ -72,7 +72,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* ── DATA — skeleton while loading ─────────────────────────── */}
+      {/* â”€â”€ DATA â€” skeleton while loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Suspense fallback={<EventsListSkeleton />}>
         <EventsData />
       </Suspense>
@@ -81,3 +81,4 @@ export default function EventsPage() {
     </>
   )
 }
+

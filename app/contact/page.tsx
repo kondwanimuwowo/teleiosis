@@ -1,4 +1,4 @@
-import { FadeIn } from '../components/FadeIn'
+﻿import { FadeIn } from '../components/FadeIn'
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react'
 import { ContactForm } from './ContactForm'
 
@@ -10,13 +10,13 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────── */}
+      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="relative flex items-end" style={{ minHeight: '65vh' }}>
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{ backgroundImage: "url('/images/sermon-4.jpg')" }} 
         />
-        <div className="absolute inset-0 bg-[#2c0e68]/70" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.70) 0%, rgba(20,8,43,0.70) 100%)' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1a0840]/90 via-transparent to-transparent" />
 
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pb-20">
@@ -30,7 +30,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── CONTENT ──────────────────────────────────────────────── */}
+      {/* â”€â”€ CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="bg-white py-20 sm:py-28 lg:py-32 overflow-hidden relative">
         {/* Subtle background flair */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4a0e68]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
@@ -126,3 +126,4 @@ export default function ContactPage() {
     </>
   )
 }
+

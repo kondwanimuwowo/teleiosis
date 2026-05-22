@@ -39,7 +39,7 @@ export default async function Home() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-hero-zoom will-change-transform origin-center"
           style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }}
         />
-        <div className="absolute inset-0 bg-[#2c0e68]/70" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.70) 0%, rgba(20,8,43,0.70) 100%)' }} />
 
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-24 sm:pt-40 sm:pb-32">
           <p className="text-teleiosis-gold text-2xl sm:text-4xl font-semibold tracking-[0.3em] mb-5">
@@ -165,7 +165,7 @@ export default async function Home() {
 
       {/* â”€â”€ UPCOMING EVENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {nextEvent && (
-        <FadeIn delay={0.2}>
+        <FadeIn delay={0.1} direction="none">
           <section className="py-20 sm:py-28 lg:py-32" style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-0 items-center">
@@ -283,4 +283,5 @@ export default async function Home() {
     </>
   )
 }
+
 

@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { RegisterForm } from './RegisterForm'
 
 export const metadata: Metadata = {
-  title: 'Join Us — Teleiosis Mandate',
+  title: 'Join Us â€” Teleiosis Mandate',
   description: 'Become part of a community devoted to Christian perfection, Kingdom authority, and the revelation of the risen Christ.',
 }
 
@@ -12,7 +12,7 @@ export default function RegisterPage() {
       {/* Hero */}
       <section className="relative flex items-center" style={{ minHeight: '50vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }} />
-        <div className="absolute inset-0 bg-[#2c0e68]/85" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
           <p className="text-teleiosis-gold/70 text-xs font-semibold tracking-[0.3em] uppercase mb-5">Community</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
@@ -29,11 +29,11 @@ export default function RegisterPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-            {/* Left — copy */}
+            {/* Left â€” copy */}
             <div className="lg:pt-4">
               <p className="text-teleiosis-gold/60 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Why Join</p>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-6">
-                Spirit · Soul · Body
+                Spirit Â· Soul Â· Body
               </h2>
               <p className="text-slate-600 text-base leading-relaxed mb-8">
                 The Teleiosis Mandate is a training community, not just a church service. When you join, you become part of an active programme of discipleship aimed at bringing every believer to full maturity in Christ.
@@ -55,7 +55,7 @@ export default function RegisterPage() {
               </ul>
             </div>
 
-            {/* Right — form */}
+            {/* Right â€” form */}
             <div className="bg-slate-50 border border-slate-100 p-6 sm:p-10 shadow-sm">
               <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-6">Register Today</h3>
               <RegisterForm />
@@ -66,3 +66,4 @@ export default function RegisterPage() {
     </>
   )
 }
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { BookOpen, Mic2, Globe, CheckCircle, Clock, RotateCcw } from 'lucide-react'
@@ -10,7 +10,7 @@ const PILLARS = [
   {
     icon: BookOpen,
     title: 'Fund the Teaching',
-    desc: 'Your giving supports the production, distribution, and expansion of systematic teaching on Christian perfection — recordings, materials, and weekly classes.',
+    desc: 'Your giving supports the production, distribution, and expansion of systematic teaching on Christian perfection â€” recordings, materials, and weekly classes.',
   },
   {
     icon: Mic2,
@@ -38,22 +38,22 @@ export default function PartnershipPage() {
 
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────── */}
+      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="relative flex items-center" style={{ minHeight: '60vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }} />
-        <div className="absolute inset-0 bg-[#2c0e68]/85" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
           <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">Ministry Partnership</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
             Partner with the Mandate
           </h1>
           <p className="text-white/65 text-base sm:text-lg max-w-2xl leading-relaxed">
-            Sow into the revelation of Christ and the training of believers into perfection. Every gift advances the mandate — Spirit, Soul, and Body.
+            Sow into the revelation of Christ and the training of believers into perfection. Every gift advances the mandate â€” Spirit, Soul, and Body.
           </p>
         </div>
       </section>
 
-      {/* ── WHY PARTNER ──────────────────────────────────────────── */}
+      {/* â”€â”€ WHY PARTNER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Your Impact</p>
@@ -74,19 +74,19 @@ export default function PartnershipPage() {
         </div>
       </section>
 
-      {/* ── GIVE SECTION ─────────────────────────────────────────── */}
+      {/* â”€â”€ GIVE SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="bg-slate-50 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-            {/* Left — copy */}
+            {/* Left â€” copy */}
             <div className="lg:pt-4">
               <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Give</p>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-6">
                 Sow Into the Kingdom
               </h2>
               <p className="text-slate-600 text-base leading-relaxed mb-6">
-                You define the amount. No gift is too small — every seed sown in faith carries Kingdom weight.
+                You define the amount. No gift is too small â€” every seed sown in faith carries Kingdom weight.
               </p>
               <blockquote className="border-l-2 border-teleiosis-gold pl-5">
                 <p className="text-[#4a0e68] text-base leading-relaxed mb-2">
@@ -96,7 +96,7 @@ export default function PartnershipPage() {
               </blockquote>
             </div>
 
-            {/* Right — form */}
+            {/* Right â€” form */}
             <div className="bg-white border border-slate-100 p-6 sm:p-8 shadow-sm rounded-xl">
               {paymentState === 'success' ? (
                 <div className="flex flex-col items-center text-center py-8">
@@ -197,7 +197,7 @@ export default function PartnershipPage() {
                     email={email}
                     name={name || 'Partner'}
                     amount={amount}
-                    label="Ministry Partnership — Teleiosis Mandate"
+                    label="Ministry Partnership â€” Teleiosis Mandate"
                     type="partnership"
                     message={message}
                     disabled={!canPay}
@@ -210,7 +210,7 @@ export default function PartnershipPage() {
                         : 'bg-slate-100 text-slate-400 cursor-not-allowed'
                     }`}
                   >
-                    Give ZMW {amount > 0 ? amount.toLocaleString() : '—'}
+                    Give ZMW {amount > 0 ? amount.toLocaleString() : 'â€”'}
                   </LencoPayButton>
 
                   {paymentState === 'abandoned' && (
@@ -230,7 +230,7 @@ export default function PartnershipPage() {
                   )}
 
                   <p className="text-[10px] text-slate-400 text-center">
-                    Secure payments via Lenco · ZMW only · You&apos;ll receive a confirmation email
+                    Secure payments via Lenco Â· ZMW only Â· You&apos;ll receive a confirmation email
                   </p>
                 </div>
               )}
@@ -241,3 +241,4 @@ export default function PartnershipPage() {
     </>
   )
 }
+
