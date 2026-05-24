@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
@@ -44,7 +45,10 @@ const linkVariants = {
 export function MobileNav() {
   const [open, setOpen] = useState(false)
   const [partnerOpen, setPartnerOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : 'unset'
@@ -61,6 +65,7 @@ export function MobileNav() {
         <Menu className="w-6 h-6" />
       </button>
 
+      {mounted && createPortal(
       <AnimatePresence>
         {open && (
           <>
@@ -181,7 +186,9 @@ export function MobileNav() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
 
       <PartnershipModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
     </div>
