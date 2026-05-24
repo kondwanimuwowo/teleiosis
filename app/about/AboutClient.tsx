@@ -323,7 +323,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {COMMITMENTS.map(({ title, desc }) => (
-                    <div key={title} className="border border-white/10 p-6 sm:p-8">
+                    <div key={title} className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 sm:p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
                       <h3 className="font-serif font-bold text-lg sm:text-xl text-white mb-3">{title}</h3>
                       <p className="text-white/60 text-base leading-relaxed">{desc}</p>
                     </div>
