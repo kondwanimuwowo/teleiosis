@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from '@/lib/supabase-server'
+import { createSupabaseAdminClient } from '@/lib/supabase-server'
 
 const TYPE_COLORS: Record<string, string> = {
   partnership: 'bg-purple-50 text-purple-700',
@@ -17,7 +17,7 @@ function formatDate(iso: string) {
 }
 
 export default async function AdminPaymentsPage() {
-  const supabase = await createSupabaseServerClient()
+  const supabase = createSupabaseAdminClient()
 
   const { data: payments } = await supabase
     .from('payments')

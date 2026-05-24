@@ -11,6 +11,7 @@ export function GlobalAudioPlayer() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isHoveringVolume, setIsHoveringVolume] = useState(false)
 
+
   // Auto-expand on first play on desktop
   useEffect(() => {
     if (currentTeaching && window.innerWidth > 768) {
@@ -72,7 +73,7 @@ export function GlobalAudioPlayer() {
               
               {isExpanded ? (
                 <div className="flex items-center gap-3">
-                  <span className="text-white/40 text-xs tabular-nums w-8 text-right">{formatTime(progress)}</span>
+                  <span className="text-white/40 text-xs tabular-nums min-w-[2.5rem] text-right">{formatTime(progress)}</span>
                   <input
                     type="range"
                     min="0"
@@ -84,7 +85,7 @@ export function GlobalAudioPlayer() {
                       backgroundImage: `linear-gradient(to right, #d4af37 ${(progress / (duration || 1)) * 100}%, transparent 0)`
                     }}
                   />
-                  <span className="text-white/40 text-xs tabular-nums w-8">{formatTime(duration)}</span>
+                  <span className="text-white/40 text-xs tabular-nums min-w-[2.5rem]">{formatTime(duration)}</span>
                 </div>
               ) : (
                 <p className="text-white/50 text-xs truncate">
@@ -95,9 +96,24 @@ export function GlobalAudioPlayer() {
 
             {/* Controls (Expanded) */}
             {isExpanded && (
-              <div className="hidden sm:flex items-center gap-4">
-                <div 
-                  className="flex items-center gap-2 relative group"
+              <div className="flex items-center gap-3 sm:gap-4">
+                {/* Mobile: tap to cycle mute / full volume */}
+                <button
+                  onClick={() => {
+                    if (window.innerWidth < 640) {
+                      setVolumeLevel(volume === 0 ? 1 : 0)
+                    }
+                  }}
+                  onMouseEnter={() => setIsHoveringVolume(true)}
+                  onMouseLeave={() => setIsHoveringVolume(false)}
+                  className="text-white/50 hover:text-white transition-colors sm:hidden"
+                >
+                  {volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                </button>
+
+                {/* Desktop: hover to reveal slider */}
+                <div
+                  className="hidden sm:flex items-center gap-2 relative"
                   onMouseEnter={() => setIsHoveringVolume(true)}
                   onMouseLeave={() => setIsHoveringVolume(false)}
                 >
@@ -117,7 +133,8 @@ export function GlobalAudioPlayer() {
                     />
                   </div>
                 </div>
-                <Link href={`/teachings`} className="text-white/40 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">
+
+                <Link href="/teachings" className="hidden sm:block text-white/40 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">
                   Library
                 </Link>
               </div>

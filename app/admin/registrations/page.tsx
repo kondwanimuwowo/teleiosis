@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from '@/lib/supabase-server'
+import { createSupabaseAdminClient } from '@/lib/supabase-server'
 import { ClipboardList } from 'lucide-react'
 
 type FilterType = 'all' | 'general' | 'event'
@@ -8,7 +8,7 @@ interface SearchParams {
 }
 
 export default async function RegistrationsPage({ searchParams }: { searchParams: SearchParams }) {
-  const supabase = await createSupabaseServerClient()
+  const supabase = createSupabaseAdminClient()
 
   const filter = (searchParams.type ?? 'all') as FilterType
 

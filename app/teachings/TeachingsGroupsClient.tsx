@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { BookOpen, ChevronDown, ChevronUp, Layers } from 'lucide-react'
+import { BookOpen, ChevronDown, Layers } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { StandaloneTeachingsList } from './StandaloneTeachingsList'
 
@@ -68,7 +68,7 @@ export function TeachingsGroupsClient({
                 >
                   {/* Image (Top Mobile / Right Desktop) */}
                   {group.image_url && (
-                    <div className="w-full sm:w-[35%] lg:w-[40%] aspect-[21/9] sm:aspect-auto sm:order-last relative bg-[#1a0840]">
+                    <div className="w-full sm:w-[35%] lg:w-[40%] aspect-[16/9] sm:aspect-auto sm:order-last relative bg-[#1a0840]">
                       <img src={group.image_url} alt={group.name} className="absolute inset-0 w-full h-full object-cover" />
                       {/* Desktop gradient from left */}
                       <div className={`hidden sm:block absolute inset-0 bg-gradient-to-r ${accent.bg.split(' ')[0]} to-transparent w-full`} />
@@ -99,7 +99,7 @@ export function TeachingsGroupsClient({
                     </div>
                     {!isEmpty && (
                       <div className="flex-shrink-0 ml-4 w-10 h-10 flex items-center justify-center text-white/60">
-                        {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        <ChevronDown size={20} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
                       </div>
                     )}
                   </div>
@@ -166,44 +166,49 @@ export function TeachingsGroupsClient({
                             <BookOpen size={12} /> Standalone Teachings
                           </p>
                         )}
-                        <button
-                          onClick={() => setExpandedStandalone((prev) => (prev === group.id ? null : group.id))}
-                          className={`w-full text-left border-2 border-dashed border-slate-200 bg-white hover:border-[#4a0e68]/30 transition-colors p-5 flex items-center justify-between gap-4 ${expandedStandalone === group.id ? 'rounded-t-2xl border-b-0' : 'rounded-2xl'}`}
-                        >
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                              <BookOpen size={18} className="text-slate-400" />
-                            </div>
-                            <div>
-                              <p className="font-serif font-bold text-sm text-[#2c0e68]">Standalone Teachings</p>
-                              <p className="text-xs text-slate-400">{group.standalone_count} teaching{group.standalone_count !== 1 ? 's' : ''} not in a series</p>
-                            </div>
-                          </div>
-                          {expandedStandalone === group.id ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
-                        </button>
-                        <AnimatePresence initial={false}>
-                          {expandedStandalone === group.id && (
-                            <motion.div
-                              key="standalone-content"
-                              initial="collapsed"
-                              animate="open"
-                              exit="collapsed"
-                              variants={{
-                                open: { opacity: 1, height: 'auto' },
-                                collapsed: { opacity: 0, height: 0 }
-                              }}
-                              transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                              className="overflow-hidden"
-                            >
-                              <div className="border-2 border-dashed border-slate-200 border-t-0 bg-white px-5 pb-5 pt-0 rounded-b-2xl">
-                            <StandaloneTeachingsList programGroupId={group.id} />
-                            <div className="text-center pt-2 border-t border-slate-100 mt-4">
-                                <button onClick={onViewAll} className="text-teleiosis-gold text-xs font-bold uppercase tracking-widest hover:text-[#4a0e68] transition-colors mt-4">Browse All Library →</button>
+                        <div className="bg-white border border-slate-100 rounded-xl overflow-hidden">
+                          <button
+                            onClick={() => setExpandedStandalone((prev) => (prev === group.id ? null : group.id))}
+                            className="w-full text-left p-5 flex items-center justify-between gap-4 hover:bg-slate-50/60 transition-colors"
+                          >
+                            <div className="flex items-center gap-4">
+                              <div className="w-10 h-10 bg-[#2c0e68]/5 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <BookOpen size={18} className="text-[#2c0e68]/40" />
+                              </div>
+                              <div>
+                                <p className="font-serif font-bold text-sm text-[#2c0e68]">Standalone Teachings</p>
+                                <p className="text-xs text-slate-400 mt-0.5">{group.standalone_count} teaching{group.standalone_count !== 1 ? 's' : ''} · not in a series</p>
                               </div>
                             </div>
-                          </motion.div>
-                        )}
-                        </AnimatePresence>
+                            <ChevronDown
+                              size={16}
+                              className={`text-slate-400 flex-shrink-0 transition-transform duration-200 ${expandedStandalone === group.id ? 'rotate-180' : ''}`}
+                            />
+                          </button>
+                          <AnimatePresence initial={false}>
+                            {expandedStandalone === group.id && (
+                              <motion.div
+                                key="standalone-content"
+                                initial="collapsed"
+                                animate="open"
+                                exit="collapsed"
+                                variants={{
+                                  open: { opacity: 1, height: 'auto' },
+                                  collapsed: { opacity: 0, height: 0 }
+                                }}
+                                transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                                className="overflow-hidden"
+                              >
+                                <div className="border-t border-slate-100 px-5 pb-5">
+                                  <StandaloneTeachingsList programGroupId={group.id} />
+                                  <div className="text-center pt-4 border-t border-slate-100 mt-2">
+                                    <button onClick={onViewAll} className="text-teleiosis-gold text-xs font-bold uppercase tracking-widest hover:text-[#4a0e68] transition-colors">Browse All Library →</button>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
                       </div>
                     )}
                   </div>

@@ -52,10 +52,10 @@ async function BlogData() {
                     <span className="w-1 h-1 rounded-full bg-slate-300" />
                     <span className="text-xs text-slate-400">{formatDate(post.published_at)}</span>
                   </div>
-                  <h2 className="font-serif font-bold text-lg text-[#2c0e68] mb-3 leading-snug group-hover:text-[#4a0e68] transition-colors">
+                  <h2 className="font-serif font-bold text-lg text-[#2c0e68] mb-3 leading-snug group-hover:text-[#4a0e68] transition-colors line-clamp-2">
                     {post.title}
                   </h2>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1">{post.excerpt}</p>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">{post.excerpt}</p>
                   <div className="flex justify-between items-center pt-4 border-t border-slate-100">
                     <p className="text-xs text-slate-400 font-semibold">{post.scripture}</p>
                     <span className="text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors">
