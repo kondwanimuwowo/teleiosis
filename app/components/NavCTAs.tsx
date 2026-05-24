@@ -9,18 +9,17 @@ export function NavCTAs() {
 
   return (
     <>
-      {/* Desktop split pill */}
-      <div className="hidden md:inline-flex overflow-hidden border border-teleiosis-gold/40 shadow-sm shadow-teleiosis-gold/20 rounded-full">
+      {/* Desktop CTAs — split pill: solid white left, ghost gold right */}
+      <div className="hidden md:inline-flex items-center border border-teleiosis-gold/50 rounded-full overflow-hidden hover:border-teleiosis-gold/80 transition-colors duration-200">
         <Link
           href="/register"
-          className="px-5 py-2 bg-teleiosis-gold text-teleiosis-deep text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors whitespace-nowrap"
+          className="px-4 py-1.5 bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:brightness-110 transition-all whitespace-nowrap"
         >
           Join Us
         </Link>
-        <span className="w-px bg-teleiosis-gold/30 flex-shrink-0" />
         <button
           onClick={() => setPartnerOpen(true)}
-          className="px-5 py-2 bg-[#2c0e68] text-teleiosis-gold text-sm font-bold hover:bg-[#3a1878] transition-colors whitespace-nowrap"
+          className="px-4 py-1.5 text-teleiosis-gold text-sm font-bold hover:bg-teleiosis-gold/10 transition-colors whitespace-nowrap"
         >
           Partner
         </button>
@@ -45,7 +44,7 @@ export function MobileNavCTAs() {
         </Link>
         <button
           onClick={() => setPartnerOpen(true)}
-          className="block w-full text-center px-5 py-3 border-2 border-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/10 transition-colors rounded-full"
+          className="block w-full text-center px-5 py-3 border border-white/25 text-white/80 text-sm font-semibold hover:border-white/50 hover:text-white transition-all rounded-full"
         >
           Partner with Us
         </button>

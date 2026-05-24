@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Heart, CheckCircle, Clock, RotateCcw, ChevronDown } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { LencoPayButton } from '../../components/LencoPayButton'
 
 const PRESET_AMOUNTS = [50, 100, 250, 500]
@@ -45,7 +46,16 @@ export function EventPartnerSection({ eventId, eventTitle }: { eventId: string; 
       </button>
 
       {/* Collapsible body */}
-      {open && (
+      <AnimatePresence initial={false}>
+        {open && (
+        <motion.div
+          key="partner-body"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.28, ease: [0.04, 0.62, 0.23, 0.98] }}
+          className="overflow-hidden"
+        >
         <div className="px-5 sm:px-6 pb-6 border-t border-slate-100">
           {paymentState === 'success' ? (
             <div className="flex flex-col items-center text-center py-8">
@@ -152,7 +162,9 @@ export function EventPartnerSection({ eventId, eventTitle }: { eventId: string; 
             </div>
           )}
         </div>
-      )}
+        </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

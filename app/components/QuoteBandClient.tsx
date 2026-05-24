@@ -82,7 +82,7 @@ export default function QuoteBandClient() {
           <button
             onClick={fetchQuote}
             aria-label="Previous quote"
-            className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors duration-200 opacity-0 group-hover:opacity-100 hidden md:flex rounded-full"
+            className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/25 hover:text-white transition-colors duration-200 hidden md:flex rounded-full"
           >
             <ChevronLeft size={18} />
           </button>
@@ -127,7 +127,7 @@ export default function QuoteBandClient() {
           <button
             onClick={fetchQuote}
             aria-label="Next quote"
-            className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors duration-200 opacity-0 group-hover:opacity-100 hidden md:flex rounded-full"
+            className="flex-shrink-0 w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/25 hover:text-white transition-colors duration-200 hidden md:flex rounded-full"
           >
             <ChevronRight size={18} />
           </button>

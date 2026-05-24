@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { CheckCircle, Loader2, UserCheck, ChevronDown } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export function EventRegisterSection({ eventId, eventTitle }: { eventId: string; eventTitle: string }) {
   const [open, setOpen] = useState(false)
@@ -56,7 +57,16 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
       </button>
 
       {/* Collapsible body */}
-      {open && (
+      <AnimatePresence initial={false}>
+        {open && (
+        <motion.div
+          key="register-body"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.28, ease: [0.04, 0.62, 0.23, 0.98] }}
+          className="overflow-hidden"
+        >
         <div className="px-5 sm:px-6 pb-6 border-t border-slate-100">
           {success ? (
             <div className="flex flex-col items-center text-center py-8">
@@ -115,7 +125,9 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
             </form>
           )}
         </div>
-      )}
+        </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

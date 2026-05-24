@@ -69,14 +69,14 @@ export default async function Home() {
       </section>
 
       {/* ── PILLARS BAR ──────────────────────────────────────────── */}
-      <section className="bg-slate-50 py-4 hidden sm:block">
+      <section className="bg-slate-50 py-3 sm:py-4 overflow-hidden hidden sm:block">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-center">
-            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Resurrection · Oneness · Spirit</p>
-            <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
-            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Sonship · Kingdom · Glory</p>
-            <span className="hidden sm:block w-1 h-1 rounded-full bg-teleiosis-gold/60" />
-            <p className="text-[#4a0e68]/70 text-xs tracking-[0.2em] uppercase font-semibold">Perfection · Purpose · Power</p>
+          <div className="flex items-center justify-center gap-x-4 sm:gap-x-6 overflow-x-auto no-scrollbar text-center whitespace-nowrap">
+            <p className="text-[#4a0e68]/70 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold flex-shrink-0">Resurrection · Oneness · Spirit</p>
+            <span className="w-1 h-1 rounded-full bg-teleiosis-gold/60 flex-shrink-0" />
+            <p className="text-[#4a0e68]/70 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold flex-shrink-0">Sonship · Kingdom · Glory</p>
+            <span className="w-1 h-1 rounded-full bg-teleiosis-gold/60 flex-shrink-0" />
+            <p className="text-[#4a0e68]/70 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold flex-shrink-0">Perfection · Purpose · Power</p>
           </div>
         </div>
       </section>
@@ -152,7 +152,7 @@ export default async function Home() {
               {PROGRAMS.map(({ n, title, desc, href, cta }) => (
                 <article key={n} className="bg-white border border-slate-100 p-6 sm:p-8 flex flex-col shadow-sm rounded-xl hover:-translate-y-1 hover:shadow-md transition-all duration-300">
                   <h3 className="font-serif font-bold text-xl text-[#2c0e68] mb-3">{title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">{desc}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1 line-clamp-4">{desc}</p>
                   <Link href={href} className="inline-flex items-center gap-1 text-sm font-semibold text-[#4a0e68] hover:text-teleiosis-gold transition-colors min-h-[44px]">
                     {cta} →
                   </Link>

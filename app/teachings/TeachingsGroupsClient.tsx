@@ -148,9 +148,9 @@ export function TeachingsGroupsClient({
                                   </span>
                                 )}
                               </div>
-                              <div className="p-4 flex-1 flex flex-col">
-                                <h4 className="font-serif font-bold text-sm text-[#2c0e68] group-hover:text-[#4a0e68] transition-colors leading-snug mb-2 flex-1">{s.title}</h4>
-                                <span className="text-xs font-bold text-teleiosis-gold uppercase tracking-widest">Listen →</span>
+                              <div className="p-4 flex-1 flex flex-col gap-3">
+                                <h4 className="font-serif font-bold text-sm text-[#2c0e68] group-hover:text-[#4a0e68] transition-colors leading-snug flex-1">{s.title}</h4>
+                                <span className="text-xs font-bold text-teleiosis-gold uppercase tracking-widest mt-auto">Listen →</span>
                               </div>
                             </Link>
                           ))}

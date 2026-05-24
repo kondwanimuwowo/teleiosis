@@ -60,39 +60,46 @@ export default async function EventDetailPage({ params }: { params: { id: string
   return (
     <>
       <JsonLd data={eventSchema(event)} />
-      {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative flex items-end" style={{ minHeight: '65vh' }}>
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${event.image_url ?? '/images/event-1.jpg'}')` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2c0e68] via-[#2c0e68]/60 to-transparent" />
-        <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-12 sm:pb-16">
-          <Link href="/events" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-xs font-semibold uppercase tracking-widest mb-6 transition-colors">
+
+      {/* ── HERO — text-only gradient ─────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0d0424 0%, #1a0840 45%, #2c0e68 100%)' }}>
+        {/* Subtle decorative circles */}
+        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-teleiosis-gold/5 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-[#4a0e68]/40 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-36 pb-20 sm:pt-44 sm:pb-28">
+          <Link href="/events" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs font-semibold uppercase tracking-widest mb-8 transition-colors">
             <ArrowLeft size={14} /> All Events
           </Link>
+
           {event.type && (
-            <span className="inline-block px-3 py-1 bg-teleiosis-gold/20 border border-teleiosis-gold/40 text-teleiosis-gold text-xs font-bold uppercase tracking-widest mb-4">
-              {event.type}
-            </span>
+            <div className="mb-5">
+              <span className="inline-block px-3 py-1 border border-teleiosis-gold/40 bg-teleiosis-gold/10 text-teleiosis-gold text-[10px] font-bold uppercase tracking-[0.25em] rounded-full">
+                {event.type}
+              </span>
+            </div>
           )}
-          <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight max-w-3xl mb-4">
+
+          <h1 className="font-serif font-bold text-3xl sm:text-5xl lg:text-6xl text-white leading-tight max-w-4xl mb-6">
             {event.title}
           </h1>
-          <p className="text-white/60 text-sm">
+
+          <p className="text-white/50 text-sm sm:text-base font-medium">
             {new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+            {time && <span className="ml-3 text-white/30">&middot;</span>}
+            {time && <span className="ml-3">{time}</span>}
           </p>
         </div>
       </section>
 
-      {/* ── DETAILS + PARTNER ────────────────────────────────────── */}
+      {/* ── DETAILS + IMAGE + ACCORDIONS ─────────────────────────── */}
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
 
             {/* Left — event details */}
             <div>
-              <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-6">Event Details</p>
+              <p className="text-teleiosis-gold/40 text-[10px] font-bold tracking-[0.3em] uppercase mb-6">Event Details</p>
               <dl className="space-y-5 mb-10">
                 {details.map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex gap-4 items-start">
@@ -106,23 +113,34 @@ export default async function EventDetailPage({ params }: { params: { id: string
               </dl>
 
               {event.description && (
-                <div>
-                  <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">About This Event</p>
+                <div className="mb-8">
+                  <p className="text-teleiosis-gold/40 text-[10px] font-bold tracking-[0.3em] uppercase mb-4">About This Event</p>
                   <p className="text-slate-600 text-base leading-relaxed">{event.description}</p>
                 </div>
               )}
 
               {event.is_recurring && event.recurring_label && (
-                <div className="mt-6 px-4 py-3 bg-slate-50 border border-slate-100 border-l-2 border-l-teleiosis-gold">
+                <div className="mb-8 px-4 py-3 bg-slate-50 border border-slate-100 border-l-2 border-l-teleiosis-gold rounded-r-lg">
                   <p className="text-xs text-slate-500"><span className="font-bold text-[#2c0e68]">Recurring: </span>{event.recurring_label}</p>
                 </div>
               )}
 
-              <ShareButtons url={eventUrl} title={event.title} description={event.description ?? undefined} className="mt-8" />
+              <ShareButtons url={eventUrl} title={event.title} description={event.description ?? undefined} className="mt-2" />
             </div>
 
-            {/* Right — register + partner */}
+            {/* Right — image + register + partner */}
             <div className="space-y-6">
+              {/* Event image */}
+              {event.image_url && (
+                <div className="rounded-2xl overflow-hidden aspect-[16/10] bg-[#1a0840]">
+                  <img
+                    src={event.image_url}
+                    alt={event.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+
               <EventRegisterSection eventId={event.id} eventTitle={event.title} />
               <EventPartnerSection eventId={event.id} eventTitle={event.title} />
             </div>

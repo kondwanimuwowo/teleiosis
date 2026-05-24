@@ -89,10 +89,10 @@ export function TeachingsList({ search }: { search?: string } = {}) {
                       key={teaching.id} 
                       className="group"
                     >
-                      <div className={`py-8 flex flex-col sm:flex-row sm:items-center gap-6 transition-colors rounded-2xl px-4 -mx-4 ${isActive ? 'bg-[#4a0e68]/3' : 'group-hover:bg-slate-50/50'}`}>
+                      <div className={`py-5 sm:py-7 flex flex-row items-center gap-4 sm:gap-6 transition-colors rounded-2xl px-4 -mx-4 ${isActive ? 'bg-[#4a0e68]/3' : 'group-hover:bg-slate-50/50'}`}>
                         {/* Index / Icon */}
                         <div className="flex-shrink-0 flex items-center gap-4">
-                          <span className={`font-serif text-lg w-6 transition-colors duration-300 ${isActive ? 'text-teleiosis-gold font-bold' : 'text-slate-200'}`}>
+                          <span className={`hidden sm:inline font-serif text-lg w-6 transition-colors duration-300 ${isActive ? 'text-teleiosis-gold font-bold' : 'text-slate-200'}`}>
                             {String(idx + 1).padStart(2, '0')}
                           </span>
                           <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 shadow-sm ${isActive ? 'bg-[#4a0e68] text-teleiosis-gold' : 'bg-slate-50 border border-slate-100 text-[#4a0e68] group-hover:bg-white group-hover:scale-110'}`}>

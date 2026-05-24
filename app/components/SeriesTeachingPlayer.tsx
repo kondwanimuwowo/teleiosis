@@ -78,7 +78,7 @@ export function SeriesTeachingPlayer({ teachings }: Props) {
                       {teaching.description && (
                         <>
                           <span className="w-1 h-1 rounded-full bg-slate-200" />
-                          <span className="text-[10px] text-slate-400 line-clamp-1 hidden sm:block max-w-sm">
+                          <span className="text-[10px] text-slate-400 line-clamp-1 max-w-xs sm:max-w-sm">
                             {teaching.description}
                           </span>
                         </>
