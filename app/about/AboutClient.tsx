@@ -165,7 +165,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                     </p>
                     <blockquote className="border-l-2 border-teleiosis-gold pl-5">
                       <p className="text-[#4a0e68] text-base sm:text-lg leading-relaxed mb-2">
-                        "Till we all come unto a perfect man, unto the measure of the stature of the fulness of Christ."
+                        "Till we all attain unto the unity of the faith, and of the knowledge of the Son of God, unto a fullgrown man, unto the measure of the stature of the fulness of Christ:"
                       </p>
                       <cite className="text-xs text-slate-400 not-italic">Ephesians 4:13</cite>
                     </blockquote>
@@ -259,7 +259,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                     </p>
                     <blockquote className="border-l-2 border-teleiosis-gold pl-5">
                       <p className="text-[#4a0e68] text-base sm:text-lg leading-relaxed mb-2">
-                        "For we all come to the knowledge of the Son of God, unto a perfect man, unto the measure of the stature of the fulness of Christ."
+                        "Till we all attain unto the unity of the faith, and of the knowledge of the Son of God, unto a fullgrown man, unto the measure of the stature of the fulness of Christ:"
                       </p>
                       <cite className="text-xs text-slate-400 not-italic">Ephesians 4:13</cite>
                     </blockquote>
