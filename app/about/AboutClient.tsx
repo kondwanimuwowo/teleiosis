@@ -84,10 +84,11 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
 
   const switchTab = (id: TabId) => {
     setActiveTab(id)
-    // Scroll to just above the tab bar so the new tab starts from the top
-    setTimeout(() => {
-      tabBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 0)
+    // offsetTop gives the tab bar's natural position in the document regardless of sticky state.
+    // Subtract 80px (main nav height) so it lands just below the nav.
+    if (tabBarRef.current) {
+      window.scrollTo({ top: Math.max(0, tabBarRef.current.offsetTop - 80), behavior: 'instant' })
+    }
   }
 
   return (
