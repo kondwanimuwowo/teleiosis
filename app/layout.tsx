@@ -9,6 +9,7 @@ import { GlobalAudioPlayer } from './components/GlobalAudioPlayer'
 import { JsonLd, organizationSchema } from './components/JsonLd'
 import SmoothScroll from './components/SmoothScroll'
 import CookieBanner from './components/CookieBanner'
+import ScrollToTop from './components/ScrollToTop'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -89,6 +90,7 @@ export default function RootLayout({
             </PublicShell>
             <GlobalAudioPlayer />
           <CookieBanner />
+          <ScrollToTop />
           </SmoothScroll>
         </AudioProvider>
       </body>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Users, ScrollText, Handshake } from 'lucide-react'
 import { CTASection } from '../components/CTASection'
@@ -80,6 +80,15 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
   ]
 
   const [activeTab, setActiveTab] = useState<TabId>('who-we-are')
+  const tabBarRef = useRef<HTMLDivElement>(null)
+
+  const switchTab = (id: TabId) => {
+    setActiveTab(id)
+    // Scroll to just above the tab bar so the new tab starts from the top
+    setTimeout(() => {
+      tabBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 0)
+  }
 
   return (
     <>
@@ -99,7 +108,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
       </section>
 
       {/* ── TAB BAR ──────────────────────────────────────────────── */}
-      <div className="bg-white border-b border-slate-100 sticky top-20 z-30">
+      <div ref={tabBarRef} className="bg-white border-b border-slate-100 sticky top-20 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center py-3">
             <div className="inline-flex border border-slate-200 overflow-hidden">
@@ -108,7 +117,7 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
                 return (
                   <button
                     key={id}
-                    onClick={() => setActiveTab(id)}
+                    onClick={() => switchTab(id)}
                     style={{ minHeight: 44 }}
                     className={`flex items-center gap-2 text-sm font-semibold transition-colors ${
                       isActive
