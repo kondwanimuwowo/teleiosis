@@ -351,49 +351,106 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
       </section>
 
       {/* ── CO-LABOURERS ─────────────────────────────────────────── */}
-      <section id="co-labourers" className="bg-white py-20 sm:py-28 lg:py-32">
+      <section
+        id="co-labourers"
+        className="py-20 sm:py-28 lg:py-32"
+        style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Global Team</p>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#2c0e68] leading-tight mb-12">
+          <p className="text-teleiosis-gold/40 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Global Team</p>
+          <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight mb-16">
             Our Co-Labourers
           </h2>
+
           {team.length === 0 ? (
-            <div className="py-20 text-center border border-dashed border-slate-200 rounded-2xl">
-              <p className="text-slate-400 text-sm">Team members will appear here once added.</p>
+            <div className="py-20 text-center border border-dashed border-white/10 rounded-2xl">
+              <p className="text-white/30 text-sm">Team members will appear here once added.</p>
             </div>
+
+          ) : team.length === 1 ? (
+            /* ── Single member: editorial spread ── */
+            (() => {
+              const member = team[0]
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-12 lg:gap-20 items-start max-w-5xl">
+                  {/* Portrait */}
+                  <div className="relative">
+                    {member.image_url ? (
+                      <div className="aspect-[3/4] overflow-hidden border border-teleiosis-gold/20 max-w-xs">
+                        <img
+                          src={member.image_url}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="aspect-[3/4] max-w-xs border border-teleiosis-gold/20 flex items-center justify-center"
+                        style={{ background: 'rgba(255,255,255,0.04)' }}>
+                        <span className="font-serif font-bold text-7xl text-teleiosis-gold/30">{member.initials}</span>
+                      </div>
+                    )}
+                    {/* Gold accent line */}
+                    <div className="absolute -bottom-4 left-0 w-16 h-px bg-teleiosis-gold/60" />
+                  </div>
+
+                  {/* Text */}
+                  <div className="lg:pt-4">
+                    <h3 className="font-serif font-bold text-4xl sm:text-5xl text-white leading-[1.05] mb-2">
+                      {member.name}
+                    </h3>
+                    {member.title && (
+                      <p className="text-teleiosis-gold font-semibold text-sm mb-1">{member.title}</p>
+                    )}
+                    {member.location && (
+                      <p className="text-white/30 text-xs tracking-widest uppercase mb-8">{member.location}</p>
+                    )}
+                    {member.bio && (
+                      <div className="border-t border-white/10 pt-8">
+                        <p className="text-white/65 text-base sm:text-lg leading-relaxed">{member.bio}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            })()
+
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            /* ── Multiple members: responsive grid ── */
+            <div className={`grid grid-cols-1 gap-5 ${
+              team.length === 2 ? 'sm:grid-cols-2 max-w-3xl' : 'sm:grid-cols-2 lg:grid-cols-3'
+            }`}>
               {team.map((member) => (
                 <div
                   key={member.id}
-                  className="group bg-white border border-slate-100 rounded-2xl p-6 flex flex-col gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                  className="border border-white/10 p-6 flex flex-col gap-4 hover:border-white/20 transition-all duration-300"
+                  style={{ background: 'rgba(255,255,255,0.04)' }}
                 >
                   <div className="flex items-center gap-4">
                     {member.image_url ? (
                       <img
                         src={member.image_url}
                         alt={member.name}
-                        className="w-16 h-20 rounded-xl object-cover flex-shrink-0 border border-teleiosis-gold/20"
+                        className="w-14 h-[calc(14px*4/3*4)] object-cover flex-shrink-0 border border-teleiosis-gold/20"
+                        style={{ height: '74px' }}
                       />
                     ) : (
-                      <div className="w-16 h-20 rounded-xl bg-[#2c0e68]/6 border border-teleiosis-gold/25 flex items-center justify-center flex-shrink-0">
-                        <span className="font-serif font-bold text-lg text-[#4a0e68]">{member.initials}</span>
+                      <div className="w-14 flex-shrink-0 border border-teleiosis-gold/20 flex items-center justify-center"
+                        style={{ height: '74px', background: 'rgba(255,255,255,0.04)' }}>
+                        <span className="font-serif font-bold text-lg text-teleiosis-gold/40">{member.initials}</span>
                       </div>
                     )}
                     <div className="min-w-0">
-                      <h3 className="font-serif font-bold text-base text-[#2c0e68] leading-tight truncate">{member.name}</h3>
+                      <h3 className="font-serif font-bold text-base text-white leading-tight truncate">{member.name}</h3>
                       {member.title && (
                         <p className="text-teleiosis-gold text-xs font-semibold mt-0.5 truncate">{member.title}</p>
                       )}
                       {member.location && (
-                        <p className="text-slate-400 text-[10px] tracking-widest uppercase mt-0.5">{member.location}</p>
+                        <p className="text-white/30 text-[10px] tracking-widest uppercase mt-0.5">{member.location}</p>
                       )}
                     </div>
                   </div>
                   {member.bio && (
-                    <p className="text-slate-500 text-sm leading-relaxed border-t border-slate-100 pt-4">
-                      {member.bio}
-                    </p>
+                    <p className="text-white/55 text-sm leading-relaxed border-t border-white/8 pt-4">{member.bio}</p>
                   )}
                 </div>
               ))}
