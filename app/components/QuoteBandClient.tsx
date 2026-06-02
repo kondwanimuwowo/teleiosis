@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 
 type Quote = { id: string; text: string; scripture: string | null; author: string }
 
-const ROTATE_INTERVAL = 8000
+const ROTATE_INTERVAL = 16000
 const RADIUS = 16
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS // ~100.5
 
