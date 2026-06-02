@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Users, ScrollText, Handshake } from 'lucide-react'
 import { CTASection } from '../components/CTASection'
+import { getLenis } from '../components/SmoothScroll'
 
 type Stat = { id: string; value: string; label: string; sort_order: number }
 type TeamMember = { id: string; name: string; initials: string; title: string | null; location: string | null; bio: string | null; image_url: string | null; sort_order: number }
@@ -84,10 +85,16 @@ export function AboutClient({ stats, team }: { stats: Stat[]; team: TeamMember[]
 
   const switchTab = (id: TabId) => {
     setActiveTab(id)
-    // offsetTop gives the tab bar's natural position in the document regardless of sticky state.
-    // Subtract 80px (main nav height) so it lands just below the nav.
     if (tabBarRef.current) {
-      window.scrollTo({ top: Math.max(0, tabBarRef.current.offsetTop - 80), behavior: 'instant' })
+      const target = Math.max(0, tabBarRef.current.offsetTop - 80)
+      // Use Lenis's scrollTo so it updates its own internal position —
+      // plain window.scrollTo gets overwritten by Lenis on the next RAF tick.
+      const lenis = getLenis()
+      if (lenis) {
+        lenis.scrollTo(target, { immediate: true })
+      } else {
+        window.scrollTo({ top: target, behavior: 'instant' })
+      }
     }
   }
 

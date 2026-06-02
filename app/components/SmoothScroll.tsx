@@ -3,6 +3,13 @@
 import Lenis from 'lenis'
 import { useEffect } from 'react'
 
+// Module-level singleton — safe since there's only one Lenis instance per page.
+let _lenis: Lenis | null = null
+
+export function getLenis(): Lenis | null {
+  return _lenis
+}
+
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({
@@ -10,6 +17,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     })
+
+    _lenis = lenis
 
     let rafId: number
 
@@ -22,6 +31,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       lenis.destroy()
+      _lenis = null
       cancelAnimationFrame(rafId)
     }
   }, [])
