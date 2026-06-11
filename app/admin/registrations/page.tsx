@@ -1,5 +1,6 @@
 import { createSupabaseAdminClient } from '@/lib/supabase-server'
 import { ClipboardList } from 'lucide-react'
+import DeleteRegistrationButton from './DeleteRegistrationButton'
 
 type FilterType = 'all' | 'general' | 'event'
 
@@ -98,6 +99,7 @@ export default async function RegistrationsPage({ searchParams }: { searchParams
                   <th className="text-left px-5 py-3.5 text-xs font-bold text-slate-400 uppercase tracking-widest">Type</th>
                   <th className="text-left px-5 py-3.5 text-xs font-bold text-slate-400 uppercase tracking-widest hidden lg:table-cell">Event</th>
                   <th className="text-left px-5 py-3.5 text-xs font-bold text-slate-400 uppercase tracking-widest hidden sm:table-cell">Date</th>
+                  <th className="px-5 py-3.5 w-10" />
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -124,6 +126,9 @@ export default async function RegistrationsPage({ searchParams }: { searchParams
                       </td>
                       <td className="px-5 py-4 text-xs text-slate-400 whitespace-nowrap hidden sm:table-cell">
                         {new Date(reg.created_at).toLocaleDateString('en-ZM', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </td>
+                      <td className="px-5 py-4 text-right">
+                        <DeleteRegistrationButton id={reg.id} />
                       </td>
                     </tr>
                   )
