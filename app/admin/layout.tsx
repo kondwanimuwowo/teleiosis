@@ -101,7 +101,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-5 overflow-y-auto scrollbar-admin">
+        <nav className="flex-1 px-3 py-5 overflow-y-auto overscroll-contain scrollbar-admin">
           <div className="space-y-0.5 mb-6">
             <p className="px-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white/30 mb-2">Content</p>
             {NAV_CONTENT.map(({ href, label, Icon }) => {
