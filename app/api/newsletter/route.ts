@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendNewsletterWelcome, sendAdminNewsletterNotification } from '@/lib/email'
 
+const MIN_FILL_MS = 3000
+
 export async function POST(req: NextRequest) {
   try {
-    const { email } = await req.json()
+    const { email, _hp, _t } = await req.json()
+
+    // Silently accept bots — honeypot filled or form submitted too quickly
+    if (_hp || !_t || Date.now() - _t < MIN_FILL_MS) {
+      return NextResponse.json({ success: true })
+    }
 
     if (!email || !email.includes('@')) {
       return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 })

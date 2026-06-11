@@ -1,16 +1,26 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Loader2, CheckCircle } from 'lucide-react'
 
 export function NewsletterForm() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [error, setError] = useState('')
+  const hpRef = useRef<HTMLInputElement>(null)
+  const loadedAt = useRef<number>(0)
+
+  useEffect(() => { loadedAt.current = Date.now() }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+
+    if (hpRef.current?.value) {
+      setStatus('success')
+      return
+    }
+
     setStatus('loading')
     setError('')
 
@@ -18,7 +28,7 @@ export function NewsletterForm() {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, _t: loadedAt.current }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Something went wrong.')
@@ -40,6 +50,15 @@ export function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-sm">
+      {/* Honeypot — hidden from real users, filled by bots */}
+      <input
+        ref={hpRef}
+        name="website"
+        tabIndex={-1}
+        aria-hidden="true"
+        autoComplete="off"
+        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', height: 0, width: 0, left: '-9999px' }}
+      />
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="email"

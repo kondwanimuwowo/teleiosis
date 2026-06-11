@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { CheckCircle, Loader2 } from 'lucide-react'
 
 const SUBJECTS = [
@@ -15,6 +15,10 @@ export function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const hpRef = useRef<HTMLInputElement>(null)
+  const loadedAt = useRef<number>(0)
+
+  useEffect(() => { loadedAt.current = Date.now() }, [])
 
   function set(field: string, value: string) {
     setForm((f) => ({ ...f, [field]: value }))
@@ -25,11 +29,17 @@ export function ContactForm() {
     setStatus('loading')
     setErrorMsg('')
 
+    // Client-side honeypot check
+    if (hpRef.current?.value) {
+      setStatus('success')
+      return
+    }
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, _t: loadedAt.current }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Something went wrong.')
@@ -63,6 +73,15 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
+      {/* Honeypot — hidden from real users, filled by bots */}
+      <input
+        ref={hpRef}
+        name="website"
+        tabIndex={-1}
+        aria-hidden="true"
+        autoComplete="off"
+        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', height: 0, width: 0, left: '-9999px' }}
+      />
       <div>
         <label htmlFor="name" className={labelCls}>Full Name</label>
         <input
