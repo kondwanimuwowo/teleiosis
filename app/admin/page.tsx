@@ -1,38 +1,44 @@
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { createSupabaseServerClient } from '@/lib/supabase-server'
-import { Calendar, Mic2, BookOpen, Quote, Users, Library, HardDrive } from 'lucide-react'
+import { createSupabaseAdminClient } from '@/lib/supabase-server'
+import { Calendar, Mic2, BookOpen, Quote, Users, Library, HardDrive, Mail, MessageSquare } from 'lucide-react'
 import { StorageWidget } from './StorageWidget'
 
 export const metadata = { title: 'Admin Dashboard | Teleiosis' }
 
 async function getStats() {
-  const supabase = await createSupabaseServerClient()
-  const [events, teachings, series, blog, quotes, team] = await Promise.all([
+  const supabase = createSupabaseAdminClient()
+  const [events, teachings, series, blog, quotes, team, subscribers, unreadMessages] = await Promise.all([
     supabase.from('events').select('id', { count: 'exact', head: true }),
     supabase.from('teachings').select('id', { count: 'exact', head: true }),
     supabase.from('teaching_series').select('id', { count: 'exact', head: true }),
     supabase.from('blog_posts').select('id', { count: 'exact', head: true }),
     supabase.from('quotes').select('id', { count: 'exact', head: true }),
     supabase.from('co_labourers').select('id', { count: 'exact', head: true }),
+    supabase.from('newsletter_subscribers').select('id', { count: 'exact', head: true }),
+    supabase.from('contact_messages').select('id', { count: 'exact', head: true }).eq('read', false),
   ])
   return {
-    events:    events.count    ?? 0,
-    teachings: teachings.count ?? 0,
-    series:    series.count    ?? 0,
-    blog:      blog.count      ?? 0,
-    quotes:    quotes.count    ?? 0,
-    team:      team.count      ?? 0,
+    events:         events.count         ?? 0,
+    teachings:      teachings.count      ?? 0,
+    series:         series.count         ?? 0,
+    blog:           blog.count           ?? 0,
+    quotes:         quotes.count         ?? 0,
+    team:           team.count           ?? 0,
+    subscribers:    subscribers.count    ?? 0,
+    unreadMessages: unreadMessages.count ?? 0,
   }
 }
 
 const MODULES = [
-  { href: '/admin/events',    label: 'Events',    Icon: Calendar, color: 'bg-blue-500/10 text-blue-600',    key: 'events' },
-  { href: '/admin/teachings', label: 'Teachings', Icon: Mic2,     color: 'bg-purple-500/10 text-purple-600', key: 'teachings' },
-  { href: '/admin/series',    label: 'Series',    Icon: Library,  color: 'bg-indigo-500/10 text-indigo-600', key: 'series' },
-  { href: '/admin/blog',      label: 'Blog Posts', Icon: BookOpen, color: 'bg-emerald-500/10 text-emerald-600', key: 'blog' },
-  { href: '/admin/quotes',    label: 'Quotes',    Icon: Quote,    color: 'bg-amber-500/10 text-amber-600',  key: 'quotes' },
-  { href: '/admin/team',      label: 'Team',      Icon: Users,    color: 'bg-rose-500/10 text-rose-600',    key: 'team' },
+  { href: '/admin/events',      label: 'Events',          Icon: Calendar,      color: 'bg-blue-500/10 text-blue-600',     key: 'events' },
+  { href: '/admin/teachings',   label: 'Teachings',       Icon: Mic2,          color: 'bg-purple-500/10 text-purple-600', key: 'teachings' },
+  { href: '/admin/series',      label: 'Series',          Icon: Library,       color: 'bg-indigo-500/10 text-indigo-600', key: 'series' },
+  { href: '/admin/blog',        label: 'Blog Posts',      Icon: BookOpen,      color: 'bg-emerald-500/10 text-emerald-600', key: 'blog' },
+  { href: '/admin/quotes',      label: 'Quotes',          Icon: Quote,         color: 'bg-amber-500/10 text-amber-600',   key: 'quotes' },
+  { href: '/admin/team',        label: 'Team',            Icon: Users,         color: 'bg-rose-500/10 text-rose-600',     key: 'team' },
+  { href: '/admin/subscribers', label: 'Subscribers',     Icon: Mail,          color: 'bg-teal-500/10 text-teal-600',     key: 'subscribers' },
+  { href: '/admin/messages',    label: 'Unread Messages', Icon: MessageSquare, color: 'bg-orange-500/10 text-orange-600', key: 'unreadMessages' },
 ]
 
 const QUICK_ACTIONS = [

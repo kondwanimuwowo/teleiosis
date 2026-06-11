@@ -7,7 +7,7 @@ import { createBrowserClient } from '@supabase/ssr'
 import {
   LayoutDashboard, Calendar, Mic2, BookOpen,
   Quote, Users, LogOut, ExternalLink, ChevronRight, Menu, X, Library, Tag,
-  ShoppingBag, CreditCard, Settings, Layers, ClipboardList
+  ShoppingBag, CreditCard, Settings, Layers, ClipboardList, Mail, MessageSquare
 } from 'lucide-react'
 
 const NAV_CONTENT = [
@@ -26,6 +26,8 @@ const NAV_SYSTEM = [
   { href: '/admin/products',       label: 'Store',          Icon: ShoppingBag },
   { href: '/admin/payments',       label: 'Payments',       Icon: CreditCard },
   { href: '/admin/registrations',  label: 'Registrations',  Icon: ClipboardList },
+  { href: '/admin/subscribers',    label: 'Subscribers',    Icon: Mail },
+  { href: '/admin/messages',       label: 'Messages',       Icon: MessageSquare },
   { href: '/admin/settings',       label: 'Settings',       Icon: Settings },
 ]
 

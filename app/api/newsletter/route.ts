@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendNewsletterWelcome, sendAdminNewsletterNotification } from '@/lib/email'
+import { createSupabaseAdminClient } from '@/lib/supabase-server'
 
 const MIN_FILL_MS = 3000
 
@@ -16,9 +17,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 })
     }
 
+    const supabase = createSupabaseAdminClient()
     await Promise.all([
       sendNewsletterWelcome({ email }),
       sendAdminNewsletterNotification({ email }),
+      supabase.from('newsletter_subscribers').upsert({ email }, { onConflict: 'email' }),
     ])
 
     return NextResponse.json({ success: true })
