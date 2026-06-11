@@ -1,15 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Trash2 } from 'lucide-react'
 
 export default function DeleteRegistrationButton({ id }: { id: string }) {
+  const router = useRouter()
   const [state, setState] = useState<'idle' | 'confirm' | 'deleting'>('idle')
 
   async function handleDelete() {
     setState('deleting')
     await fetch(`/api/admin/registrations/${id}`, { method: 'DELETE' })
-    window.location.reload()
+    router.refresh()
   }
 
   if (state === 'confirm') {
