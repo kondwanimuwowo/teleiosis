@@ -37,11 +37,18 @@ export default function RegistrationsClient({ initial }: { initial: Registration
   ]
 
   async function handleDelete(id: string) {
+    const removed = registrations.find((r) => r.id === id)
     setDeleting(id)
     setRegistrations((prev) => prev.filter((r) => r.id !== id))
     setConfirming(null)
-    await fetch(`/api/admin/registrations/${id}`, { method: 'DELETE' })
+
+    const res = await fetch(`/api/admin/registrations/${id}`, { method: 'DELETE' })
     setDeleting(null)
+
+    if (!res.ok && removed) {
+      // Restore the row if the API failed
+      setRegistrations((prev) => [removed, ...prev])
+    }
   }
 
   return (

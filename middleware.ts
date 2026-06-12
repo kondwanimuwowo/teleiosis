@@ -30,6 +30,13 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl
 
+  // Protect /api/admin/* routes — return JSON 401 (no redirect)
+  if (pathname.startsWith('/api/admin')) {
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+  }
+
   // Protect all /admin/* routes except /admin/login
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     if (!user) {
@@ -50,5 +57,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/api/admin/:path*'],
 }
