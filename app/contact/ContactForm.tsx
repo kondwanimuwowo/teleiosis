@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { CheckCircle, Loader2 } from 'lucide-react'
+import { validateName } from '@/lib/validation'
 
 const SUBJECTS = [
   { value: 'General Inquiry', label: 'General Inquiry' },
@@ -15,6 +16,7 @@ export function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [nameError, setNameError] = useState<string | null>(null)
   const hpRef = useRef<HTMLInputElement>(null)
   const loadedAt = useRef<number>(0)
 
@@ -26,7 +28,6 @@ export function ContactForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setStatus('loading')
     setErrorMsg('')
 
     // Client-side honeypot check
@@ -34,6 +35,14 @@ export function ContactForm() {
       setStatus('success')
       return
     }
+
+    const nameErr = validateName(form.name)
+    if (nameErr) {
+      setNameError(nameErr)
+      return
+    }
+    setNameError(null)
+    setStatus('loading')
 
     try {
       const res = await fetch('/api/contact', {
@@ -88,9 +97,10 @@ export function ContactForm() {
           id="name" type="text" name="name" required
           placeholder="John Doe"
           value={form.name}
-          onChange={(e) => set('name', e.target.value)}
-          className={inputCls}
+          onChange={(e) => { set('name', e.target.value); setNameError(null) }}
+          className={`${inputCls} ${nameError ? 'border-red-400 focus:border-red-400' : ''}`}
         />
+        {nameError && <p className="mt-1 text-xs text-red-500">{nameError}</p>}
       </div>
       <div>
         <label htmlFor="email" className={labelCls}>Email Address</label>

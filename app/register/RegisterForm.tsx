@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { CheckCircle, Loader2 } from 'lucide-react'
+import { validateName, validatePhone } from '@/lib/validation'
 
 const HEAR_OPTIONS = [
   'A friend or family member',
@@ -21,10 +22,19 @@ export function RegisterForm() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState<{ name?: string; phone?: string }>({})
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+
+    const nameErr  = validateName(name)
+    const phoneErr = validatePhone(phone)
+    if (nameErr || phoneErr) {
+      setFieldErrors({ name: nameErr ?? undefined, phone: phoneErr ?? undefined })
+      return
+    }
+    setFieldErrors({})
     setLoading(true)
     try {
       const res = await fetch('/api/register', {
@@ -81,9 +91,10 @@ export function RegisterForm() {
             required
             placeholder="Your full name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            className={inputCls}
+            onChange={(e) => { setName(e.target.value); setFieldErrors((f) => ({ ...f, name: undefined })) }}
+            className={`${inputCls} ${fieldErrors.name ? 'border-red-400 focus:border-red-400' : ''}`}
           />
+          {fieldErrors.name && <p className="mt-1 text-xs text-red-500">{fieldErrors.name}</p>}
         </div>
         <div>
           <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Email Address *</label>
@@ -106,9 +117,10 @@ export function RegisterForm() {
           type="tel"
           placeholder="+260 97 ..."
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className={inputCls}
+          onChange={(e) => { setPhone(e.target.value); setFieldErrors((f) => ({ ...f, phone: undefined })) }}
+          className={`${inputCls} ${fieldErrors.phone ? 'border-red-400 focus:border-red-400' : ''}`}
         />
+        {fieldErrors.phone && <p className="mt-1 text-xs text-red-500">{fieldErrors.phone}</p>}
       </div>
 
       <div>

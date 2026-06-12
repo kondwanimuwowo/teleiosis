@@ -6,6 +6,7 @@ import {
   sendAdminRegistrationNotification,
   type EventDetails,
 } from '@/lib/email'
+import { validateName, validatePhone } from '@/lib/validation'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -19,6 +20,11 @@ export async function POST(req: NextRequest) {
     if (!name?.trim() || !email?.trim() || !type) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
+
+    const nameErr  = validateName(name)
+    const phoneErr = validatePhone(phone ?? '')
+    if (nameErr)  return NextResponse.json({ error: nameErr }, { status: 400 })
+    if (phoneErr) return NextResponse.json({ error: phoneErr }, { status: 400 })
 
     const { error } = await supabase.from('registrations').insert({
       name: name.trim(),

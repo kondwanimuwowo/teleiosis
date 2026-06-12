@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendContactConfirmation, sendAdminContactNotification } from '@/lib/email'
 import { createSupabaseAdminClient } from '@/lib/supabase-server'
+import { validateName } from '@/lib/validation'
 
 const MIN_FILL_MS = 3000
 
@@ -16,6 +17,9 @@ export async function POST(req: NextRequest) {
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Name, email, and message are required.' }, { status: 400 })
     }
+
+    const nameErr = validateName(name)
+    if (nameErr) return NextResponse.json({ error: nameErr }, { status: 400 })
 
     const subjectLabel = subject || 'General Inquiry'
     const supabase = createSupabaseAdminClient()
