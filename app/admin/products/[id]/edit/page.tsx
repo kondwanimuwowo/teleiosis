@@ -50,34 +50,34 @@ export default function EditProductPage() {
     }
   }
 
-  if (fetching) return <div className="p-8 text-slate-400 text-sm">Loading…</div>
+  if (fetching) return <div className="p-8 text-slate-400 text-sm">Loading...</div>
 
   return (
     <div className="p-6 sm:p-8 max-w-2xl mx-auto">
       <Link href="/admin/products" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-[#2c0e68] transition-colors mb-6">
-        <ArrowLeft size={15} /> Back to Products
+        <ArrowLeft size={15} /> Back to products
       </Link>
-      <h1 className="font-serif font-bold text-2xl text-[#2c0e68] mb-8">Edit Product</h1>
+      <h1 className="font-serif font-bold text-2xl text-[#2c0e68] mb-8">Edit product</h1>
 
-      {error && <p className="text-red-500 text-sm mb-4 bg-red-50 border border-red-100 px-4 py-3">{error}</p>}
+      {error && <p className="text-red-500 text-sm mb-4 rounded-xl bg-red-50 px-4 py-3">{error}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Name *</label>
           <input required value={form.name} onChange={(e) => set('name', e.target.value)}
-            className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68]" />
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68]" />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Price (ZMW) *</label>
             <input required type="number" min="0" step="0.01" value={form.price} onChange={(e) => set('price', e.target.value)}
-              className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68]" />
+              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68]" />
           </div>
           <div>
             <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Category</label>
             <select value={form.category} onChange={(e) => set('category', e.target.value)}
-              className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] bg-white capitalize">
+              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] bg-white capitalize">
               {CATEGORIES.map((c) => <option key={c} value={c} className="capitalize">{c}</option>)}
             </select>
           </div>
@@ -86,28 +86,28 @@ export default function EditProductPage() {
         <div>
           <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Description</label>
           <textarea rows={3} value={form.description} onChange={(e) => set('description', e.target.value)}
-            className="w-full border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] resize-none" />
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] resize-none" />
         </div>
 
         <ImageUploader
           value={form.image_url}
           onUpload={(url) => set('image_url', url)}
           folder="products"
-          label="Product Image"
+          label="Product image"
         />
 
         <div className="flex items-center gap-3">
           <input type="checkbox" id="in_stock" checked={form.in_stock} onChange={(e) => set('in_stock', e.target.checked)}
             className="w-4 h-4 accent-[#2c0e68]" />
-          <label htmlFor="in_stock" className="text-sm font-semibold text-[#2c0e68]">In Stock</label>
+          <label htmlFor="in_stock" className="text-sm font-semibold text-[#2c0e68]">In stock</label>
         </div>
 
         <div className="flex gap-3 pt-2">
           <button type="submit" disabled={loading}
-            className="px-6 py-3 bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors disabled:opacity-50">
-            {loading ? 'Saving…' : 'Save Changes'}
+            className="px-6 py-3 rounded-full bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-teleiosis-gold/85 transition-colors disabled:opacity-50">
+            {loading ? 'Saving...' : 'Save Changes'}
           </button>
-          <Link href="/admin/products" className="px-6 py-3 border border-slate-200 text-sm text-slate-500 hover:text-[#2c0e68] transition-colors">
+          <Link href="/admin/products" className="px-6 py-3 rounded-full bg-slate-100 text-sm text-slate-600 hover:bg-slate-200 transition-colors">
             Cancel
           </Link>
         </div>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { BookOpen, ChevronDown, Layers } from 'lucide-react'
+import { BookOpen, ChevronDown, Layers, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { StandaloneTeachingsList } from './StandaloneTeachingsList'
 
@@ -27,9 +27,9 @@ type ProgramGroup = {
 }
 
 const GROUP_ACCENTS = [
-  { bg: 'from-[#2c0e68] to-[#4a0e68]', border: 'border-[#4a0e68]/30', badge: 'bg-[#4a0e68]/20 text-white/80' },
-  { bg: 'from-[#1a0840] to-[#2c0e68]', border: 'border-[#2c0e68]/30', badge: 'bg-[#2c0e68]/20 text-white/80' },
-  { bg: 'from-[#0d0424] to-[#1a0840]', border: 'border-[#1a0840]/30', badge: 'bg-[#1a0840]/20 text-white/80' },
+  { bg: '#4a0e68', badge: 'bg-[#4a0e68]/20 text-white/80' },
+  { bg: '#2c0e68', badge: 'bg-[#2c0e68]/20 text-white/80' },
+  { bg: '#1a0840', badge: 'bg-[#1a0840]/20 text-white/80' },
 ]
 
 export function TeachingsGroupsClient({
@@ -59,7 +59,7 @@ export function TeachingsGroupsClient({
             const isEmpty = totalTeachings === 0
 
             return (
-              <div key={group.id} className={`border ${accent.border} overflow-hidden rounded-2xl shadow-sm`}>
+              <div key={group.id} className="overflow-hidden rounded-2xl shadow-sm">
                 {/* Group header card */}
                 <button
                   onClick={() => !isEmpty && toggleGroup(group.id)}
@@ -70,15 +70,12 @@ export function TeachingsGroupsClient({
                   {group.image_url && (
                     <div className="w-full sm:w-[35%] lg:w-[40%] aspect-[16/9] sm:aspect-auto sm:order-last relative bg-[#1a0840]">
                       <img src={group.image_url} alt={group.name} className="absolute inset-0 w-full h-full object-cover" />
-                      {/* Desktop gradient from left */}
-                      <div className={`hidden sm:block absolute inset-0 bg-gradient-to-r ${accent.bg.split(' ')[0]} to-transparent w-full`} />
-                      {/* Mobile gradient from bottom */}
-                      <div className={`sm:hidden absolute inset-0 bg-gradient-to-t ${accent.bg.split(' ')[0]} to-transparent h-full`} />
+                      <div className="absolute inset-0" style={{ backgroundColor: accent.bg, opacity: 0.45 }} />
                     </div>
                   )}
 
                   {/* Content Area */}
-                  <div className={`flex-1 flex items-center justify-between gap-4 p-6 sm:p-8 bg-gradient-to-r ${accent.bg} relative z-10`}>
+                  <div className="flex-1 flex items-center justify-between gap-4 p-6 sm:p-8 relative z-10" style={{ backgroundColor: accent.bg }}>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         {isEmpty && (
@@ -120,7 +117,7 @@ export function TeachingsGroupsClient({
                       transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
                       className="overflow-hidden bg-slate-50"
                     >
-                      <div className="border-t border-slate-100 p-6 sm:p-8">
+                      <div className="p-6 sm:p-8">
                     {/* Series grid */}
                     {group.series.length > 0 && (
                       <div className="mb-8">
@@ -132,13 +129,13 @@ export function TeachingsGroupsClient({
                             <Link
                               key={s.id}
                               href={`/teachings/series/${s.slug}`}
-                              className="bg-white border border-slate-100 overflow-hidden group hover:border-[#4a0e68]/20 hover:shadow-md transition-all duration-300 flex flex-col rounded-xl"
+                              className="bg-white overflow-hidden group hover:shadow-md transition-all duration-300 flex flex-col rounded-xl shadow-sm"
                             >
                               <div className="aspect-[16/9] overflow-hidden bg-[#2c0e68] relative">
                                 {s.thumbnail_url ? (
                                   <img src={s.thumbnail_url} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                 ) : (
-                                  <div className="w-full h-full bg-gradient-to-br from-[#2c0e68] to-[#4a0e68] flex items-center justify-center">
+                                  <div className="w-full h-full bg-[#2c0e68] flex items-center justify-center">
                                     <BookOpen size={32} className="text-white/15" />
                                   </div>
                                 )}
@@ -150,7 +147,9 @@ export function TeachingsGroupsClient({
                               </div>
                               <div className="p-4 flex-1 flex flex-col gap-3">
                                 <h4 className="font-serif font-bold text-sm text-[#2c0e68] group-hover:text-[#4a0e68] transition-colors leading-snug flex-1">{s.title}</h4>
-                                <span className="text-xs font-bold text-teleiosis-gold uppercase tracking-widest mt-auto">Listen →</span>
+                                <span className="text-xs font-bold text-teleiosis-gold uppercase tracking-widest mt-auto inline-flex items-center gap-1">
+                                  Listen <ArrowRight size={12} />
+                                </span>
                               </div>
                             </Link>
                           ))}
@@ -166,7 +165,7 @@ export function TeachingsGroupsClient({
                             <BookOpen size={12} /> Standalone Teachings
                           </p>
                         )}
-                        <div className="bg-white border border-slate-100 rounded-xl overflow-hidden">
+                        <div className="bg-white rounded-xl overflow-hidden shadow-sm">
                           <button
                             onClick={() => setExpandedStandalone((prev) => (prev === group.id ? null : group.id))}
                             className="w-full text-left p-5 flex items-center justify-between gap-4 hover:bg-slate-50/60 transition-colors"
@@ -176,8 +175,8 @@ export function TeachingsGroupsClient({
                                 <BookOpen size={18} className="text-[#2c0e68]/40" />
                               </div>
                               <div>
-                                <p className="font-serif font-bold text-sm text-[#2c0e68]">Standalone Teachings</p>
-                                <p className="text-xs text-slate-400 mt-0.5">{group.standalone_count} teaching{group.standalone_count !== 1 ? 's' : ''} · not in a series</p>
+                                <p className="font-serif font-bold text-sm text-[#2c0e68]">Standalone teachings</p>
+                                <p className="text-xs text-slate-400 mt-0.5">{group.standalone_count} teaching{group.standalone_count !== 1 ? 's' : ''}, not in a series</p>
                               </div>
                             </div>
                             <ChevronDown
@@ -199,10 +198,12 @@ export function TeachingsGroupsClient({
                                 transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
                                 className="overflow-hidden"
                               >
-                                <div className="border-t border-slate-100 px-5 pb-5">
+                                <div className="px-5 pb-5">
                                   <StandaloneTeachingsList programGroupId={group.id} />
-                                  <div className="text-center pt-4 border-t border-slate-100 mt-2">
-                                    <button onClick={onViewAll} className="text-teleiosis-gold text-xs font-bold uppercase tracking-widest hover:text-[#4a0e68] transition-colors">Browse All Library →</button>
+                                  <div className="text-center pt-4 mt-2">
+                                    <button onClick={onViewAll} className="text-teleiosis-gold text-xs font-bold uppercase tracking-widest hover:text-[#4a0e68] transition-colors inline-flex items-center gap-1">
+                                      Browse all library <ArrowRight size={12} />
+                                    </button>
                                   </div>
                                 </div>
                               </motion.div>

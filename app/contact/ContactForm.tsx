@@ -63,7 +63,7 @@ export function ContactForm() {
     return (
       <div className="flex flex-col items-start gap-4 py-10">
         <CheckCircle size={40} className="text-green-500" />
-        <h3 className="font-serif font-bold text-2xl text-[#2c0e68]">Message Sent!</h3>
+        <h3 className="font-serif font-bold text-2xl text-[#2c0e68]">Message sent</h3>
         <p className="text-slate-500 text-base leading-relaxed max-w-md">
           Thank you, {form.name.split(' ')[0]}. We have received your message and will get back to you shortly. Check your inbox for a confirmation email.
         </p>
@@ -135,7 +135,7 @@ export function ContactForm() {
       </div>
 
       {status === 'error' && (
-        <div className="sm:col-span-2 text-sm text-red-600 bg-red-50 border border-red-100 px-4 py-3 rounded-lg">
+        <div className="sm:col-span-2 text-sm text-red-600 bg-red-50 px-4 py-3 rounded-lg">
           {errorMsg}
         </div>
       )}

@@ -21,13 +21,13 @@ export default async function AdminEventsPage() {
         </div>
         <Link
           href="/admin/events/new"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
         >
-          <Plus size={16} /> New Event
+          <Plus size={16} /> New event
         </Link>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         {!events?.length ? (
           <div className="p-12 text-center">
             <Calendar size={32} className="mx-auto text-slate-300 mb-3" />

@@ -48,12 +48,12 @@ export default async function AdminPaymentsPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[
-          { label: 'Total Received (ZMW)', value: `${totalVerified.toLocaleString()}` },
-          { label: 'This Month (ZMW)', value: `${thisMonthTotal.toLocaleString()}` },
+          { label: 'Total received (ZMW)', value: `${totalVerified.toLocaleString()}` },
+          { label: 'This month (ZMW)', value: `${thisMonthTotal.toLocaleString()}` },
           { label: 'Partnerships', value: partnerships.length },
-          { label: 'Event Gifts', value: events.length },
+          { label: 'Event gifts', value: events.length },
         ].map(({ label, value }) => (
-          <div key={label} className="bg-white border border-slate-100 p-5 rounded-xl">
+          <div key={label} className="bg-white shadow-sm p-5 rounded-xl">
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">{label}</p>
             <p className="font-serif font-bold text-2xl text-[#2c0e68]">{value}</p>
           </div>
@@ -61,11 +61,11 @@ export default async function AdminPaymentsPage() {
       </div>
 
       {all.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-slate-200 text-slate-400 text-sm">
+        <div className="text-center py-20 rounded-2xl bg-slate-50 text-slate-400 text-sm">
           No payments recorded yet.
         </div>
       ) : (
-        <div className="border border-slate-100 overflow-x-auto">
+        <div className="shadow-sm overflow-x-auto">
           <table className="w-full text-sm min-w-[700px]">
             <thead className="bg-slate-50 border-b border-slate-100">
               <tr>
@@ -82,7 +82,7 @@ export default async function AdminPaymentsPage() {
               {all.map((p) => (
                 <tr key={p.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-4 py-3 text-slate-500 whitespace-nowrap">{formatDate(p.created_at)}</td>
-                  <td className="px-4 py-3 font-medium text-[#2c0e68]">{p.name ?? '—'}</td>
+                  <td className="px-4 py-3 font-medium text-[#2c0e68]">{p.name ?? '-'}</td>
                   <td className="px-4 py-3 text-slate-500 text-xs">{p.email}</td>
                   <td className="px-4 py-3 font-bold text-[#2c0e68]">ZMW {Number(p.amount).toLocaleString()}</td>
                   <td className="px-4 py-3">

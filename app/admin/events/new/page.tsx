@@ -12,7 +12,7 @@ const SATURDAY_TEMPLATE = {
   speaker: 'Rhema Nyambe',
   type: 'In Person',
   is_recurring: true,
-  recurring_label: 'Manifested Sons of God Class — Fortnightly Saturday',
+  recurring_label: 'Manifested Sons of God Class, fortnightly Saturday',
   recurrence_frequency: 'fortnightly',
   recurrence_interval_days: '',
   recurrence_day_of_week: 'saturday',
@@ -90,7 +90,7 @@ export default function NewEventPage() {
         </Link>
         <div>
           <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-0.5">Events</p>
-          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">New Event</h1>
+          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">New event</h1>
         </div>
       </div>
 
@@ -98,15 +98,15 @@ export default function NewEventPage() {
       <button
         type="button"
         onClick={applySaturdayTemplate}
-        className="w-full mb-6 flex items-center justify-center gap-2 px-5 py-3 rounded-xl border-2 border-dashed border-[#4a2c9c]/25 text-[#4a2c9c] text-sm font-semibold hover:border-[#4a2c9c]/50 hover:bg-[#4a2c9c]/4 transition-all duration-200"
+        className="w-full mb-6 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#4a2c9c]/8 text-[#4a2c9c] text-sm font-semibold hover:bg-[#4a2c9c]/15 transition-all duration-200"
       >
         <Zap size={15} />
-        Saturday Class Quick-Fill (Manifested Sons)
+        Saturday class quick-fill (Manifested Sons)
       </button>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-5">
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm p-7 space-y-5">
         <div>
-          <label className={labelCls}>Event Title *</label>
+          <label className={labelCls}>Event title *</label>
           <input type="text" required value={form.title} onChange={e => set('title', e.target.value)} placeholder="e.g. Manifested Sons of God Class" className={inputCls} />
         </div>
 
@@ -127,11 +127,11 @@ export default function NewEventPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className={labelCls}>Start Time</label>
+            <label className={labelCls}>Start time</label>
             <input type="text" value={form.time_start} onChange={e => set('time_start', e.target.value)} placeholder="2:00 PM" className={inputCls} />
           </div>
           <div>
-            <label className={labelCls}>End Time</label>
+            <label className={labelCls}>End time</label>
             <input type="text" value={form.time_end} onChange={e => set('time_end', e.target.value)} placeholder="5:00 PM" className={inputCls} />
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function NewEventPage() {
         </div>
 
         <div>
-          <label className={labelCls}>Banner Image (Optional)</label>
+          <label className={labelCls}>Banner image (optional)</label>
           <div className="relative border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors group">
             <input 
               type="file" 
@@ -171,7 +171,7 @@ export default function NewEventPage() {
 
         <div>
           <label className={labelCls}>Description (optional)</label>
-          <textarea value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Brief event description…" className={`${inputCls} resize-none`} />
+          <textarea value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Brief event description..." className={`${inputCls} resize-none`} />
         </div>
 
         {/* Recurring */}
@@ -187,11 +187,11 @@ export default function NewEventPage() {
         </div>
 
         {form.is_recurring && (
-          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 space-y-4">
+          <div className="bg-slate-50 rounded-2xl p-5 space-y-4">
             <div>
               <label className={labelCls}>Frequency</label>
               <select value={form.recurrence_frequency} onChange={e => set('recurrence_frequency', e.target.value)} className={inputCls}>
-                <option value="">— Select frequency —</option>
+                <option value="">Select frequency</option>
                 {FREQUENCIES.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
               </select>
             </div>
@@ -206,7 +206,7 @@ export default function NewEventPage() {
             <div>
               <label className={labelCls}>Day of week (optional)</label>
               <select value={form.recurrence_day_of_week} onChange={e => set('recurrence_day_of_week', e.target.value)} className={inputCls}>
-                <option value="">— Any day —</option>
+                <option value="">Any day</option>
                 {DAYS_OF_WEEK.map(d => <option key={d} value={d} className="capitalize">{d.charAt(0).toUpperCase() + d.slice(1)}</option>)}
               </select>
             </div>
@@ -219,20 +219,20 @@ export default function NewEventPage() {
         )}
 
         {error && (
-          <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
+          <p className="text-red-500 text-sm bg-red-50 rounded-xl px-4 py-3">{error}</p>
         )}
 
         <div className="flex gap-3 pt-2">
-          <Link href="/admin/events" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 transition-colors">
+          <Link href="/admin/events" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold hover:bg-slate-200 transition-colors">
             Cancel
           </Link>
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
+            className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
           >
             {loading && <Loader2 size={14} className="animate-spin" />}
-            {loading ? 'Creating…' : 'Create Event'}
+            {loading ? 'Creating...' : 'Create event'}
           </button>
         </div>
       </form>

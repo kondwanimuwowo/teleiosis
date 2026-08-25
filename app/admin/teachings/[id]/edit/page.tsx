@@ -182,21 +182,21 @@ export default function EditTeachingPage() {
         </Link>
         <div>
           <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-0.5">Teachings</p>
-          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Edit Teaching</h1>
+          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Edit teaching</h1>
         </div>
       </div>
 
       {success ? (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-10 text-center">
+        <div className="bg-emerald-50 rounded-2xl p-10 text-center">
           <CheckCircle2 size={40} className="mx-auto text-emerald-500 mb-3" />
           <p className="font-semibold text-emerald-700">Teaching updated successfully!</p>
-          <p className="text-emerald-600 text-sm mt-1">Redirecting…</p>
+          <p className="text-emerald-600 text-sm mt-1">Redirecting...</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-5">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm p-7 space-y-5">
           {/* Audio selection area */}
           <div>
-            <label className={labelCls}>Audio Source</label>
+            <label className={labelCls}>Audio source</label>
             <div
               className={`relative flex flex-col items-center justify-center gap-2 p-8 rounded-2xl border-2 border-dashed transition-all duration-300 ${
                 audioFile || galleryUrl || currentAudioUrl
@@ -208,7 +208,7 @@ export default function EditTeachingPage() {
                 <button 
                   type="button"
                   onClick={clearAudioSelection}
-                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white border border-slate-100 text-slate-400 hover:text-red-500 transition-colors shadow-sm"
+                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white text-slate-400 hover:text-red-500 transition-colors shadow-sm"
                 >
                   <X size={14} />
                 </button>
@@ -223,19 +223,19 @@ export default function EditTeachingPage() {
                     {audioFile.name}
                   </p>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                    New Local File • {(audioFile.size / 1024 / 1024).toFixed(1)} MB
+                    New local file - {(audioFile.size / 1024 / 1024).toFixed(1)} MB
                   </p>
                 </>
               ) : galleryUrl ? (
                 <>
-                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm mb-1 text-teleiosis-gold">
+                  <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center shadow-sm mb-1 text-teleiosis-purple">
                     <Library size={24} />
                   </div>
                   <p className="text-sm font-bold text-[#2c0e68] text-center px-4 truncate w-full">
                     {selectedFileName}
                   </p>
                   <p className="text-[10px] font-bold text-teleiosis-gold uppercase tracking-widest">
-                    Selected from Gallery
+                    Selected from gallery
                   </p>
                 </>
               ) : currentAudioUrl ? (
@@ -247,7 +247,7 @@ export default function EditTeachingPage() {
                     {currentAudioUrl.split('/').pop()}
                   </p>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                    Current Audio File
+                    Current audio file
                   </p>
                   <div className="flex gap-2 mt-2">
                     <button 
@@ -255,7 +255,7 @@ export default function EditTeachingPage() {
                       onClick={() => audioRef.current?.click()}
                       className="text-[10px] font-bold text-[#4a2c9c] hover:underline"
                     >
-                      Replace File
+                      Replace file
                     </button>
                     <span className="text-slate-300">|</span>
                     <button 
@@ -301,7 +301,7 @@ export default function EditTeachingPage() {
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4a2c9c] hover:text-[#2c0e68] transition-colors uppercase tracking-widest px-4 py-2 rounded-full bg-[#4a2c9c]/5 hover:bg-[#4a2c9c]/10"
                 >
                   <Library size={12} />
-                  Change from Gallery
+                  Change from gallery
                 </button>
                 <div className="h-px bg-slate-100 flex-1" />
               </div>
@@ -310,9 +310,9 @@ export default function EditTeachingPage() {
 
           {/* Upload progress */}
           {saving && audioFile && !galleryUrl && (
-            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <div className="bg-slate-50 p-4 rounded-2xl">
               <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
-                <span>Uploading New File…</span>
+                <span>Uploading new file...</span>
                 <span>{progress}%</span>
               </div>
               <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
@@ -337,14 +337,14 @@ export default function EditTeachingPage() {
           <div>
             <label className={labelCls}>Category *</label>
             <select required value={form.category_id} onChange={e => set('category_id', e.target.value)} className={inputCls}>
-              <option value="">Select a category…</option>
+              <option value="">Select a category...</option>
               {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
 
           {groups.length > 0 && (
             <div>
-              <label className={labelCls}>Program Group *</label>
+              <label className={labelCls}>Program group *</label>
               <select 
                 value={form.program_group_id} 
                 onChange={e => {
@@ -354,7 +354,7 @@ export default function EditTeachingPage() {
                 className={inputCls}
                 disabled={!!form.series_id}
               >
-                <option value="">— Select a program group —</option>
+                <option value="">Select a program group</option>
                 {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
               </select>
               {form.series_id && (
@@ -365,9 +365,9 @@ export default function EditTeachingPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl">
             <div>
-              <label className={labelCls}>Assign to Series (Optional)</label>
+              <label className={labelCls}>Assign to series (optional)</label>
               <select 
                 value={form.series_id} 
                 onChange={e => {
@@ -385,7 +385,7 @@ export default function EditTeachingPage() {
                 }} 
                 className={inputCls}
               >
-                <option value="">No Series selected…</option>
+                <option value="">No series selected</option>
                 {(form.program_group_id
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   ? seriesList.filter((s: any) => s.program_group_id === form.program_group_id)
@@ -395,7 +395,7 @@ export default function EditTeachingPage() {
               </select>
             </div>
             <div>
-              <label className={labelCls}>Part Number</label>
+              <label className={labelCls}>Part number</label>
               <input 
                 type="number" 
                 value={form.order_in_series} 
@@ -409,7 +409,7 @@ export default function EditTeachingPage() {
 
           <div>
             <label className={labelCls}>Description *</label>
-            <textarea required value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Brief description of this teaching…" className={`${inputCls} resize-none`} />
+            <textarea required value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Brief description of this teaching..." className={`${inputCls} resize-none`} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -435,19 +435,19 @@ export default function EditTeachingPage() {
           </div>
 
           {error && (
-            <p className="text-red-500 text-xs font-bold uppercase tracking-widest bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
+            <p className="text-red-500 text-xs font-bold uppercase tracking-widest bg-red-50 rounded-xl px-4 py-3">{error}</p>
           )}
 
           <div className="flex gap-3 pt-2">
-            <Link href="/admin/teachings" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-bold hover:bg-slate-50 transition-colors">
+            <Link href="/admin/teachings" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-full bg-slate-100 text-slate-600 text-sm font-bold hover:bg-slate-200 transition-colors">
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#4a2c9c] transition-all shadow-md disabled:opacity-60"
+              className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#4a2c9c] transition-all shadow-md disabled:opacity-60"
             >
-              {saving ? <><Loader2 size={16} className="animate-spin" /> {audioFile ? 'Uploading…' : 'Saving…'}</> : 'Update Teaching'}
+              {saving ? <><Loader2 size={16} className="animate-spin" /> {audioFile ? 'Uploading...' : 'Saving...'}</> : 'Update teaching'}
             </button>
           </div>
         </form>

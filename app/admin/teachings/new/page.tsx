@@ -140,21 +140,21 @@ export default function NewTeachingPage() {
         </Link>
         <div>
           <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-0.5">Teachings</p>
-          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Upload Teaching</h1>
+          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Upload teaching</h1>
         </div>
       </div>
 
       {success ? (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-10 text-center">
+        <div className="bg-emerald-50 rounded-2xl p-10 text-center">
           <CheckCircle2 size={40} className="mx-auto text-emerald-500 mb-3" />
           <p className="font-semibold text-emerald-700">Teaching uploaded successfully!</p>
-          <p className="text-emerald-600 text-sm mt-1">Redirecting…</p>
+          <p className="text-emerald-600 text-sm mt-1">Redirecting...</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-5">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm p-7 space-y-5">
           {/* Audio selection area */}
           <div>
-            <label className={labelCls}>Audio Source *</label>
+            <label className={labelCls}>Audio source *</label>
             <div
               className={`relative flex flex-col items-center justify-center gap-2 p-8 rounded-2xl border-2 border-dashed transition-all duration-300 ${
                 audioFile || galleryUrl
@@ -166,7 +166,7 @@ export default function NewTeachingPage() {
                 <button 
                   type="button"
                   onClick={clearAudioSelection}
-                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white border border-slate-100 text-slate-400 hover:text-red-500 transition-colors shadow-sm"
+                  className="absolute top-3 right-3 p-1.5 rounded-lg bg-white text-slate-400 hover:text-red-500 transition-colors shadow-sm"
                 >
                   <X size={14} />
                 </button>
@@ -181,19 +181,19 @@ export default function NewTeachingPage() {
                     {audioFile.name}
                   </p>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                    Local File • {(audioFile.size / 1024 / 1024).toFixed(1)} MB
+                    Local file - {(audioFile.size / 1024 / 1024).toFixed(1)} MB
                   </p>
                 </>
               ) : galleryUrl ? (
                 <>
-                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm mb-1 text-teleiosis-gold">
+                  <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center shadow-sm mb-1 text-teleiosis-purple">
                     <Library size={24} />
                   </div>
                   <p className="text-sm font-bold text-[#2c0e68] text-center px-4 truncate w-full">
                     {selectedFileName}
                   </p>
                   <p className="text-[10px] font-bold text-teleiosis-gold uppercase tracking-widest">
-                    Selected from Gallery
+                    Selected from gallery
                   </p>
                 </>
               ) : (
@@ -231,7 +231,7 @@ export default function NewTeachingPage() {
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4a2c9c] hover:text-[#2c0e68] transition-colors uppercase tracking-widest px-4 py-2 rounded-full bg-[#4a2c9c]/5 hover:bg-[#4a2c9c]/10"
                 >
                   <Library size={12} />
-                  Select from Gallery
+                  Select from gallery
                 </button>
                 <div className="h-px bg-slate-100 flex-1" />
               </div>
@@ -240,9 +240,9 @@ export default function NewTeachingPage() {
 
           {/* Upload progress */}
           {uploading && audioFile && !galleryUrl && (
-            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <div className="bg-slate-50 p-4 rounded-2xl">
               <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
-                <span>Uploading to Storage…</span>
+                <span>Uploading to storage...</span>
                 <span>{progress}%</span>
               </div>
               <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
@@ -267,15 +267,15 @@ export default function NewTeachingPage() {
           <div>
             <label className={labelCls}>Category *</label>
             <select required value={form.category_id} onChange={e => set('category_id', e.target.value)} className={inputCls}>
-              <option value="">Select a category…</option>
+              <option value="">Select a category...</option>
               {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
 
           {/* Series selector — drives program group automatically */}
-          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl">
             <div>
-              <label className={labelCls}>Assign to Series (Optional)</label>
+              <label className={labelCls}>Assign to series (optional)</label>
               <select
                 value={form.series_id}
                 onChange={e => {
@@ -292,13 +292,13 @@ export default function NewTeachingPage() {
                 }}
                 className={inputCls}
               >
-                <option value="">No Series (standalone)</option>
+                <option value="">No series (standalone)</option>
                 {// eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (seriesList as any[]).map((s: any) => <option key={s.id} value={s.id}>{s.title}</option>)}
               </select>
             </div>
             <div>
-              <label className={labelCls}>Part Number</label>
+              <label className={labelCls}>Part number</label>
               <input
                 type="number"
                 value={form.order_in_series}
@@ -314,7 +314,7 @@ export default function NewTeachingPage() {
           {groups.length > 0 && (
             <div>
               <label className={labelCls}>
-                Program Group
+                Program group
                 {form.series_id && <span className="ml-2 text-teleiosis-gold normal-case font-normal tracking-normal">auto-filled from series</span>}
               </label>
               <select
@@ -324,7 +324,7 @@ export default function NewTeachingPage() {
                 className={`${inputCls} ${form.series_id ? 'opacity-60 cursor-not-allowed' : ''}`}
                 disabled={!!form.series_id}
               >
-                <option value="">— Select a program group —</option>
+                <option value="">Select a program group</option>
                 {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
               </select>
             </div>
@@ -332,7 +332,7 @@ export default function NewTeachingPage() {
 
           <div>
             <label className={labelCls}>Description *</label>
-            <textarea required value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Brief description of this teaching…" className={`${inputCls} resize-none`} />
+            <textarea required value={form.description} onChange={e => set('description', e.target.value)} rows={3} placeholder="Brief description of this teaching..." className={`${inputCls} resize-none`} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -358,19 +358,19 @@ export default function NewTeachingPage() {
           </div>
 
           {error && (
-            <p className="text-red-500 text-xs font-bold uppercase tracking-widest bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
+            <p className="text-red-500 text-xs font-bold uppercase tracking-widest bg-red-50 rounded-xl px-4 py-3">{error}</p>
           )}
 
           <div className="flex gap-3 pt-2">
-            <Link href="/admin/teachings" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-bold hover:bg-slate-50 transition-colors">
+            <Link href="/admin/teachings" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-full bg-slate-100 text-slate-600 text-sm font-bold hover:bg-slate-200 transition-colors">
               Cancel
             </Link>
             <button
               type="submit"
               disabled={uploading}
-              className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#4a2c9c] transition-all shadow-md disabled:opacity-60"
+              className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#4a2c9c] transition-all shadow-md disabled:opacity-60"
             >
-              {uploading ? <><Loader2 size={16} className="animate-spin" /> {audioFile ? 'Uploading…' : 'Saving…'}</> : 'Publish Teaching'}
+              {uploading ? <><Loader2 size={16} className="animate-spin" /> {audioFile ? 'Uploading...' : 'Saving...'}</> : 'Publish teaching'}
             </button>
           </div>
         </form>

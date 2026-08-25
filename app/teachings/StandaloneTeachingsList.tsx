@@ -19,9 +19,9 @@ export function StandaloneTeachingsList({ programGroupId }: { programGroupId: st
         const isActive = currentTeaching?.id === teaching.id
 
         return (
-          <div key={teaching.id} className="bg-white border border-slate-100 rounded-xl p-4 flex flex-col sm:flex-row gap-4 group hover:shadow-md transition-all hover:-translate-y-0.5">
+          <div key={teaching.id} className="bg-white rounded-xl p-4 flex flex-col sm:flex-row gap-4 group shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
             {/* Thumbnail (Top Mobile / Left Desktop) */}
-            <div className="w-full sm:w-32 aspect-video sm:aspect-square bg-slate-100 rounded-lg overflow-hidden flex-shrink-0 relative">
+            <div className="w-full sm:w-32 aspect-video sm:aspect-square bg-slate-100 rounded-xl overflow-hidden flex-shrink-0 relative">
               {teaching.thumbnail_url ? (
                 <img src={teaching.thumbnail_url} alt={teaching.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               ) : (
@@ -35,12 +35,12 @@ export function StandaloneTeachingsList({ programGroupId }: { programGroupId: st
             <div className="flex-1 min-w-0 flex flex-col justify-center">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
                 <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                  <User size={12} className="text-teleiosis-gold" />
+                  <User size={12} className="text-teleiosis-purple" />
                   {teaching.speaker || 'Unknown'}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-slate-200 hidden sm:block" />
                 <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                  <Calendar size={12} className="text-teleiosis-gold" />
+                  <Calendar size={12} className="text-teleiosis-purple" />
                   {new Date(teaching.published_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                 </span>
               </div>
@@ -50,7 +50,7 @@ export function StandaloneTeachingsList({ programGroupId }: { programGroupId: st
               <div className="flex items-center gap-4 mt-auto">
                 <button
                   onClick={() => isActive ? togglePlay() : playTeaching(teaching)}
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-colors ${
                     isActive 
                       ? 'bg-[#4a0e68] text-white shadow-md' 
                       : 'bg-slate-50 text-[#4a0e68] hover:bg-[#4a0e68] hover:text-white'

@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { SeriesTeachingPlayer } from '@/app/components/SeriesTeachingPlayer'
 import { FadeIn } from '@/app/components/FadeIn'
-import { ArrowLeft, BookOpen } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react'
 import { ShareButtons } from '@/app/components/ShareButtons'
 
 interface Props {
@@ -94,10 +94,10 @@ export default async function SeriesDetailPage({ params }: Props) {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url('${series.thumbnail_url}')` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a0840] via-[#2c0e68]/80 to-[#2c0e68]/50" />
+            <div className="absolute inset-0 bg-[#1a0840]/70" />
           </>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1a0840] via-[#2c0e68] to-[#4a0e68]">
+          <div className="absolute inset-0 bg-[#2c0e68]">
             {/* Decorative orbs */}
             <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-teleiosis-gold/8 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-[#4a0e68]/60 rounded-full blur-2xl" />
@@ -120,11 +120,6 @@ export default async function SeriesDetailPage({ params }: Props) {
         {/* Content */}
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
 
-          {/* Label */}
-          <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-5">
-            Teaching Series
-          </p>
-
           {/* Title */}
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05] mb-6 max-w-3xl">
             {series.title}
@@ -132,12 +127,12 @@ export default async function SeriesDetailPage({ params }: Props) {
 
           {/* Meta pills */}
           <div className="flex flex-wrap items-center gap-3 mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 text-xs font-bold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm text-white/80 text-xs font-bold uppercase tracking-widest">
               <BookOpen size={12} />
               {trackList.length} Part{trackList.length !== 1 ? 's' : ''}
             </span>
             {durationLabel && (
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 text-xs font-bold uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm text-white/80 text-xs font-bold uppercase tracking-widest">
                 {durationLabel} total
               </span>
             )}
@@ -170,18 +165,15 @@ export default async function SeriesDetailPage({ params }: Props) {
       {/* ── MORE SERIES ──────────────────────────────────────────── */}
       {otherSeries && otherSeries.length > 0 && (
         <FadeIn>
-          <section className="bg-slate-50 py-16 sm:py-24 border-t border-slate-100">
+          <section className="bg-slate-50 py-16 sm:py-24">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="flex items-baseline justify-between mb-10">
-                <div>
-                  <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Explore More</p>
-                  <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68]">Other Series</h2>
-                </div>
+                <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68]">Other series</h2>
                 <Link
                   href="/teachings"
-                  className="text-xs font-bold text-[#4a0e68] hover:text-teleiosis-gold uppercase tracking-widest transition-colors hidden sm:block"
+                  className="text-xs font-bold text-[#4a0e68] hover:text-teleiosis-gold uppercase tracking-widest transition-colors hidden sm:flex items-center gap-1"
                 >
-                  View All →
+                  View all <ArrowRight size={12} />
                 </Link>
               </div>
 
@@ -190,7 +182,7 @@ export default async function SeriesDetailPage({ params }: Props) {
                   <Link
                     key={s.id}
                     href={`/teachings/series/${s.slug}`}
-                    className="group bg-white border border-slate-100 overflow-hidden hover:border-[#4a0e68]/20 hover:shadow-lg transition-all duration-300 rounded-xl"
+                    className="group bg-white overflow-hidden hover:shadow-lg transition-all duration-300 rounded-xl shadow-sm"
                   >
                     <div className="aspect-[16/9] overflow-hidden bg-[#2c0e68] relative">
                       {s.thumbnail_url ? (
@@ -200,7 +192,7 @@ export default async function SeriesDetailPage({ params }: Props) {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-[#2c0e68] to-[#4a0e68] flex items-center justify-center">
+                        <div className="w-full h-full bg-[#2c0e68] flex items-center justify-center">
                           <BookOpen size={32} className="text-white/20" />
                         </div>
                       )}
@@ -209,8 +201,8 @@ export default async function SeriesDetailPage({ params }: Props) {
                       <h3 className="font-serif font-bold text-base text-[#2c0e68] group-hover:text-[#4a0e68] transition-colors leading-snug">
                         {s.title}
                       </h3>
-                      <p className="text-xs font-bold text-teleiosis-gold uppercase tracking-widest mt-2">
-                        View Series →
+                      <p className="text-xs font-bold text-teleiosis-gold uppercase tracking-widest mt-2 inline-flex items-center gap-1">
+                        View series <ArrowRight size={12} />
                       </p>
                     </div>
                   </Link>

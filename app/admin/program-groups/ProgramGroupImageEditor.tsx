@@ -37,11 +37,11 @@ export function ProgramGroupImageEditor({ groupId, initialImageUrl }: Props) {
   }
 
   return (
-    <div className="mt-4 pt-4 border-t border-slate-100">
+    <div className="mt-4 pt-4">
       <div className="flex items-center gap-2 mb-3">
         <ImageIcon size={13} className="text-slate-400" />
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Group Image</span>
-        {saving && <span className="text-[10px] text-slate-400 ml-auto">Saving…</span>}
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Group image</span>
+        {saving && <span className="text-[10px] text-slate-400 ml-auto">Saving...</span>}
         {saved && (
           <span className="text-[10px] text-green-600 font-bold ml-auto flex items-center gap-1">
             <CheckCircle size={11} /> Saved

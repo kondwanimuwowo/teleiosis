@@ -41,11 +41,11 @@ export async function StorageWidget() {
     const barColor = usedPercent > 80 ? 'bg-red-400' : usedPercent > 50 ? 'bg-amber-400' : 'bg-emerald-400'
 
     return (
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+      <div className="bg-white rounded-2xl shadow-sm p-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center">
-              <HardDrive size={16} className="text-slate-500" />
+              <HardDrive size={16} className="text-teleiosis-purple" />
             </div>
             <div>
               <p className="text-xs font-bold text-[#2c0e68]">R2 Storage</p>
@@ -69,9 +69,9 @@ export async function StorageWidget() {
     )
   } catch {
     return (
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex items-center gap-3">
+      <div className="bg-white rounded-2xl shadow-sm p-5 flex items-center gap-3">
         <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center">
-          <HardDrive size={16} className="text-slate-400" />
+          <HardDrive size={16} className="text-teleiosis-purple" />
         </div>
         <p className="text-xs text-slate-400">Storage data unavailable</p>
       </div>

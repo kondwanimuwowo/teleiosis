@@ -31,21 +31,21 @@ async function getStats() {
 }
 
 const MODULES = [
-  { href: '/admin/events',      label: 'Events',          Icon: Calendar,      color: 'bg-blue-500/10 text-blue-600',     key: 'events' },
-  { href: '/admin/teachings',   label: 'Teachings',       Icon: Mic2,          color: 'bg-purple-500/10 text-purple-600', key: 'teachings' },
-  { href: '/admin/series',      label: 'Series',          Icon: Library,       color: 'bg-indigo-500/10 text-indigo-600', key: 'series' },
-  { href: '/admin/blog',        label: 'Blog Posts',      Icon: BookOpen,      color: 'bg-emerald-500/10 text-emerald-600', key: 'blog' },
-  { href: '/admin/quotes',      label: 'Quotes',          Icon: Quote,         color: 'bg-amber-500/10 text-amber-600',   key: 'quotes' },
-  { href: '/admin/team',        label: 'Team',            Icon: Users,         color: 'bg-rose-500/10 text-rose-600',     key: 'team' },
-  { href: '/admin/subscribers', label: 'Subscribers',     Icon: Mail,          color: 'bg-teal-500/10 text-teal-600',     key: 'subscribers' },
-  { href: '/admin/messages',    label: 'Unread Messages', Icon: MessageSquare, color: 'bg-orange-500/10 text-orange-600', key: 'unreadMessages' },
+  { href: '/admin/events',      label: 'Events',          Icon: Calendar,      color: 'bg-slate-100 text-teleiosis-purple', key: 'events' },
+  { href: '/admin/teachings',   label: 'Teachings',       Icon: Mic2,          color: 'bg-slate-100 text-teleiosis-purple', key: 'teachings' },
+  { href: '/admin/series',      label: 'Series',          Icon: Library,       color: 'bg-slate-100 text-teleiosis-purple', key: 'series' },
+  { href: '/admin/blog',        label: 'Blog Posts',      Icon: BookOpen,      color: 'bg-slate-100 text-teleiosis-purple', key: 'blog' },
+  { href: '/admin/quotes',      label: 'Quotes',          Icon: Quote,         color: 'bg-slate-100 text-teleiosis-purple', key: 'quotes' },
+  { href: '/admin/team',        label: 'Team',            Icon: Users,         color: 'bg-slate-100 text-teleiosis-purple', key: 'team' },
+  { href: '/admin/subscribers', label: 'Subscribers',     Icon: Mail,          color: 'bg-slate-100 text-teleiosis-purple', key: 'subscribers' },
+  { href: '/admin/messages',    label: 'Unread Messages', Icon: MessageSquare, color: 'bg-slate-100 text-teleiosis-purple', key: 'unreadMessages' },
 ]
 
 const QUICK_ACTIONS = [
-  { href: '/admin/events/new',    label: 'New Event',      Icon: Calendar, color: 'bg-blue-500/10 text-blue-600' },
-  { href: '/admin/teachings/new', label: 'Upload Teaching', Icon: Mic2,    color: 'bg-purple-500/10 text-purple-600' },
-  { href: '/admin/series/new',    label: 'New Series',     Icon: Library,  color: 'bg-indigo-500/10 text-indigo-600' },
-  { href: '/admin/blog/new',      label: 'New Blog Post',  Icon: BookOpen, color: 'bg-emerald-500/10 text-emerald-600' },
+  { href: '/admin/events/new',    label: 'New Event',      Icon: Calendar, color: 'bg-slate-100 text-teleiosis-purple' },
+  { href: '/admin/teachings/new', label: 'Upload Teaching', Icon: Mic2,    color: 'bg-slate-100 text-teleiosis-purple' },
+  { href: '/admin/series/new',    label: 'New Series',     Icon: Library,  color: 'bg-slate-100 text-teleiosis-purple' },
+  { href: '/admin/blog/new',      label: 'New Blog Post',  Icon: BookOpen, color: 'bg-slate-100 text-teleiosis-purple' },
 ]
 
 export default async function AdminDashboard() {
@@ -67,7 +67,7 @@ export default async function AdminDashboard() {
           <Link
             key={key}
             href={href}
-            className="bg-white rounded-2xl border border-slate-100 p-5 flex flex-col justify-between gap-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group min-h-[100px]"
+            className="bg-white rounded-2xl p-5 flex flex-col justify-between gap-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group min-h-[100px]"
           >
             {/* Top row: icon + stat */}
             <div className="flex items-center gap-4">
@@ -86,11 +86,11 @@ export default async function AdminDashboard() {
 
       {/* Storage widget */}
       <Suspense fallback={
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-6 flex items-center gap-3">
+        <div className="bg-white rounded-2xl shadow-sm p-5 mb-6 flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center animate-pulse">
             <HardDrive size={16} className="text-slate-300" />
           </div>
-          <p className="text-xs text-slate-300 animate-pulse">Checking storage…</p>
+          <p className="text-xs text-slate-300 animate-pulse">Checking storage...</p>
         </div>
       }>
         <div className="mb-6">
@@ -99,14 +99,14 @@ export default async function AdminDashboard() {
       </Suspense>
 
       {/* Quick actions */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-8">
-        <h2 className="font-serif font-bold text-lg text-[#2c0e68] mb-5">Quick Actions</h2>
+      <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <h2 className="font-serif font-bold text-lg text-[#2c0e68] mb-5">Quick actions</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {QUICK_ACTIONS.map(({ href, label, Icon, color }) => (
             <Link
               key={href}
               href={href}
-              className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-xl border border-slate-200 hover:border-[#4a2c9c]/30 hover:bg-[#4a2c9c]/4 transition-all duration-200 text-center group"
+              className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-xl bg-slate-50 hover:bg-[#4a2c9c]/5 transition-all duration-200 text-center group"
             >
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color} group-hover:scale-110 transition-transform duration-200`}>
                 <Icon size={18} />
@@ -120,7 +120,7 @@ export default async function AdminDashboard() {
 
 
       {/* Info banner */}
-      <div className="bg-[#1a0840]/5 border border-[#4a2c9c]/15 rounded-2xl p-5">
+      <div className="bg-[#1a0840]/5 rounded-2xl p-5">
         <p className="text-xs text-[#4a2c9c]/70 font-medium">
           All content changes are live immediately. Use the modules above to manage events, teachings, series, blog posts, quotes, team members, products, and payments.
         </p>

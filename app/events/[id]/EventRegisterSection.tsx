@@ -36,19 +36,17 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
   const inputCls = 'w-full border border-slate-200 bg-white px-3 py-2.5 text-sm text-[#2c0e68] rounded-lg focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 transition-colors'
 
   return (
-    <div className="bg-slate-50 border border-slate-100 rounded-xl overflow-hidden">
+    <div className="bg-slate-50 rounded-xl overflow-hidden shadow-sm">
       {/* Header / toggle */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center gap-3 p-5 sm:p-6 text-left group"
       >
-        <div className="w-9 h-9 bg-[#2c0e68]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-          <UserCheck size={16} className="text-[#2c0e68]" />
-        </div>
+        <UserCheck size={20} className="text-[#2c0e68] flex-shrink-0" />
         <div className="flex-1 min-w-0">
-          <p className="font-serif font-bold text-[#2c0e68] text-base leading-snug">Register for this Event</p>
-          <p className="text-xs text-slate-400 mt-0.5">Free &middot; Secure your spot</p>
+          <p className="font-serif font-bold text-[#2c0e68] text-base leading-snug">Register for this event</p>
+          <p className="text-xs text-slate-400 mt-0.5">Free &middot; secure your spot</p>
         </div>
         <ChevronDown
           size={18}
@@ -67,13 +65,13 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
           transition={{ duration: 0.28, ease: [0.04, 0.62, 0.23, 0.98] }}
           className="overflow-hidden"
         >
-        <div className="px-5 sm:px-6 pb-6 border-t border-slate-100">
+        <div className="px-5 sm:px-6 pb-6 bg-white">
           {success ? (
             <div className="flex flex-col items-center text-center py-8">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
+              <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-4 shadow-sm">
                 <CheckCircle size={24} className="text-green-500" />
               </div>
-              <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-1">You&apos;re Registered!</h3>
+              <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-1">You&apos;re registered!</h3>
               <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
                 We have your spot for <strong className="text-[#2c0e68]">{eventTitle}</strong>. Check your inbox for a confirmation email.
               </p>
@@ -112,7 +110,7 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-3 text-sm font-bold rounded-lg transition-all ${
+                className={`w-full py-3 text-sm font-bold rounded-full transition-all ${
                   loading ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-[#2c0e68] text-white hover:bg-[#3a1878] cursor-pointer'
                 }`}
               >
@@ -120,7 +118,7 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
                   <span className="flex items-center justify-center gap-2">
                     <Loader2 size={15} className="animate-spin" /> Registering…
                   </span>
-                ) : 'Register Now — Free'}
+                ) : "Register now, it's free"}
               </button>
             </form>
           )}

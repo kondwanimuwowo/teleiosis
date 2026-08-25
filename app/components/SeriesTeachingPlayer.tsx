@@ -22,11 +22,10 @@ export function SeriesTeachingPlayer({ teachings }: Props) {
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
-        <div className="flex items-baseline justify-between mb-12 pb-6 border-b border-slate-100">
+        <div className="flex items-baseline justify-between mb-14">
           <div>
-            <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Teachings</p>
             <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68]">
-              {teachings.length} Part{teachings.length !== 1 ? 's' : ''} in this Series
+              {teachings.length} part{teachings.length !== 1 ? 's' : ''} in this series
             </h2>
           </div>
           {totalMinutes > 0 && (
@@ -40,7 +39,7 @@ export function SeriesTeachingPlayer({ teachings }: Props) {
         </div>
 
         {/* Track list */}
-        <div className="divide-y divide-slate-100">
+        <div className="space-y-1">
           {teachings.map((teaching, idx) => {
             const isActive = currentTeaching?.id === teaching.id
             const partNum  = teaching.order_in_series ?? idx + 1
@@ -94,7 +93,7 @@ export function SeriesTeachingPlayer({ teachings }: Props) {
                     className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isActive
                         ? 'bg-[#4a0e68] text-white scale-110 shadow-lg shadow-[#4a0e68]/30'
-                        : 'bg-white border border-slate-200 text-[#4a0e68] hover:border-[#4a0e68] hover:shadow-md'
+                        : 'bg-white shadow-sm text-[#4a0e68] hover:shadow-md'
                     }`}
                   >
                     {isActive && isPlaying

@@ -73,18 +73,18 @@ export default function AdminQuotesPage() {
       </div>
 
       {/* Add / Edit form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-6 space-y-4">
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm p-6 mb-6 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="font-serif font-semibold text-base text-[#2c0e68]">
-            {editingId ? 'Edit Quote' : 'Add New Quote'}
+            {editingId ? 'Edit quote' : 'Add new quote'}
           </h2>
           {editingId && (
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={cancelEdit}
               className="text-xs text-slate-400 hover:text-slate-600 flex items-center gap-1"
             >
-              <X size={14} /> Cancel Edit
+              <X size={14} /> Cancel edit
             </button>
           )}
         </div>
@@ -93,7 +93,7 @@ export default function AdminQuotesPage() {
           onChange={e => setText(e.target.value)}
           rows={3}
           required
-          placeholder="Quote text…"
+          placeholder="Quote text..."
           className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 text-sm focus:outline-none focus:border-[#4a2c9c]/50 focus:ring-2 focus:ring-[#4a2c9c]/10 transition-all resize-none"
         />
         <div className="flex gap-3">
@@ -107,7 +107,7 @@ export default function AdminQuotesPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
           >
             {submitting ? <Loader2 size={14} className="animate-spin" /> : editingId ? <Pencil size={14} /> : <Plus size={14} />}
             {editingId ? 'Update' : 'Add'}
@@ -116,7 +116,7 @@ export default function AdminQuotesPage() {
       </form>
 
       {/* List */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-12 flex justify-center"><Loader2 size={24} className="animate-spin text-slate-300" /></div>
         ) : !quotes.length ? (
@@ -128,7 +128,7 @@ export default function AdminQuotesPage() {
           <ul className="divide-y divide-slate-50">
             {quotes.map((q) => (
               <li key={q.id} className={`flex items-start gap-4 px-6 py-5 hover:bg-slate-50/60 transition-colors group ${editingId === q.id ? 'bg-slate-50 ring-1 ring-inset ring-[#4a2c9c]/10' : ''}`}>
-                <Quote size={14} className="flex-shrink-0 mt-1 text-teleiosis-gold" />
+                <Quote size={14} className="flex-shrink-0 mt-1 text-teleiosis-purple" />
                 <div className="flex-1 min-w-0">
                   <p className="text-slate-700 text-sm leading-relaxed">{q.text}</p>
                   {q.scripture && <p className="text-xs text-teleiosis-gold font-semibold mt-1 tracking-wider">{q.scripture}</p>}

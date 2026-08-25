@@ -33,7 +33,7 @@ export const viewport: Viewport = {
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
 
 export const metadata: Metadata = {
-  title: { template: '%s | Teleiosis Mandate', default: 'Teleiosis Mandate — That Which Is Perfect Is Come' },
+  title: { template: '%s | Teleiosis Mandate', default: 'Teleiosis Mandate: That Which Is Perfect Is Come' },
   description: 'A community devoted to the practical revelation of the risen Christ, training the sons of God into Christian perfection and Kingdom authority. Based in Lusaka, Zambia.',
   metadataBase: new URL(BASE),
   keywords: ['Teleiosis Mandate', 'Christian perfection', 'Kingdom authority', 'Rhema Nyambe', 'Lusaka Zambia', 'Christian teaching', 'Manifested Sons of God', 'sonship'],
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     siteName: 'Teleiosis Mandate',
     locale: 'en_ZM',
     url: BASE,
-    title: 'Teleiosis Mandate — That Which Is Perfect Is Come',
+    title: 'Teleiosis Mandate: That Which Is Perfect Is Come',
     description: 'A community devoted to the practical revelation of the risen Christ, training the sons of God into Christian perfection and Kingdom authority.',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Teleiosis Mandate' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Teleiosis Mandate — That Which Is Perfect Is Come',
+    title: 'Teleiosis Mandate: That Which Is Perfect Is Come',
     description: 'Training believers into Christian perfection and Kingdom authority. Based in Lusaka, Zambia.',
     images: ['/og-image.png'],
   },

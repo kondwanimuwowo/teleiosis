@@ -16,13 +16,11 @@ export default function ContactPage() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{ backgroundImage: "url('/images/sermon-4.jpg')" }} 
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.70) 0%, rgba(20,8,43,0.70) 100%)' }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a0840]/90 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[#1a0840]/75" />
 
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pb-20">
-          <p className="text-teleiosis-gold/30 text-xs font-bold tracking-[0.4em] uppercase mb-4">Get in Touch</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-7xl text-white leading-[1.1] mb-6 max-w-3xl">
-            Contact Us
+            Contact us
           </h1>
           <p className="text-white/60 text-base sm:text-lg max-w-xl leading-relaxed">
             Have questions about our programs, events, or the mandate? We are here to serve and support your journey.
@@ -42,8 +40,8 @@ export default function ContactPage() {
             {/* Form Section */}
             <div className="lg:col-span-7">
               <FadeIn>
-                <div className="bg-slate-50 border border-slate-100 p-6 sm:p-10 shadow-sm rounded-xl">
-                  <h2 className="font-serif font-bold text-xl text-[#2c0e68] mb-1">Send a Message</h2>
+                <div className="bg-slate-50 p-6 sm:p-10 shadow-sm rounded-xl">
+                  <h2 className="font-serif font-bold text-xl text-[#2c0e68] mb-1">Send a message</h2>
                   <p className="text-slate-500 text-sm mb-8">
                     Fill out the form below and we will get back to you as soon as possible.
                   </p>
@@ -55,12 +53,11 @@ export default function ContactPage() {
             {/* Contact Info Sidebar */}
             <div className="lg:col-span-5">
               <FadeIn delay={0.2}>
-                <div className="bg-slate-50 border border-slate-100 p-8 sm:p-12 rounded-[2.5rem] relative overflow-hidden group">
-                  {/* Internal card glassmorphism effect */}
+                <div className="bg-slate-50 p-8 sm:p-12 rounded-2xl relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-teleiosis-gold opacity-10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
-                  
+
                   <div className="relative z-10 space-y-12">
-                    <h3 className="font-serif font-bold text-2xl text-[#2c0e68]">Contact Information</h3>
+                    <h3 className="font-serif font-bold text-2xl text-[#2c0e68]">Contact information</h3>
                     
                     <div className="space-y-8">
                       {[
@@ -68,7 +65,7 @@ export default function ContactPage() {
                         { icon: Mail, label: 'Email', value: 'info@teleiosis.org', href: 'mailto:info@teleiosis.org' },
                       ].map((item) => (
                         <div key={item.label} className="flex items-start gap-4">
-                          <div className="w-10 h-10 rounded-full bg-[#4a0e68]/5 flex items-center justify-center text-[#4a0e68] flex-shrink-0">
+                          <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-teleiosis-purple flex-shrink-0">
                             <item.icon size={18} />
                           </div>
                           <div>
@@ -81,7 +78,7 @@ export default function ContactPage() {
                       ))}
                       
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full bg-[#4a0e68]/5 flex items-center justify-center text-[#4a0e68] flex-shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-teleiosis-purple flex-shrink-0">
                           <MapPin size={18} />
                         </div>
                         <div>
@@ -93,19 +90,19 @@ export default function ContactPage() {
                       </div>
                     </div>
 
-                    <div className="pt-10 border-t border-slate-200/60">
-                      <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-6">Connect With Us</p>
+                    <div className="pt-10">
+                      <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-6">Connect with us</p>
                       <div className="flex gap-4">
                         {[
                           { icon: Facebook, href: 'https://web.facebook.com/Rhemaword27', label: 'Facebook' },
                           { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
                           { icon: Youtube, href: 'https://youtube.com', label: 'YouTube' },
                         ].map((social) => (
-                          <a 
-                            key={social.label} 
+                          <a
+                            key={social.label}
                             href={social.href}
                             aria-label={social.label}
-                            className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-[#4a0e68] hover:bg-[#4a0e68] hover:text-white hover:border-[#4a0e68] transition-all duration-300"
+                            className="w-12 h-12 rounded-full bg-[#4a0e68]/10 flex items-center justify-center text-[#4a0e68] hover:bg-[#4a0e68] hover:text-white transition-all duration-300"
                           >
                             <social.icon size={20} />
                           </a>

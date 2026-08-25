@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, Mail, MailOpen } from 'lucide-react'
+import { ChevronDown, ChevronUp, Mail, MailOpen, Check } from 'lucide-react'
 
 type Message = {
   id: string
@@ -71,11 +71,11 @@ export default function MessagesClient({ initial }: { initial: Message[] }) {
       </div>
 
       {visible.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-slate-200 text-slate-400 text-sm">
+        <div className="text-center py-20 rounded-2xl bg-slate-50 text-slate-400 text-sm">
           {tab === 'unread' ? 'No unread messages.' : tab === 'read' ? 'No read messages yet.' : 'No messages yet.'}
         </div>
       ) : (
-        <div className="border border-slate-100 divide-y divide-slate-100">
+        <div className="shadow-sm divide-y divide-slate-100">
           {visible.map((m) => (
             <div key={m.id} className={`${!m.read ? 'bg-white' : 'bg-slate-50/50'}`}>
               {/* Row */}
@@ -91,7 +91,7 @@ export default function MessagesClient({ initial }: { initial: Message[] }) {
                 </span>
                 <span className="text-slate-400 text-xs truncate max-w-[160px] hidden sm:block">{m.email}</span>
                 <span className="text-slate-500 text-xs truncate max-w-[200px] hidden md:block">
-                  {m.subject ?? 'General Inquiry'}
+                  {m.subject ?? 'General inquiry'}
                 </span>
                 <span className="text-slate-400 text-xs whitespace-nowrap ml-auto">{formatDate(m.created_at)}</span>
                 <span className="text-slate-300 ml-2 flex-shrink-0">
@@ -104,7 +104,7 @@ export default function MessagesClient({ initial }: { initial: Message[] }) {
                 <div className="px-6 pb-5 pt-1 border-t border-slate-100 bg-white">
                   <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-400 mb-3">
                     <span><span className="font-semibold text-slate-500">From:</span> {m.name} &lt;{m.email}&gt;</span>
-                    <span><span className="font-semibold text-slate-500">Subject:</span> {m.subject ?? 'General Inquiry'}</span>
+                    <span><span className="font-semibold text-slate-500">Subject:</span> {m.subject ?? 'General inquiry'}</span>
                     <span><span className="font-semibold text-slate-500">Sent:</span> {formatDate(m.created_at)}</span>
                   </div>
                   <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap border-l-2 border-slate-200 pl-4">
@@ -114,9 +114,9 @@ export default function MessagesClient({ initial }: { initial: Message[] }) {
                     <button
                       onClick={() => markRead(m.id)}
                       disabled={marking === m.id}
-                      className="mt-4 text-xs font-semibold text-[#2c0e68] hover:text-[#4a2c9c] transition-colors disabled:opacity-50"
+                      className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#2c0e68] hover:text-[#4a2c9c] transition-colors disabled:opacity-50"
                     >
-                      {marking === m.id ? 'Marking...' : '✓ Mark as Read'}
+                      {marking === m.id ? 'Marking...' : <><Check size={13} /> Mark as read</>}
                     </button>
                   )}
                 </div>

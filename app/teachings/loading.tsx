@@ -4,9 +4,9 @@
 export default function TeachingsLoading() {
   return (
     <div>
-      <section className="relative flex items-center" style={{ minHeight: '70vh', background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }} />
+      <section className="relative flex items-center bg-[#1a0840]" style={{ minHeight: '70vh' }} />
 
-      <div className="bg-white border-b border-slate-100 py-4 sticky top-20 z-30">
+      <div className="bg-white shadow-sm py-4 sticky top-20 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center gap-3">
           <div className="h-9 w-full max-w-sm bg-slate-100 rounded-xl animate-pulse" />
           <div className="h-9 w-24 bg-slate-100 rounded-xl animate-pulse hidden sm:block" />
@@ -18,12 +18,12 @@ export default function TeachingsLoading() {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="rounded-2xl overflow-hidden border border-[#4a0e68]/20 animate-pulse"
+              className="rounded-2xl overflow-hidden shadow-sm animate-pulse"
               style={{ animationDelay: `${i * 120}ms` }}
             >
               <div className="flex flex-col sm:flex-row">
                 <div className="w-full sm:w-[35%] lg:w-[40%] aspect-[21/9] sm:aspect-auto sm:min-h-[160px] bg-[#1a0840]" />
-                <div className="flex-1 p-6 sm:p-8 bg-gradient-to-r from-[#2c0e68] to-[#4a0e68] flex flex-col justify-center gap-3">
+                <div className="flex-1 p-6 sm:p-8 bg-[#2c0e68] flex flex-col justify-center gap-3">
                   <div className="flex items-center gap-3">
                     <div className="h-3 w-20 bg-white/20 rounded" />
                     <div className="h-5 w-24 bg-white/10 rounded-full" />

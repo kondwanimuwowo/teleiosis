@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Search, Library } from 'lucide-react'
+import { Search, Library, ArrowLeft, X } from 'lucide-react'
 import { TeachingsGroupsClient } from './TeachingsGroupsClient'
 import { TeachingsList } from '../components/TeachingsList'
 
@@ -59,14 +59,15 @@ export function TeachingsPageClient({ groups }: { groups: ProgramGroup[] }) {
   return (
     <div>
       {/* ── Persistent top bar (always rendered — never unmounts) ─── */}
-      <div className="bg-white border-b border-slate-100 py-4 sticky top-20 z-30">
+      <div className="bg-white shadow-sm py-4 sticky top-20 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center gap-3">
           {showFlat && (
             <button
               onClick={handleBack}
-              className="text-xs font-bold text-slate-400 hover:text-[#2c0e68] transition-colors flex items-center gap-1 flex-shrink-0"
+              className="text-xs font-bold text-slate-400 hover:text-[#2c0e68] transition-colors flex items-center gap-1.5 flex-shrink-0"
             >
-              ← Programs
+              <ArrowLeft size={14} />
+              Programs
             </button>
           )}
           {showFlat && <span className="text-slate-200 flex-shrink-0">|</span>}
@@ -77,17 +78,17 @@ export function TeachingsPageClient({ groups }: { groups: ProgramGroup[] }) {
             <input
               ref={inputRef}
               type="text"
-              placeholder="Search teachings, series, speakers…"
+              placeholder="Search teachings, series, speakers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full border border-slate-200 pl-9 pr-4 py-2 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 rounded-xl"
+              className="w-full bg-slate-50 pl-9 pr-4 py-2 text-sm text-[#2c0e68] focus:outline-none focus:ring-2 focus:ring-[#2c0e68]/30 placeholder:text-slate-400 rounded-xl"
             />
             {search && (
               <button
                 onClick={() => { setSearch(''); setDebouncedSearch('') }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 text-xs"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
               >
-                ✕
+                <X size={14} />
               </button>
             )}
           </div>
@@ -95,10 +96,10 @@ export function TeachingsPageClient({ groups }: { groups: ProgramGroup[] }) {
           {!showFlat && (
             <button
               onClick={handleViewAll}
-              className="inline-flex items-center gap-1.5 px-4 py-2 border-2 border-[#2c0e68] text-[#2c0e68] text-xs font-bold hover:bg-[#2c0e68] hover:text-white transition-all whitespace-nowrap rounded-xl"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2c0e68]/10 text-[#2c0e68] text-xs font-bold hover:bg-[#2c0e68] hover:text-white transition-colors whitespace-nowrap rounded-full"
             >
               <Library size={13} />
-              View All
+              View all
             </button>
           )}
         </div>

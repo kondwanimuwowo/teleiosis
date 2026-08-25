@@ -38,28 +38,28 @@ export default function SubscribersClient({ initial }: { initial: Subscriber[] }
     <>
       {/* Summary cards */}
       <div className="grid grid-cols-2 gap-4 mb-8">
-        <div className="bg-white border border-slate-100 p-5 rounded-xl">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Subscribers</p>
+        <div className="bg-white shadow-sm p-5 rounded-xl">
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total subscribers</p>
           <p className="font-serif font-bold text-2xl text-[#2c0e68]">{subscribers.length}</p>
         </div>
-        <div className="bg-white border border-slate-100 p-5 rounded-xl">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Joined This Month</p>
+        <div className="bg-white shadow-sm p-5 rounded-xl">
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Joined this month</p>
           <p className="font-serif font-bold text-2xl text-[#2c0e68]">{thisMonthCount}</p>
         </div>
       </div>
 
       {subscribers.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-slate-200 text-slate-400 text-sm">
+        <div className="text-center py-20 rounded-2xl bg-slate-50 text-slate-400 text-sm">
           No subscribers yet. Once someone signs up for the newsletter, they will appear here.
         </div>
       ) : (
-        <div className="border border-slate-100 overflow-x-auto">
+        <div className="shadow-sm overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-slate-50 border-b border-slate-100">
               <tr>
                 <th className="text-left px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-widest">#</th>
                 <th className="text-left px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-widest">Email</th>
-                <th className="text-left px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-widest">Date Joined</th>
+                <th className="text-left px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-widest">Date joined</th>
                 <th className="px-4 py-3 w-10" />
               </tr>
             </thead>

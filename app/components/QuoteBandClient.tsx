@@ -50,8 +50,7 @@ export default function QuoteBandClient() {
   return (
     <section
       ref={containerRef}
-      className="min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden group"
-      style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
+      className="min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden group bg-[#14082b]"
     >
       <style>{`
         @keyframes progress-ring {
@@ -73,10 +72,6 @@ export default function QuoteBandClient() {
       />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full">
-        <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-10 text-center">
-          From The Teacher&apos;s Desk
-        </p>
-
         <div className="flex items-center justify-center gap-6 sm:gap-12 lg:gap-20">
           {/* Previous */}
           <button
@@ -112,7 +107,7 @@ export default function QuoteBandClient() {
                         </cite>
                       )}
                       <p className="text-white/60 text-xs tracking-[0.15em] font-serif">
-                        — {quote.author}
+                        {quote.author}
                       </p>
                     </div>
                   </div>

@@ -3,7 +3,6 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { MapPin, Clock, User, Search, Heart } from 'lucide-react'
-import { PartnershipModal } from '../components/PartnershipModal'
 
 type Event = {
   id: string
@@ -23,8 +22,6 @@ const EVENT_TYPES = ['All', 'In Person', 'Online', 'Hybrid']
 export function EventsClient({ events }: { events: Event[] }) {
   const [search, setSearch] = useState('')
   const [typeFilter, setTypeFilter] = useState('All')
-  const [partnerEventId, setPartnerEventId] = useState<string | undefined>()
-  const [partnerEventTitle, setPartnerEventTitle] = useState<string | undefined>()
 
   const filtered = useMemo(() => {
     let list = events
@@ -61,10 +58,10 @@ export function EventsClient({ events }: { events: Event[] }) {
                 <button
                   key={t}
                   onClick={() => setTypeFilter(t)}
-                  className={`px-3 py-2 text-xs font-bold border transition-all whitespace-nowrap flex-shrink-0 rounded-xl ${
+                  className={`px-4 py-2 text-xs font-bold transition-all whitespace-nowrap flex-shrink-0 rounded-full ${
                     typeFilter === t
-                      ? 'bg-[#2c0e68] text-white border-[#2c0e68]'
-                      : 'bg-white text-[#2c0e68] border-slate-200 hover:border-[#2c0e68]'
+                      ? 'bg-[#2c0e68] text-white'
+                      : 'bg-slate-100 text-[#2c0e68] hover:bg-slate-200'
                   }`}
                 >
                   {t}
@@ -84,11 +81,11 @@ export function EventsClient({ events }: { events: Event[] }) {
                 const month = d.toLocaleDateString('en-GB', { month: 'short' }).toUpperCase()
                 const day = d.getDate().toString()
                 const time = event.time_start && event.time_end
-                  ? `${event.time_start} – ${event.time_end}`
+                  ? `${event.time_start} to ${event.time_end}`
                   : event.time_start ?? ''
 
                 return (
-                  <div key={event.id} className="bg-white border border-slate-100 shadow-sm flex flex-col group hover:shadow-md transition-all hover:-translate-y-1 duration-300 overflow-hidden rounded-xl">
+                  <div key={event.id} className="bg-white shadow-sm flex flex-col group hover:shadow-md transition-all hover:-translate-y-1 duration-300 overflow-hidden rounded-xl">
                     {/* Image */}
                     <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
                       <img
@@ -131,17 +128,17 @@ export function EventsClient({ events }: { events: Event[] }) {
                       <div className="flex gap-2">
                         <Link
                           href={`/events/${event.id}`}
-                          className="flex-1 inline-flex items-center justify-center px-4 py-2.5 min-h-[44px] bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#2c0e68] transition-colors rounded-xl"
+                          className="flex-1 inline-flex items-center justify-center px-4 py-2.5 min-h-[44px] bg-[#4a0e68] text-white text-sm font-bold hover:bg-[#2c0e68] transition-colors rounded-full"
                         >
-                          Learn More
+                          Learn more
                         </Link>
-                        <button
-                          onClick={() => { setPartnerEventId(event.id); setPartnerEventTitle(event.title) }}
-                          className="inline-flex items-center justify-center px-3 py-2.5 min-h-[44px] border-2 border-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/10 transition-colors rounded-xl"
+                        <Link
+                          href={`/events/${event.id}#partner`}
+                          className="inline-flex items-center justify-center px-3 py-2.5 min-h-[44px] bg-slate-100 text-teleiosis-purple hover:bg-slate-200 transition-colors rounded-full"
                           title="Partner with this event"
                         >
-                          <Heart size={16} className="text-teleiosis-gold" />
-                        </button>
+                          <Heart size={16} className="text-teleiosis-purple" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -151,13 +148,6 @@ export function EventsClient({ events }: { events: Event[] }) {
           )}
         </div>
       </section>
-
-      <PartnershipModal
-        open={!!partnerEventId}
-        onClose={() => { setPartnerEventId(undefined); setPartnerEventTitle(undefined) }}
-        eventId={partnerEventId}
-        eventTitle={partnerEventTitle}
-      />
     </>
   )
 }

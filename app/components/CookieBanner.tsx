@@ -36,7 +36,7 @@ export default function CookieBanner() {
           className="fixed bottom-4 left-0 right-0 z-[60] flex justify-center px-4 pointer-events-none"
         >
           <div
-            className="w-full max-w-2xl pointer-events-auto rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
+            className="w-full max-w-2xl pointer-events-auto rounded-2xl shadow-2xl overflow-hidden"
             style={{
               background: 'rgba(26, 8, 64, 0.75)',
               backdropFilter: 'blur(24px)',
@@ -44,15 +44,14 @@ export default function CookieBanner() {
             }}
           >
             {/* Gold top accent line */}
-            <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, transparent, #d4af37 40%, #d4af37 60%, transparent)' }} />
+            <div className="h-px w-full bg-teleiosis-gold/30" />
 
             <div className="px-6 py-5 sm:px-8 sm:py-6">
               <div className="flex items-start gap-4">
 
                 {/* Icon */}
-                <div className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center mt-0.5"
-                  style={{ background: 'rgba(212, 175, 55, 0.12)', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
-                  <Cookie size={16} className="text-teleiosis-gold" />
+                <div className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center mt-0.5 bg-slate-100">
+                  <Cookie size={16} className="text-teleiosis-purple" />
                 </div>
 
                 {/* Text */}
@@ -84,16 +83,15 @@ export default function CookieBanner() {
               <div className="flex items-center gap-3 mt-5 sm:mt-4 justify-end">
                 <button
                   onClick={decline}
-                  className="px-4 py-2 text-xs text-white/50 hover:text-white/80 transition-colors rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5"
+                  className="px-4 py-2 text-xs text-white/50 hover:text-white/80 transition-colors rounded-full bg-white/5 hover:bg-white/10"
                 >
-                  Necessary Only
+                  Necessary only
                 </button>
                 <button
                   onClick={accept}
-                  className="px-5 py-2 text-xs font-semibold rounded-xl transition-all duration-200 hover:brightness-110"
-                  style={{ background: 'linear-gradient(135deg, #d4af37 0%, #b8941f 100%)', color: '#14082b' }}
+                  className="px-5 py-2 text-xs font-semibold rounded-full transition-colors bg-teleiosis-gold text-[#14082b] hover:bg-teleiosis-gold/85"
                 >
-                  Accept All
+                  Accept all
                 </button>
               </div>
             </div>

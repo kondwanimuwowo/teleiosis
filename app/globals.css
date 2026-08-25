@@ -46,9 +46,9 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 
-  /* ── Premium Glassmorphism ───────────────────────────────────────── */
+  /* ── Premium translucent surface (no border, shadow-defined edge) ── */
   .glass-premium {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+    @apply bg-white/70 backdrop-blur-md shadow-md;
   }
 }
 

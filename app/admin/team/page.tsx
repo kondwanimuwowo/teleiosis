@@ -72,16 +72,16 @@ function MemberForm({
         </div>
         <div className="col-span-2">
           <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Bio</label>
-          <textarea value={form.bio} onChange={e => set('bio', e.target.value)} rows={3} placeholder="Brief bio…" className={`${inputCls} resize-none`} />
+          <textarea value={form.bio} onChange={e => set('bio', e.target.value)} rows={3} placeholder="Brief bio..." className={`${inputCls} resize-none`} />
         </div>
       </div>
       <div className="flex gap-3">
-        <button type="button" onClick={onCancel} className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 transition-colors">
+        <button type="button" onClick={onCancel} className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold hover:bg-slate-200 transition-colors">
           Cancel
         </button>
-        <button type="submit" disabled={saving} className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60">
+        <button type="submit" disabled={saving} className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60">
           {saving && <Loader2 size={14} className="animate-spin" />}
-          {saving ? 'Saving…' : submitLabel}
+          {saving ? 'Saving...' : submitLabel}
         </button>
       </div>
     </form>
@@ -132,29 +132,29 @@ export default function AdminTeamPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-1">Manage</p>
-          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Co-Labourers</h1>
+          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Co-labourers</h1>
         </div>
         <button
           onClick={() => { setShowAddForm(v => !v); setEditingId(null) }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
         >
-          <Plus size={16} /> Add Member
+          <Plus size={16} /> Add member
         </button>
       </div>
 
       {showAddForm && (
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-6">
-          <h2 className="font-serif font-semibold text-base text-[#2c0e68] mb-4">New Co-Labourer</h2>
+        <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
+          <h2 className="font-serif font-semibold text-base text-[#2c0e68] mb-4">New co-labourer</h2>
           <MemberForm
             initial={empty}
             onSubmit={addMember}
             onCancel={() => setShowAddForm(false)}
-            submitLabel="Add Member"
+            submitLabel="Add member"
           />
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-12 flex justify-center"><Loader2 size={24} className="animate-spin text-slate-300" /></div>
         ) : !members.length ? (
@@ -173,7 +173,7 @@ export default function AdminTeamPage() {
                       initial={{ name: m.name, initials: m.initials, title: m.title, location: m.location, bio: m.bio ?? '' }}
                       onSubmit={(form, image) => updateMember(m.id, form, image)}
                       onCancel={() => setEditingId(null)}
-                      submitLabel="Save Changes"
+                      submitLabel="Save changes"
                     />
                   </div>
                 ) : (

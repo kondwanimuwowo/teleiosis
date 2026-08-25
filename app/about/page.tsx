@@ -3,7 +3,7 @@ import { AboutClient } from './AboutClient'
 
 export const metadata = {
   title: 'About | Teleiosis Mandate',
-  description: 'Learn about the Teleiosis Mandate — a ministry movement devoted to the revelation of Christ and the training of believers into Christian perfection.',
+  description: 'Learn about the Teleiosis Mandate, a ministry movement devoted to the revelation of Christ and the training of believers into Christian perfection.',
 }
 
 export default async function AboutPage() {

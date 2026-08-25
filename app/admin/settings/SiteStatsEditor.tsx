@@ -61,7 +61,7 @@ export function SiteStatsEditor({ initialStats }: { initialStats: Stat[] }) {
   return (
     <div className="space-y-3">
       {stats.map((stat) => (
-        <div key={stat.id} className="border border-slate-100 bg-white p-4 flex items-center gap-4">
+        <div key={stat.id} className="shadow-sm bg-white p-4 flex items-center gap-4">
           {editingId === stat.id ? (
             <>
               <input
@@ -103,7 +103,7 @@ export function SiteStatsEditor({ initialStats }: { initialStats: Stat[] }) {
 
       {/* Add new */}
       {addingNew ? (
-        <div className="border border-dashed border-teleiosis-gold/40 bg-teleiosis-gold/5 p-4 flex items-center gap-4">
+        <div className="bg-teleiosis-gold/10 rounded-lg p-4 flex items-center gap-4">
           <input
             value={newValue}
             onChange={(e) => setNewValue(e.target.value)}
@@ -126,9 +126,9 @@ export function SiteStatsEditor({ initialStats }: { initialStats: Stat[] }) {
       ) : (
         <button
           onClick={() => setAddingNew(true)}
-          className="w-full border border-dashed border-slate-200 py-3 text-sm text-slate-400 hover:text-[#2c0e68] hover:border-[#2c0e68] transition-colors flex items-center justify-center gap-2"
+          className="w-full rounded-lg bg-slate-50 py-3 text-sm text-slate-400 hover:text-[#2c0e68] hover:bg-slate-100 transition-colors flex items-center justify-center gap-2"
         >
-          <Plus size={15} /> Add Stat
+          <Plus size={15} /> Add stat
         </button>
       )}
     </div>

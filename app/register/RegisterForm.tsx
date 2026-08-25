@@ -57,7 +57,7 @@ export function RegisterForm() {
         <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-5">
           <CheckCircle size={32} className="text-green-500" />
         </div>
-        <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-3">Welcome!</h3>
+        <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-3">Welcome</h3>
         <p className="text-slate-500 text-sm leading-relaxed max-w-sm mb-8">
           You are now part of the Teleiosis community. Check your inbox for a welcome email with helpful links to get started.
         </p>
@@ -66,13 +66,13 @@ export function RegisterForm() {
             href="/events"
             className="px-6 py-3 rounded-full bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#3a1878] transition-colors"
           >
-            View Events
+            View events
           </Link>
           <Link
             href="/teachings"
-            className="px-6 py-3 rounded-full border-2 border-[#2c0e68] text-[#2c0e68] text-sm font-bold hover:bg-slate-50 transition-colors"
+            className="px-6 py-3 rounded-full bg-[#2c0e68]/10 text-[#2c0e68] text-sm font-bold hover:bg-[#2c0e68]/15 transition-colors"
           >
-            Explore Teachings
+            Explore teachings
           </Link>
         </div>
       </div>
@@ -132,7 +132,7 @@ export function RegisterForm() {
           onChange={(e) => setHeardFrom(e.target.value)}
           className={`${inputCls} cursor-pointer`}
         >
-          <option value="">— Select one —</option>
+          <option value="">Select one</option>
           {HEAR_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
       </div>
@@ -144,7 +144,7 @@ export function RegisterForm() {
       <button
         type="submit"
         disabled={loading}
-        className={`w-full py-4 text-sm font-bold rounded-xl transition-all ${
+        className={`w-full py-4 text-sm font-bold rounded-full transition-all ${
           loading ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-[#2c0e68] text-white hover:bg-[#3a1878] cursor-pointer'
         }`}
       >

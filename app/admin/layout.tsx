@@ -57,7 +57,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-slate-50 flex">
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 z-30 flex items-center justify-between px-4 shadow-md" style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}>
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 z-30 flex items-center justify-between px-4 shadow-md bg-[#14082b]">
         <div className="flex flex-col">
           <p className="font-serif font-bold text-sm text-white tracking-[0.2em]">TELEIOSIS</p>
           <p className="text-teleiosis-gold text-[0.5rem] tracking-[0.25em] font-semibold uppercase">Admin Portal</p>
@@ -80,14 +80,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* ── Sidebar ─────────────────────────────────────── */}
       <aside
-        className={`w-64 h-screen flex flex-col fixed top-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`w-64 h-screen flex flex-col fixed top-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0 bg-[#14082b] ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
       >
 
         {/* Brand */}
-        <div className="px-6 py-6 border-b border-white/8 flex items-center justify-between">
+        <div className="px-6 py-6 bg-white/[0.03] flex items-center justify-between">
           <div>
             <p className="font-serif font-bold text-lg text-white tracking-[0.2em]">TELEIOSIS</p>
             <p className="text-teleiosis-gold text-[0.55rem] tracking-[0.25em] font-semibold uppercase mt-0.5">Admin Portal</p>
@@ -114,7 +113,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   href={href}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
                     isActive
-                      ? 'bg-teleiosis-gold/15 text-teleiosis-gold border border-teleiosis-gold/20'
+                      ? 'bg-white/10 text-white/80'
                       : 'text-white/50 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -125,7 +124,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               )
             })}
           </div>
-          
+
           <div className="space-y-0.5">
             <p className="px-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white/30 mb-2">System</p>
             {NAV_SYSTEM.map(({ href, label, Icon }) => {
@@ -136,7 +135,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   href={href}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
                     isActive
-                      ? 'bg-teleiosis-gold/15 text-teleiosis-gold border border-teleiosis-gold/20'
+                      ? 'bg-white/10 text-white/80'
                       : 'text-white/50 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -150,7 +149,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </nav>
 
         {/* Bottom */}
-        <div className="px-3 py-4 border-t border-white/8 space-y-1">
+        <div className="px-3 py-4 bg-white/[0.03] space-y-1">
           <a
             href="/"
             target="_blank"
@@ -175,8 +174,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <main className="flex-1 p-8">
           {children}
         </main>
-        <footer className="px-8 py-4 border-t border-slate-200">
-          <p className="text-xs text-slate-400">Teleiosis Mandate Admin — Internal Use Only</p>
+        <footer className="px-8 py-4 bg-slate-100/60">
+          <p className="text-xs text-slate-400">Teleiosis Mandate Admin, internal use only</p>
         </footer>
       </div>
     </div>

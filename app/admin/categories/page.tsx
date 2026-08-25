@@ -57,13 +57,13 @@ export default function AdminCategoriesPage() {
     <div className="max-w-2xl mx-auto">
       <div className="mb-8">
         <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-1">Manage</p>
-        <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Teaching Categories</h1>
+        <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Teaching categories</h1>
         <p className="text-slate-500 text-sm mt-1">Categories appear in the teaching upload form and the public teachings page.</p>
       </div>
 
       {/* Add form */}
-      <form onSubmit={handleAdd} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-6">
-        <h2 className="font-serif font-semibold text-base text-[#2c0e68] mb-4">Add Category</h2>
+      <form onSubmit={handleAdd} className="bg-white rounded-2xl shadow-sm p-6 mb-6">
+        <h2 className="font-serif font-semibold text-base text-[#2c0e68] mb-4">Add category</h2>
         <div className="flex gap-3">
           <input
             type="text"
@@ -75,20 +75,20 @@ export default function AdminCategoriesPage() {
           <button
             type="submit"
             disabled={submitting || !name.trim()}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-50"
           >
             {submitting ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
             Add
           </button>
         </div>
         {error && (
-          <p className="mt-3 text-xs font-bold text-red-500 bg-red-50 border border-red-100 rounded-xl px-4 py-2">{error}</p>
+          <p className="mt-3 text-xs font-bold text-red-500 bg-red-50 rounded-xl px-4 py-2">{error}</p>
         )}
         <p className="mt-2 text-[11px] text-slate-400">The slug is auto-generated from the name.</p>
       </form>
 
       {/* List */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-12 flex justify-center"><Loader2 size={24} className="animate-spin text-slate-300" /></div>
         ) : !categories.length ? (
@@ -100,8 +100,8 @@ export default function AdminCategoriesPage() {
           <ul className="divide-y divide-slate-50">
             {categories.map((c) => (
               <li key={c.id} className="flex items-center gap-4 px-6 py-4 hover:bg-slate-50/60 transition-colors group">
-                <div className="w-8 h-8 rounded-lg bg-[#4a2c9c]/8 flex items-center justify-center flex-shrink-0">
-                  <Tag size={14} className="text-[#4a2c9c]" />
+                <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0">
+                  <Tag size={14} className="text-teleiosis-purple" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-[#2c0e68]">{c.name}</p>

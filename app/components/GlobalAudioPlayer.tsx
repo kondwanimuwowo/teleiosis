@@ -45,7 +45,7 @@ export function GlobalAudioPlayer() {
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
         className="fixed bottom-0 left-0 right-0 z-50 px-2 sm:px-6 pb-2 sm:pb-6 pointer-events-none"
       >
-        <div className={`mx-auto max-w-4xl pointer-events-auto bg-[#1a0840]/85 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden transition-all duration-300 ${isExpanded ? 'rounded-2xl' : 'rounded-full max-w-sm'}`}>
+        <div className={`mx-auto max-w-4xl pointer-events-auto bg-[#1a0840]/85 backdrop-blur-xl shadow-2xl overflow-hidden transition-all duration-300 ${isExpanded ? 'rounded-2xl' : 'rounded-full max-w-sm'}`}>
           
           {/* Main Player Content */}
           <div className="flex items-center gap-3 sm:gap-6 p-2 sm:p-3">
@@ -74,17 +74,21 @@ export function GlobalAudioPlayer() {
               {isExpanded ? (
                 <div className="flex items-center gap-3">
                   <span className="text-white/40 text-xs tabular-nums min-w-[2.5rem] text-right">{formatTime(progress)}</span>
-                  <input
-                    type="range"
-                    min="0"
-                    max={duration || 100}
-                    value={progress}
-                    onChange={handleSeek}
-                    className="flex-1 h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-teleiosis-gold"
-                    style={{
-                      backgroundImage: `linear-gradient(to right, #d4af37 ${(progress / (duration || 1)) * 100}%, transparent 0)`
-                    }}
-                  />
+                  <div className="relative flex-1 h-1.5">
+                    <div className="absolute inset-0 rounded-full bg-white/10" />
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full bg-teleiosis-gold"
+                      style={{ width: `${(progress / (duration || 1)) * 100}%` }}
+                    />
+                    <input
+                      type="range"
+                      min="0"
+                      max={duration || 100}
+                      value={progress}
+                      onChange={handleSeek}
+                      className="absolute inset-0 w-full h-full bg-transparent rounded-full appearance-none cursor-pointer accent-teleiosis-gold"
+                    />
+                  </div>
                   <span className="text-white/40 text-xs tabular-nums min-w-[2.5rem]">{formatTime(duration)}</span>
                 </div>
               ) : (
@@ -120,7 +124,12 @@ export function GlobalAudioPlayer() {
                   <button onClick={() => setVolumeLevel(volume === 0 ? 1 : 0)} className="text-white/50 hover:text-white transition-colors">
                     {volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
                   </button>
-                  <div className={`w-20 transition-opacity duration-200 ${isHoveringVolume ? 'opacity-100' : 'opacity-0'}`}>
+                  <div className={`w-20 relative h-1 transition-opacity duration-200 ${isHoveringVolume ? 'opacity-100' : 'opacity-0'}`}>
+                    <div className="absolute inset-0 rounded-full bg-white/10" />
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full bg-white"
+                      style={{ width: `${volume * 100}%` }}
+                    />
                     <input
                       type="range"
                       min="0"
@@ -128,8 +137,7 @@ export function GlobalAudioPlayer() {
                       step="0.01"
                       value={volume}
                       onChange={handleVolume}
-                      className="w-full h-1 bg-white/10 rounded-full appearance-none cursor-pointer accent-white"
-                      style={{ backgroundImage: `linear-gradient(to right, white ${volume * 100}%, transparent 0)` }}
+                      className="absolute inset-0 w-full h-full bg-transparent rounded-full appearance-none cursor-pointer accent-white"
                     />
                   </div>
                 </div>
@@ -141,7 +149,7 @@ export function GlobalAudioPlayer() {
             )}
 
             {/* Window Controls */}
-            <div className="flex items-center gap-1 sm:gap-2 border-l border-white/10 pl-2 sm:pl-4">
+            <div className="flex items-center gap-1 sm:gap-2 ml-1 sm:ml-2 pl-2 sm:pl-4">
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="p-2 text-white/40 hover:text-white transition-colors rounded-full hover:bg-white/5 hidden sm:block"

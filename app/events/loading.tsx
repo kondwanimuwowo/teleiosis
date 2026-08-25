@@ -1,7 +1,7 @@
 export default function EventsLoading() {
   return (
     <div>
-      <section className="relative flex items-center" style={{ minHeight: '70vh', background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }} />
+      <section className="relative flex items-center" style={{ minHeight: '70vh', backgroundColor: '#1f0a4d' }} />
       <section className="bg-white py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex gap-2 mb-10">
@@ -13,7 +13,7 @@ export default function EventsLoading() {
             {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="border border-slate-100 rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 animate-pulse"
+                className="shadow-sm rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 animate-pulse"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="flex-shrink-0 w-20 h-12 bg-slate-100 rounded-lg" />

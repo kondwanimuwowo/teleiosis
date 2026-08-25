@@ -15,20 +15,7 @@ interface LegalPageProps {
 
 export default function LegalPage({ title, subtitle, lastUpdated, sections }: LegalPageProps) {
   return (
-    <main
-      className="min-h-screen"
-      style={{ background: 'linear-gradient(160deg, #2c0e68 0%, #14082b 100%)' }}
-    >
-      {/* Orb accents */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #4a2c9c 0%, transparent 70%)' }} />
-        <div className="absolute top-1/2 -right-60 w-[500px] h-[500px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #d4af37 0%, transparent 70%)' }} />
-        <div className="absolute -bottom-40 left-1/3 w-[400px] h-[400px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, #2c0e68 0%, transparent 70%)' }} />
-      </div>
-
+    <main className="min-h-screen bg-[#14082b]">
       <div className="relative z-10 mx-auto max-w-3xl px-5 sm:px-8 py-16 sm:py-24">
 
         {/* Back link */}
@@ -42,9 +29,6 @@ export default function LegalPage({ title, subtitle, lastUpdated, sections }: Le
 
         {/* Hero */}
         <div className="mb-14 text-center">
-          <p className="text-teleiosis-gold/60 text-xs font-semibold tracking-[0.3em] uppercase mb-4">
-            Legal
-          </p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl text-white tracking-wide mb-4">
             {title}
           </h1>
@@ -52,15 +36,14 @@ export default function LegalPage({ title, subtitle, lastUpdated, sections }: Le
           <p className="text-white/30 text-xs mt-2">Last updated: {lastUpdated}</p>
         </div>
 
-        {/* Glass cards */}
+        {/* Cards */}
         <div className="flex flex-col gap-4">
           {sections.map((section, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-white/10 p-7 sm:p-9"
-              style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
+              className="rounded-2xl p-7 sm:p-9 shadow-md bg-white/[0.06]"
             >
-              <h2 className="font-serif font-semibold text-base text-teleiosis-gold tracking-[0.15em] uppercase mb-5">
+              <h2 className="font-serif font-semibold text-base text-teleiosis-gold tracking-[0.1em] uppercase mb-5">
                 {section.heading}
               </h2>
               <div className="text-white/70 text-sm leading-relaxed space-y-3">

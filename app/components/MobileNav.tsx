@@ -6,7 +6,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Facebook, Instagram, Youtube, Phone, Mail } from "lucide-react"
-import { PartnershipModal } from "./PartnershipModal"
 
 const NAV_LINKS = [
   { href: "/",          label: "Home" },
@@ -44,7 +43,6 @@ const linkVariants = {
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)
-  const [partnerOpen, setPartnerOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
 
@@ -84,14 +82,10 @@ export function MobileNav() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed inset-y-0 right-0 z-[101] w-[72%] max-w-[300px] flex flex-col overflow-hidden"
-              style={{ background: 'linear-gradient(160deg, #1a0840 0%, #14082b 100%)' }}
+              className="fixed inset-y-0 right-0 z-[101] w-[72%] max-w-[300px] flex flex-col overflow-hidden bg-[#14082b] shadow-2xl"
             >
-              {/* Gold top accent line */}
-              <div className="h-px bg-gradient-to-r from-transparent via-teleiosis-gold/60 to-transparent" />
-
               {/* Header */}
-              <div className="px-6 pt-6 pb-5 flex items-start justify-between border-b border-white/8">
+              <div className="px-6 pt-6 pb-5 flex items-start justify-between bg-white/[0.04]">
                 <div>
                   <p className="font-serif font-bold text-lg text-white tracking-[0.25em] leading-none mb-1">
                     TELEIOSIS
@@ -138,11 +132,8 @@ export function MobileNav() {
                 })}
               </motion.nav>
 
-              {/* Divider */}
-              <div className="h-px bg-white/8 mx-6" />
-
               {/* CTAs */}
-              <div className="px-6 py-5 flex flex-col gap-2.5">
+              <div className="px-6 py-5 flex flex-col gap-2.5 bg-white/[0.03]">
                 <Link
                   href="/register"
                   onClick={() => setOpen(false)}
@@ -150,16 +141,14 @@ export function MobileNav() {
                 >
                   Join Us
                 </Link>
-                <button
-                  onClick={() => setPartnerOpen(true)}
-                  className="block w-full text-center px-5 py-3 border border-white/15 text-white/60 text-sm font-semibold hover:border-teleiosis-gold/50 hover:text-teleiosis-gold transition-all duration-200 rounded-full"
+                <Link
+                  href="/partnership"
+                  onClick={() => setOpen(false)}
+                  className="block w-full text-center px-5 py-3 bg-white/10 text-white/60 text-sm font-semibold hover:bg-white/15 hover:text-teleiosis-gold transition-all duration-200 rounded-full"
                 >
                   Partner with Us
-                </button>
+                </Link>
               </div>
-
-              {/* Divider */}
-              <div className="h-px bg-white/8 mx-6" />
 
               {/* Social + scripture */}
               <div className="px-6 py-5 flex flex-col items-center gap-3">
@@ -170,7 +159,7 @@ export function MobileNav() {
                       href={s.href}
                       target={s.href.startsWith('http') ? '_blank' : undefined}
                       rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-teleiosis-gold hover:border-teleiosis-gold/40 transition-all duration-200"
+                      className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/30 hover:text-teleiosis-gold hover:bg-white/15 transition-all duration-200"
                     >
                       <s.icon size={14} />
                     </a>
@@ -180,17 +169,12 @@ export function MobileNav() {
                   "That Which Is Perfect Is Come"
                 </p>
               </div>
-
-              {/* Gold bottom accent line */}
-              <div className="h-px bg-gradient-to-r from-transparent via-teleiosis-gold/30 to-transparent" />
             </motion.div>
           </>
         )}
       </AnimatePresence>,
       document.body
       )}
-
-      <PartnershipModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
     </div>
   )
 }

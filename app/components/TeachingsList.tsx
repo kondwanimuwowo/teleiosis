@@ -17,7 +17,7 @@ export function TeachingsList({ search }: { search?: string } = {}) {
   return (
     <>
       {/* ── FILTER TABS ──────────────────────────────────────────── */}
-      <section className="bg-white border-b border-slate-100 sticky top-20 z-30">
+      <section className="bg-white shadow-sm sticky top-20 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center gap-2 overflow-x-auto no-scrollbar py-4">
             <button
@@ -57,27 +57,27 @@ export function TeachingsList({ search }: { search?: string } = {}) {
           )}
           
           {error && (
-            <div className="py-20 text-center bg-red-50 rounded-3xl border border-red-100">
+            <div className="py-20 text-center bg-red-50 rounded-3xl shadow-sm">
               <p className="text-red-600 text-sm font-semibold">Error loading teachings. Please refresh and try again.</p>
             </div>
           )}
-          
+
           {!loading && teachings.length === 0 && (
-            <div className="py-20 text-center bg-slate-50 rounded-3xl border border-slate-100">
+            <div className="py-20 text-center bg-slate-50 rounded-3xl shadow-sm">
               <p className="text-slate-400 text-sm font-medium">No teachings found in this category.</p>
             </div>
           )}
-          
+
           {!loading && teachings.length > 0 && (
             <div className="space-y-12">
-              <div className="flex items-baseline justify-between border-b border-slate-100 pb-6">
+              <div className="flex items-baseline justify-between pb-6">
                 <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.4em] uppercase">
-                  {teachings.length} Available Teaching{teachings.length !== 1 ? 's' : ''}
+                  {teachings.length} Available teaching{teachings.length !== 1 ? 's' : ''}
                 </p>
                 <span className="text-slate-300 text-[10px] font-bold uppercase tracking-widest">{selectedCategory ? categories.find(c => c.id === selectedCategory)?.name : 'General Library'}</span>
               </div>
 
-              <div className="divide-y divide-slate-100">
+              <div className="space-y-3">
                 {teachings.map((teaching, idx) => {
                   const isActive = currentTeaching?.id === teaching.id;
                   
@@ -95,7 +95,7 @@ export function TeachingsList({ search }: { search?: string } = {}) {
                           <span className={`hidden sm:inline font-serif text-lg w-6 transition-colors duration-300 ${isActive ? 'text-teleiosis-gold font-bold' : 'text-slate-200'}`}>
                             {String(idx + 1).padStart(2, '0')}
                           </span>
-                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 shadow-sm ${isActive ? 'bg-[#4a0e68] text-teleiosis-gold' : 'bg-slate-50 border border-slate-100 text-[#4a0e68] group-hover:bg-white group-hover:scale-110'}`}>
+                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 shadow-sm ${isActive ? 'bg-[#4a0e68] text-teleiosis-gold' : 'bg-slate-50 text-[#4a0e68] group-hover:bg-white group-hover:scale-110'}`}>
                             {isActive && isPlaying ? (
                               <div className="flex gap-0.5 items-end h-4 justify-center">
                                 <motion.div animate={{ height: [4, 12, 4] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1 bg-teleiosis-gold rounded-full" />
@@ -112,12 +112,12 @@ export function TeachingsList({ search }: { search?: string } = {}) {
                         <div className="flex-1 min-w-0">
                           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                             <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                              <User size={12} className="text-teleiosis-gold" />
+                              <User size={12} className="text-teleiosis-purple" />
                               {teaching.speaker}
                             </span>
                             <span className="w-1 h-1 rounded-full bg-slate-200 hidden sm:block" />
                             <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                              <Calendar size={12} className="text-teleiosis-gold" />
+                              <Calendar size={12} className="text-teleiosis-purple" />
                               {new Date(teaching.published_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                             </span>
                           </div>
@@ -137,7 +137,7 @@ export function TeachingsList({ search }: { search?: string } = {}) {
                             className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                               isActive
                                 ? 'bg-[#4a0e68] text-white scale-110 shadow-lg shadow-[#4a0e68]/30'
-                                : 'bg-white border border-slate-200 text-[#4a0e68] hover:border-[#4a0e68] hover:shadow-md'
+                                : 'bg-white shadow-sm text-[#4a0e68] hover:shadow-md'
                             }`}
                           >
                             {isActive && isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-0.5" />}
@@ -157,8 +157,7 @@ export function TeachingsList({ search }: { search?: string } = {}) {
       <section className="bg-slate-50 py-24 sm:py-32 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-64 h-64 bg-teleiosis-gold/5 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2" />
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center relative z-10">
-          <p className="text-teleiosis-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Go Deeper</p>
-          <h2 className="font-serif font-bold text-3xl sm:text-5xl text-[#2c0e68] mb-6">Join Our Community</h2>
+          <h2 className="font-serif font-bold text-3xl sm:text-5xl text-[#2c0e68] mb-6">Join our community</h2>
           <p className="text-slate-500 text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
             Connect with a community of believers pursuing the fullness of Christ. Join our Saturday classes and walk in Kingdom authority.
           </p>

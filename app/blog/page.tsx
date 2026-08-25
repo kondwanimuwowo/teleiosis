@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { NewsletterSection } from '../components/NewsletterSection'
 import { FadeIn } from '../components/FadeIn'
@@ -32,7 +33,7 @@ async function BlogData() {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="bg-white border border-slate-100 flex flex-col group hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden rounded-xl"
+                className="bg-white shadow-sm flex flex-col group hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden rounded-xl"
               >
                 <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                   <img
@@ -56,10 +57,11 @@ async function BlogData() {
                     {post.title}
                   </h2>
                   <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">{post.excerpt}</p>
-                  <div className="flex justify-between items-center pt-4 border-t border-slate-100">
+                  <div className="flex justify-between items-center pt-4">
                     <p className="text-xs text-slate-400 font-semibold">{post.scripture}</p>
-                    <span className="text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors">
-                      Read →
+                    <span className="flex items-center gap-1 text-sm font-semibold text-teleiosis-gold group-hover:text-[#4a0e68] transition-colors">
+                      Read
+                      <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>
                 </div>
@@ -83,7 +85,7 @@ function BlogGridSkeleton() {
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="bg-white border border-slate-100 overflow-hidden animate-pulse rounded-xl"
+              className="bg-white shadow-sm overflow-hidden animate-pulse rounded-xl"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="aspect-[16/9] bg-slate-100" />
@@ -96,7 +98,7 @@ function BlogGridSkeleton() {
                 <div className="h-5 w-3/4 bg-slate-100 rounded" />
                 <div className="h-3 w-full bg-slate-100 rounded" />
                 <div className="h-3 w-5/6 bg-slate-100 rounded" />
-                <div className="pt-3 border-t border-slate-100 flex justify-between">
+                <div className="pt-3 flex justify-between">
                   <div className="h-3 w-20 bg-slate-100 rounded" />
                   <div className="h-3 w-12 bg-slate-100 rounded" />
                 </div>
@@ -115,11 +117,10 @@ export default function BlogPage() {
       {/* ── HERO — static ─────────────────────────────────────────── */}
       <section className="relative flex items-center" style={{ minHeight: '70vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/peter-hammer-SXTj90G1f5c-unsplash.jpg')" }} />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
+        <div className="absolute inset-0 bg-[#1a0840]/85" />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">News &amp; Insights</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
-            Latest From Teleiosis
+            Latest from Teleiosis
           </h1>
           <p className="text-white/65 text-base sm:text-lg max-w-2xl leading-relaxed">
             Stay updated with teachings, event recaps, testimonies, and insights into Kingdom living.
@@ -135,7 +136,7 @@ export default function BlogPage() {
       {/* ── NEWSLETTER — static ───────────────────────────────────── */}
       <FadeIn>
         <NewsletterSection
-          title="Never Miss a Teaching"
+          title="Never miss a teaching"
           description="Subscribe to be the first to know about new audio releases, teaching series, and upcoming conferences."
           className="bg-slate-50 py-16 sm:py-20 lg:py-24"
         />

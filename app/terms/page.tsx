@@ -14,7 +14,7 @@ export default function TermsPage() {
       lastUpdated="May 2026"
       sections={[
         {
-          heading: '1. Acceptance of Terms',
+          heading: '1. Acceptance of terms',
           body: (
             <p>
               By accessing or using the Teleiosis Mandate website (teleiosis.org), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.
@@ -22,7 +22,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '2. About Our Ministry',
+          heading: '2. About our ministry',
           body: (
             <p>
               Teleiosis Mandate is a Christian ministry based in Lusaka, Zambia. Our website provides information about our programs, teachings, events, and community. All content is offered in a spirit of ministry and service to the Body of Christ.
@@ -30,7 +30,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '3. Intellectual Property',
+          heading: '3. Intellectual property',
           body: (
             <>
               <p>
@@ -46,7 +46,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '4. Store & Purchases',
+          heading: '4. Store and purchases',
           body: (
             <>
               <p>
@@ -62,7 +62,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '5. Event Registration',
+          heading: '5. Event registration',
           body: (
             <>
               <p>
@@ -75,7 +75,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '6. Partnership Giving',
+          heading: '6. Partnership giving',
           body: (
             <p>
               All financial contributions made through the website are voluntary gifts to support the ministry of Teleiosis Mandate. Donations are non-refundable unless made in error, in which case contact us within 48 hours of the transaction. We are not a registered charity and do not issue tax receipts unless otherwise stated.
@@ -83,7 +83,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '7. Acceptable Use',
+          heading: '7. Acceptable use',
           body: (
             <>
               <p>You agree not to use this website to:</p>
@@ -98,7 +98,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '8. Disclaimer of Warranties',
+          heading: '8. Disclaimer of warranties',
           body: (
             <p>
               This website and its content are provided "as is" without warranty of any kind. While we strive for accuracy in all spiritual and factual matters, Teleiosis Mandate makes no representations about the completeness, reliability, or suitability of the content for any purpose. Use of the website is at your own risk.
@@ -106,7 +106,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '9. Limitation of Liability',
+          heading: '9. Limitation of liability',
           body: (
             <p>
               To the fullest extent permitted by applicable law, Teleiosis Mandate shall not be liable for any indirect, incidental, or consequential damages arising from your use of the website or its content.
@@ -114,7 +114,7 @@ export default function TermsPage() {
           ),
         },
         {
-          heading: '10. Governing Law',
+          heading: '10. Governing law',
           body: (
             <p>
               These Terms of Service are governed by and construed in accordance with the laws of the Republic of Zambia. Any disputes shall be subject to the exclusive jurisdiction of the courts of Zambia.

@@ -18,8 +18,8 @@ export function NavScrollWrapper({ children }: { children: React.ReactNode }) {
     <nav
       className={`w-full fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#14082b]/95 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/25"
-          : "bg-transparent border-b border-transparent"
+          ? "bg-[#14082b]/95 backdrop-blur-xl shadow-lg shadow-black/25"
+          : "bg-transparent"
       }`}
     >
       {/* Subtle height compression on scroll — creates the "lift" feeling */}

@@ -66,14 +66,14 @@ export function NewsletterForm() {
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-white/25 focus:outline-none focus:border-teleiosis-gold/60 transition-all"
+          className="flex-1 px-5 py-3 rounded-xl bg-white/5 text-white text-sm placeholder-white/25 shadow-sm focus:outline-none focus:ring-2 focus:ring-teleiosis-gold/50 transition-all"
         />
         <button
           type="submit"
           disabled={status === 'loading'}
           className="h-11 px-6 rounded-full bg-teleiosis-gold text-[#2c0e68] text-xs font-bold uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300 whitespace-nowrap disabled:opacity-60 disabled:scale-100 flex items-center gap-2"
         >
-          {status === 'loading' ? <Loader2 size={14} className="animate-spin" /> : 'Join Us'}
+          {status === 'loading' ? <Loader2 size={14} className="animate-spin" /> : 'Subscribe'}
         </button>
       </div>
       {status === 'error' && (

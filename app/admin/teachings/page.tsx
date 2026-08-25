@@ -21,13 +21,13 @@ export default async function AdminTeachingsPage() {
         </div>
         <Link
           href="/admin/teachings/new"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
         >
-          <Plus size={16} /> Upload Teaching
+          <Plus size={16} /> Upload teaching
         </Link>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         {!teachings?.length ? (
           <div className="p-12 text-center">
             <Mic2 size={32} className="mx-auto text-slate-300 mb-3" />
@@ -48,10 +48,10 @@ export default async function AdminTeachingsPage() {
                 <tr key={t.id} className="hover:bg-slate-50/60 transition-colors">
                   <td className="px-5 py-4 font-medium text-[#2c0e68]">{t.title}</td>
                   <td className="px-5 py-4 text-slate-500 hidden md:table-cell">
-                    {t.teaching_categories?.name ?? '—'}
+                    {t.teaching_categories?.name ?? '-'}
                   </td>
                   <td className="px-5 py-4 text-slate-500 hidden sm:table-cell">
-                    {t.duration_minutes ? `${t.duration_minutes} min` : '—'}
+                    {t.duration_minutes ? `${t.duration_minutes} min` : '-'}
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-2 justify-end">

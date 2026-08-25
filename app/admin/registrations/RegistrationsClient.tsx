@@ -54,8 +54,8 @@ export default function RegistrationsClient({ initial }: { initial: Registration
   return (
     <div>
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 bg-[#2c0e68]/10 rounded-xl flex items-center justify-center">
-          <ClipboardList size={20} className="text-[#2c0e68]" />
+        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
+          <ClipboardList size={20} className="text-teleiosis-purple" />
         </div>
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Registrations</h1>
@@ -86,7 +86,7 @@ export default function RegistrationsClient({ initial }: { initial: Registration
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
         {visible.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <ClipboardList size={40} className="text-slate-200 mb-4" />
@@ -116,7 +116,7 @@ export default function RegistrationsClient({ initial }: { initial: Registration
                     <td className="px-5 py-4 text-sm text-slate-600">
                       <a href={`mailto:${reg.email}`} className="hover:text-[#2c0e68] transition-colors">{reg.email}</a>
                     </td>
-                    <td className="px-5 py-4 text-sm text-slate-500 hidden md:table-cell">{reg.phone ?? '—'}</td>
+                    <td className="px-5 py-4 text-sm text-slate-500 hidden md:table-cell">{reg.phone ?? '-'}</td>
                     <td className="px-5 py-4">
                       <span className={`inline-block px-2.5 py-1 text-xs font-bold rounded-full ${
                         reg.type === 'event' ? 'bg-purple-50 text-purple-700' : 'bg-blue-50 text-blue-700'
@@ -125,7 +125,7 @@ export default function RegistrationsClient({ initial }: { initial: Registration
                       </span>
                     </td>
                     <td className="px-5 py-4 text-sm text-slate-500 hidden lg:table-cell max-w-[200px] truncate">
-                      {reg.events?.[0]?.title ?? '—'}
+                      {reg.events?.[0]?.title ?? '-'}
                     </td>
                     <td className="px-5 py-4 text-xs text-slate-400 whitespace-nowrap hidden sm:table-cell">
                       {new Date(reg.created_at).toLocaleDateString('en-ZM', { day: 'numeric', month: 'short', year: 'numeric' })}

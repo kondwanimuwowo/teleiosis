@@ -23,12 +23,11 @@ function EmptyState() {
   return (
     <section className="bg-white min-h-[60vh] flex items-center justify-center">
       <div className="max-w-md w-full text-center px-8 py-20">
-        <div className="w-20 h-20 bg-slate-50 border border-slate-100 flex items-center justify-center mx-auto mb-8">
+        <div className="w-20 h-20 bg-slate-50 shadow-sm flex items-center justify-center mx-auto mb-8 rounded-xl">
           <span className="font-serif font-bold text-3xl text-slate-200">T</span>
         </div>
-        <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-3">Coming Soon</p>
         <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#2c0e68] mb-4">
-          Something Special is Coming
+          Something special is coming
         </h2>
         <p className="text-slate-500 text-sm leading-relaxed mb-8">
           We are preparing resources, books, and materials to equip you in the revelation of Christ. Check back soon.
@@ -40,14 +39,14 @@ function EmptyState() {
               placeholder="your@email.com"
               value={notifyEmail}
               onChange={(e) => setNotifyEmail(e.target.value)}
-              className="flex-1 border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 rounded-xl"
+              className="flex-1 border border-slate-200 px-4 py-3 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 rounded-full"
             />
             <button
               onClick={() => notifyEmail && setSubmitted(true)}
-              className="px-4 py-3 bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#3a1878] transition-colors flex items-center gap-2 whitespace-nowrap rounded-xl"
+              className="px-4 py-3 bg-[#2c0e68] text-white text-sm font-bold hover:bg-[#3a1878] transition-colors flex items-center gap-2 whitespace-nowrap rounded-full"
             >
               <Bell size={14} />
-              Notify Me
+              Notify me
             </button>
           </div>
         ) : (
@@ -94,7 +93,7 @@ export function StoreClient({ products }: { products: Product[] }) {
               placeholder="Search products..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full border border-slate-200 pl-10 pr-4 py-2.5 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300"
+              className="w-full border border-slate-200 pl-10 pr-4 py-2.5 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] placeholder:text-slate-300 rounded-full"
             />
           </div>
           <div className="relative">
@@ -102,11 +101,11 @@ export function StoreClient({ products }: { products: Product[] }) {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as typeof sort)}
-              className="border border-slate-200 pl-9 pr-8 py-2.5 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] bg-white cursor-pointer appearance-none"
+              className="border border-slate-200 pl-9 pr-8 py-2.5 text-sm text-[#2c0e68] focus:outline-none focus:border-[#2c0e68] bg-white cursor-pointer appearance-none rounded-full"
             >
               <option value="newest">Newest</option>
-              <option value="price_asc">Price: Low → High</option>
-              <option value="price_desc">Price: High → Low</option>
+              <option value="price_asc">Price: low to high</option>
+              <option value="price_desc">Price: high to low</option>
             </select>
           </div>
         </div>
@@ -117,10 +116,10 @@ export function StoreClient({ products }: { products: Product[] }) {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-5 py-2 text-xs font-bold border transition-all rounded-full ${
+              className={`px-5 py-2 text-xs font-bold transition-all rounded-full ${
                 category === cat
-                  ? 'bg-[#2c0e68] text-white border-[#2c0e68]'
-                  : 'bg-white text-[#2c0e68] border-slate-200 hover:border-[#2c0e68]'
+                  ? 'bg-[#2c0e68] text-white'
+                  : 'bg-[#2c0e68]/5 text-[#2c0e68] hover:bg-[#2c0e68]/10'
               }`}
             >
               {cat}
@@ -135,7 +134,7 @@ export function StoreClient({ products }: { products: Product[] }) {
             {filtered.map((product) => (
               <div
                 key={product.id}
-                className="border border-slate-100 bg-white hover:border-[#4a0e68]/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col rounded-xl"
+                className="bg-white shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col rounded-xl"
               >
                 <div className="aspect-[4/3] bg-slate-50 overflow-hidden">
                   {product.image_url ? (
@@ -152,10 +151,10 @@ export function StoreClient({ products }: { products: Product[] }) {
                   </span>
                   <h3 className="font-serif font-bold text-base text-[#2c0e68] mb-2 leading-snug">{product.name}</h3>
                   <p className="text-slate-500 text-xs leading-relaxed mb-4 flex-1 line-clamp-3">{product.description}</p>
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
+                  <div className="flex items-center justify-between mt-auto pt-4">
                     <span className="font-bold text-[#2c0e68] text-sm">ZMW {Number(product.price).toLocaleString()}</span>
-                    <button className="px-4 py-2 bg-teleiosis-gold text-[#2c0e68] text-xs font-bold hover:bg-teleiosis-gold/85 transition-colors rounded-lg">
-                      Buy Now
+                    <button className="px-4 py-2 bg-teleiosis-gold text-[#2c0e68] text-xs font-bold hover:bg-teleiosis-gold/85 transition-colors rounded-full">
+                      Buy now
                     </button>
                   </div>
                 </div>

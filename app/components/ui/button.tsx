@@ -15,12 +15,12 @@ const buttonVariants = cva(
         // Deep purple fill, secondary CTA
         secondary:
           "bg-teleiosis-purple text-white hover:bg-teleiosis-purple/85 shadow-sm",
-        // Outlined purple
+        // Tinted purple, for use alongside a primary CTA
         outline:
-          "border-2 border-teleiosis-purple bg-transparent text-teleiosis-purple hover:bg-teleiosis-purple hover:text-white",
-        // Outlined gold (for dark backgrounds)
+          "bg-teleiosis-purple/10 text-teleiosis-purple hover:bg-teleiosis-purple hover:text-white",
+        // Tinted white, for dark backgrounds
         "outline-gold":
-          "border-2 border-teleiosis-gold bg-transparent text-teleiosis-gold hover:bg-teleiosis-gold hover:text-teleiosis-deep",
+          "bg-white/10 text-white hover:bg-teleiosis-gold hover:text-teleiosis-deep",
         // Magenta accent
         accent:
           "bg-teleiosis-magenta text-white hover:bg-teleiosis-pink shadow-sm",

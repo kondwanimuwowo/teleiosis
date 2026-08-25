@@ -17,17 +17,17 @@ export default async function AdminBlogPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-1">Manage</p>
-          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Blog Posts</h1>
+          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Blog posts</h1>
         </div>
         <Link
           href="/admin/blog/new"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors shadow-sm"
         >
-          <Plus size={16} /> New Post
+          <Plus size={16} /> New post
         </Link>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         {!posts?.length ? (
           <div className="p-12 text-center">
             <BookOpen size={32} className="mx-auto text-slate-300 mb-3" />

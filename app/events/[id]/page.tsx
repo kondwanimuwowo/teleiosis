@@ -44,7 +44,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
   if (!event) notFound()
 
   const time = event.time_start && event.time_end
-    ? `${event.time_start} – ${event.time_end}`
+    ? `${event.time_start} to ${event.time_end}`
     : event.time_start ?? null
 
   const details = [
@@ -61,8 +61,8 @@ export default async function EventDetailPage({ params }: { params: { id: string
     <>
       <JsonLd data={eventSchema(event)} />
 
-      {/* ── HERO — text-only gradient ─────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0d0424 0%, #1a0840 45%, #2c0e68 100%)' }}>
+      {/* ── HERO — text-only ─────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: '#1a0840' }}>
         {/* Subtle decorative circles */}
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-teleiosis-gold/5 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-[#4a0e68]/40 blur-3xl pointer-events-none" />
@@ -74,7 +74,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
 
           {event.type && (
             <div className="mb-5">
-              <span className="inline-block px-3 py-1 border border-teleiosis-gold/40 bg-teleiosis-gold/10 text-teleiosis-gold text-[10px] font-bold uppercase tracking-[0.25em] rounded-full">
+              <span className="inline-block px-3 py-1 bg-teleiosis-gold/10 text-teleiosis-gold text-[10px] font-bold uppercase tracking-[0.25em] rounded-full">
                 {event.type}
               </span>
             </div>
@@ -99,7 +99,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
 
             {/* Left — event details */}
             <div>
-              <p className="text-teleiosis-gold/40 text-[10px] font-bold tracking-[0.3em] uppercase mb-6">Event Details</p>
+              <h2 className="font-serif font-bold text-lg text-[#2c0e68] mb-6">Event details</h2>
               <dl className="space-y-5 mb-10">
                 {details.map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex gap-4 items-start">
@@ -114,13 +114,13 @@ export default async function EventDetailPage({ params }: { params: { id: string
 
               {event.description && (
                 <div className="mb-8">
-                  <p className="text-teleiosis-gold/40 text-[10px] font-bold tracking-[0.3em] uppercase mb-4">About This Event</p>
+                  <h2 className="font-serif font-bold text-lg text-[#2c0e68] mb-4">About this event</h2>
                   <p className="text-slate-600 text-base leading-relaxed">{event.description}</p>
                 </div>
               )}
 
               {event.is_recurring && event.recurring_label && (
-                <div className="mb-8 px-4 py-3 bg-slate-50 border border-slate-100 border-l-2 border-l-teleiosis-gold rounded-r-lg">
+                <div className="mb-8 px-4 py-3 bg-slate-50 border-l-2 border-l-teleiosis-gold rounded-r-lg">
                   <p className="text-xs text-slate-500"><span className="font-bold text-[#2c0e68]">Recurring: </span>{event.recurring_label}</p>
                 </div>
               )}

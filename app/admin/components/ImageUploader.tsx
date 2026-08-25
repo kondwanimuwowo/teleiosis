@@ -10,7 +10,7 @@ interface ImageUploaderProps {
   label?: string
 }
 
-export function ImageUploader({ value, onUpload, folder = 'products', label = 'Product Image' }: ImageUploaderProps) {
+export function ImageUploader({ value, onUpload, folder = 'products', label = 'Product image' }: ImageUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -91,7 +91,7 @@ export function ImageUploader({ value, onUpload, folder = 'products', label = 'P
       {value ? (
         <div className="relative group">
           {/* Thumbnail */}
-          <div className="relative w-full aspect-video max-w-sm border border-slate-200 rounded-xl overflow-hidden bg-slate-50">
+          <div className="relative w-full aspect-video max-w-sm rounded-xl overflow-hidden bg-slate-50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={value} alt="Product image" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -122,7 +122,7 @@ export function ImageUploader({ value, onUpload, folder = 'products', label = 'P
           {uploading ? (
             <div className="space-y-3">
               <Loader2 size={28} className="animate-spin text-[#2c0e68] mx-auto" />
-              <p className="text-sm text-slate-500">Uploading… {progress}%</p>
+              <p className="text-sm text-slate-500">Uploading... {progress}%</p>
               <div className="w-full max-w-xs mx-auto h-1.5 bg-slate-100 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[#2c0e68] rounded-full transition-all duration-300"
@@ -133,7 +133,7 @@ export function ImageUploader({ value, onUpload, folder = 'products', label = 'P
           ) : (
             <div className="space-y-2">
               <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mx-auto">
-                <ImageIcon size={22} className="text-slate-400" />
+                <ImageIcon size={22} className="text-teleiosis-purple" />
               </div>
               <p className="text-sm font-medium text-slate-700">Drop an image here or click to browse</p>
               <p className="text-xs text-slate-400">JPG, PNG, WebP · Max 10 MB</p>
@@ -145,7 +145,7 @@ export function ImageUploader({ value, onUpload, folder = 'products', label = 'P
       {uploading && value && (
         <div className="space-y-1">
           <div className="flex justify-between text-xs text-slate-500">
-            <span>Uploading…</span>
+            <span>Uploading...</span>
             <span>{progress}%</span>
           </div>
           <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">

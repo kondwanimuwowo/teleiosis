@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
         </div>
 
         {/* ── Card ──────────────────────────────────────── */}
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+        <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-8 shadow-2xl">
           <h1 className="font-serif font-bold text-xl text-white mb-1">Welcome back</h1>
           <p className="text-white/40 text-sm mb-8">Sign in to manage your content</p>
 
@@ -110,16 +110,16 @@ export default function AdminLoginPage() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-teleiosis-gold text-[#2c0e68] text-sm font-bold hover:bg-yellow-400 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
             >
               {loading ? (
-                <><Loader2 size={16} className="animate-spin" /> Signing in…</>
+                <><Loader2 size={16} className="animate-spin" /> Signing in...</>
               ) : (
-                <><LogIn size={16} /> Sign In</>
+                <><LogIn size={16} /> Sign in</>
               )}
             </button>
           </form>
         </div>
 
         <p className="text-center text-white/15 text-xs mt-8">
-          Teleiosis Mandate — Internal Portal
+          Teleiosis Mandate, internal portal
         </p>
       </div>
     </div>

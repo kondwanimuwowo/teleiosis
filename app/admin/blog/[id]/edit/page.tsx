@@ -107,13 +107,13 @@ export default function EditBlogPostPage() {
         </Link>
         <div>
           <p className="text-teleiosis-gold text-xs font-semibold tracking-[0.3em] uppercase mb-0.5">Blog</p>
-          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Edit Post</h1>
+          <h1 className="font-serif font-bold text-2xl text-[#2c0e68]">Edit post</h1>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-5">
-          <h2 className="font-serif font-semibold text-base text-[#2c0e68] pb-2 border-b border-slate-100">Post Details</h2>
+        <div className="bg-white rounded-2xl shadow-sm p-7 space-y-5">
+          <h2 className="font-serif font-semibold text-base text-[#2c0e68] pb-2">Post details</h2>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
@@ -131,23 +131,23 @@ export default function EditBlogPostPage() {
               </select>
             </div>
             <div>
-              <label className={labelCls}>Read Time</label>
+              <label className={labelCls}>Read time</label>
               <input type="text" value={form.read_time} onChange={e => set('read_time', e.target.value)} placeholder="3 min read" className={inputCls} />
             </div>
           </div>
 
           <div>
             <label className={labelCls}>Excerpt *</label>
-            <textarea required value={form.excerpt} onChange={e => set('excerpt', e.target.value)} rows={2} placeholder="A 1–2 sentence summary of the post…" className={`${inputCls} resize-none`} />
+            <textarea required value={form.excerpt} onChange={e => set('excerpt', e.target.value)} rows={2} placeholder="A 1-2 sentence summary of the post..." className={`${inputCls} resize-none`} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className={labelCls}>Scripture Reference</label>
+              <label className={labelCls}>Scripture reference</label>
               <input type="text" value={form.scripture} onChange={e => set('scripture', e.target.value)} placeholder="e.g. 1 Cor 13:10" className={inputCls} />
             </div>
             <div>
-              <label className={labelCls}>Cover Image (Optional)</label>
+              <label className={labelCls}>Cover image (optional)</label>
               <div className="relative border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors group flex items-center h-[46px] overflow-hidden">
                 <input 
                   type="file" 
@@ -166,14 +166,14 @@ export default function EditBlogPostPage() {
           </div>
 
           <div>
-            <label className={labelCls}>Full Scripture Text</label>
-            <input type="text" value={form.scripture_text} onChange={e => set('scripture_text', e.target.value)} placeholder='"But when that which is perfect is come…" — 1 Cor 13:10' className={inputCls} />
+            <label className={labelCls}>Full scripture text</label>
+            <input type="text" value={form.scripture_text} onChange={e => set('scripture_text', e.target.value)} placeholder='"But when that which is perfect is come..." - 1 Cor 13:10' className={inputCls} />
           </div>
         </div>
 
         {/* Body paragraphs */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 space-y-4">
-          <h2 className="font-serif font-semibold text-base text-[#2c0e68] pb-2 border-b border-slate-100">Body Content</h2>
+        <div className="bg-white rounded-2xl shadow-sm p-7 space-y-4">
+          <h2 className="font-serif font-semibold text-base text-[#2c0e68] pb-2">Body content</h2>
           <p className="text-xs text-slate-400">Write each paragraph separately.</p>
 
           {paragraphs.map((para, i) => (
@@ -184,7 +184,7 @@ export default function EditBlogPostPage() {
                   value={para}
                   onChange={e => setPara(i, e.target.value)}
                   rows={4}
-                  placeholder={`Paragraph ${i + 1}…`}
+                  placeholder={`Paragraph ${i + 1}...`}
                   className={`${inputCls} resize-none pr-10`}
                 />
                 {paragraphs.length > 1 && (
@@ -210,20 +210,20 @@ export default function EditBlogPostPage() {
         </div>
 
         {error && (
-          <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
+          <p className="text-red-500 text-sm bg-red-50 rounded-xl px-4 py-3">{error}</p>
         )}
 
         <div className="flex gap-3">
-          <Link href="/admin/blog" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 transition-colors">
+          <Link href="/admin/blog" className="flex-1 flex items-center justify-center px-5 py-2.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold hover:bg-slate-200 transition-colors">
             Cancel
           </Link>
           <button
             type="submit"
             disabled={saving}
-            className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
+            className="flex-1 flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#2c0e68] text-white text-sm font-semibold hover:bg-[#4a2c9c] transition-colors disabled:opacity-60"
           >
             {saving && <Loader2 size={14} className="animate-spin" />}
-            {saving ? 'Saving…' : 'Update Post'}
+            {saving ? 'Saving...' : 'Update post'}
           </button>
         </div>
       </form>

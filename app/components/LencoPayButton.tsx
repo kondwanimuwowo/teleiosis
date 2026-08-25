@@ -131,7 +131,7 @@ export function LencoPayButton({
       reference,
       amount, // Lenco expects the actual amount with decimals (e.g. 250.00), NOT converted to lowest unit
       currency: 'ZMW',
-      label: label ?? `Teleiosis — ${type}`,
+      label: label ?? `Teleiosis: ${type}`,
       firstname,
       lastname,
       onSuccess: async ({ reference: ref }) => {

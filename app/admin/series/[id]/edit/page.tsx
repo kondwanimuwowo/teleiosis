@@ -89,23 +89,23 @@ export default function EditSeriesPage() {
     <div className="max-w-3xl">
       <div className="mb-8">
         <Link href="/admin/series" className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-[#2c0e68] transition-colors mb-4">
-          <ArrowLeft size={16} /> Back to Series
+          <ArrowLeft size={16} /> Back to series
         </Link>
-        <h1 className="font-serif font-bold text-3xl text-[#2c0e68]">Edit Series</h1>
+        <h1 className="font-serif font-bold text-3xl text-[#2c0e68]">Edit series</h1>
         <p className="text-slate-500 text-sm mt-1">Update your teaching collection</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm overflow-hidden">
         <div className="p-6 sm:p-8 space-y-6">
           
           {error && (
-            <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl border border-red-100">
+            <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Series Title</label>
+            <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Series title</label>
             <input 
               required
               value={form.title}
@@ -127,13 +127,13 @@ export default function EditSeriesPage() {
 
           {groups.length > 0 && (
             <div>
-              <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Program Group (Optional)</label>
+              <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Program group (optional)</label>
               <select 
                 value={form.program_group_id}
                 onChange={e => setForm(f => ({ ...f, program_group_id: e.target.value }))}
                 className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-teleiosis-gold focus:bg-white transition-all"
               >
-                <option value="">— No Program Group —</option>
+                <option value="">No program group</option>
                 {groups.map(g => (
                   <option key={g.id} value={g.id}>{g.name}</option>
                 ))}
@@ -142,7 +142,7 @@ export default function EditSeriesPage() {
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Cover Art</label>
+            <label className="block text-xs font-semibold text-[#2c0e68] uppercase tracking-wider mb-2">Cover art</label>
             <div className="relative border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors group">
               <input 
                 type="file" 
@@ -155,7 +155,7 @@ export default function EditSeriesPage() {
                   <UploadCloud className="text-[#4a0e68]" size={24} />
                 </div>
                 <p className="text-sm font-semibold text-[#2c0e68] mb-1">
-                  {image ? image.name : thumbnailUrl ? "Change Series Cover Art" : "Select Series Cover Art"}
+                  {image ? image.name : thumbnailUrl ? "Change series cover art" : "Select series cover art"}
                 </p>
                 <p className="text-xs text-slate-400">
                    {image ? `${(image.size / 1024 / 1024).toFixed(2)} MB` : thumbnailUrl ? "Current cover art exists" : "Recommended: Square ratio, 1080x1080px"}
@@ -170,13 +170,13 @@ export default function EditSeriesPage() {
           </div>
         </div>
 
-        <div className="bg-slate-50 p-6 sm:p-8 border-t border-slate-100 flex justify-end">
+        <div className="bg-slate-50 p-6 sm:p-8 flex justify-end">
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 bg-[#2c0e68] text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-[#4a2c9c] transition-all disabled:opacity-60 shadow-md hover:shadow-lg"
+            className="flex items-center gap-2 bg-[#2c0e68] text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-[#4a2c9c] transition-all disabled:opacity-60 shadow-md hover:shadow-lg"
           >
-            {saving ? <><Loader2 size={16} className="animate-spin" /> Saving...</> : 'Update Series'}
+            {saving ? <><Loader2 size={16} className="animate-spin" /> Saving...</> : 'Update series'}
           </button>
         </div>
       </form>

@@ -9,17 +9,17 @@ const PRESET_AMOUNTS = [100, 250, 500, 1000]
 const PILLARS = [
   {
     icon: BookOpen,
-    title: 'Fund the Teaching',
-    desc: 'Your giving supports the production, distribution, and expansion of systematic teaching on Christian perfection — recordings, materials, and weekly classes.',
+    title: 'Fund the teaching',
+    desc: 'Your giving supports the production, distribution, and expansion of systematic teaching on Christian perfection, including recordings, materials, and weekly classes.',
   },
   {
     icon: Mic2,
-    title: 'Resource the Conferences',
+    title: 'Resource the conferences',
     desc: 'The Unto Perfection Conferences bring believers together for deep, intensive encounters. Partnership helps make these gatherings possible and accessible.',
   },
   {
     icon: Globe,
-    title: 'Reach Beyond Lusaka',
+    title: 'Reach beyond Lusaka',
     desc: 'The audio library is reaching believers across Zambia and beyond. Your seed enables the mandate to expand its reach and impact.',
   },
 ]
@@ -41,14 +41,13 @@ export default function PartnershipPage() {
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative flex items-center" style={{ minHeight: '60vh' }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/hero-bg-1.jpg')" }} />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.85) 0%, rgba(20,8,43,0.85) 100%)' }} />
+        <div className="absolute inset-0 bg-[#1a0840]/85" />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">Ministry Partnership</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
-            Partner with the Mandate
+            Partner with the mandate
           </h1>
           <p className="text-white/65 text-base sm:text-lg max-w-2xl leading-relaxed">
-            Sow into the revelation of Christ and the training of believers into perfection. Every gift advances the mandate — Spirit, Soul, and Body.
+            Sow into the revelation of Christ and the training of believers into perfection. Every gift advances the mandate in spirit, soul, and body.
           </p>
         </div>
       </section>
@@ -56,15 +55,15 @@ export default function PartnershipPage() {
       {/* ── WHY PARTNER ──────────────────────────────────────────── */}
       <section className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Your Impact</p>
           <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-12 max-w-xl">
-            What Your Partnership Does
+            What your partnership does
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {PILLARS.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="border-t-2 border-teleiosis-gold border border-slate-100 p-6 sm:p-8 bg-white">
-                <div className="w-10 h-10 bg-teleiosis-gold/10 flex items-center justify-center mb-4">
-                  <Icon size={20} className="text-teleiosis-gold" />
+              <div key={title} className="p-6 sm:p-8 bg-white shadow-sm rounded-xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-teleiosis-gold" />
+                <div className="w-10 h-10 bg-slate-100 flex items-center justify-center mb-4 rounded-lg">
+                  <Icon size={20} className="text-teleiosis-purple" />
                 </div>
                 <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-3">{title}</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
@@ -81,12 +80,11 @@ export default function PartnershipPage() {
 
             {/* Left — copy */}
             <div className="lg:pt-4">
-              <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4">Give</p>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-6">
-                Sow Into the Kingdom
+                Sow into the kingdom
               </h2>
               <p className="text-slate-600 text-base leading-relaxed mb-6">
-                You define the amount. No gift is too small — every seed sown in faith carries Kingdom weight.
+                You define the amount. No gift is too small, every seed sown in faith carries Kingdom weight.
               </p>
               <blockquote className="border-l-2 border-teleiosis-gold pl-5">
                 <p className="text-[#4a0e68] text-base leading-relaxed mb-2">
@@ -97,13 +95,13 @@ export default function PartnershipPage() {
             </div>
 
             {/* Right — form */}
-            <div className="bg-white border border-slate-100 p-6 sm:p-8 shadow-sm rounded-xl">
+            <div className="bg-white p-6 sm:p-8 shadow-sm rounded-xl">
               {paymentState === 'success' ? (
                 <div className="flex flex-col items-center text-center py-8">
                   <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-5">
                     <CheckCircle size={32} className="text-green-500" />
                   </div>
-                  <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Thank You!</h3>
+                  <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Thank you</h3>
                   <p className="text-slate-500 text-sm leading-relaxed mb-1">
                     Your gift of <span className="font-bold text-[#2c0e68]">ZMW {amount.toLocaleString()}</span> has been received.
                   </p>
@@ -117,7 +115,7 @@ export default function PartnershipPage() {
                   <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-5">
                     <Clock size={32} className="text-blue-500" />
                   </div>
-                  <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Payment Processing</h3>
+                  <h3 className="font-serif font-bold text-2xl text-[#2c0e68] mb-2">Payment processing</h3>
                   <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-2">
                     Your payment is being confirmed by your mobile network. We&apos;ll send a confirmation email once it clears.
                   </p>
@@ -135,10 +133,10 @@ export default function PartnershipPage() {
                         <button
                           key={a}
                           onClick={() => { setSelectedAmount(a); setCustomAmount('') }}
-                          className={`py-3 text-sm font-bold rounded-lg border transition-all ${
+                          className={`py-3 text-sm font-bold rounded-lg transition-all ${
                             selectedAmount === a
-                              ? 'bg-[#2c0e68] text-white border-[#2c0e68]'
-                              : 'bg-white text-[#2c0e68] border-slate-200 hover:border-[#2c0e68]'
+                              ? 'bg-[#2c0e68] text-white'
+                              : 'bg-slate-100 text-[#2c0e68] hover:bg-slate-200'
                           }`}
                         >
                           {a}
@@ -197,24 +195,24 @@ export default function PartnershipPage() {
                     email={email}
                     name={name || 'Partner'}
                     amount={amount}
-                    label="Ministry Partnership — Teleiosis Mandate"
+                    label="Ministry Partnership, Teleiosis Mandate"
                     type="partnership"
                     message={message}
                     disabled={!canPay}
                     onSuccess={(ref) => { setReference(ref); setPaymentState('success') }}
                     onAbandoned={() => setPaymentState('abandoned')}
                     onPending={() => setPaymentState('pending')}
-                    className={`w-full py-4 text-sm font-bold rounded-xl transition-all ${
+                    className={`w-full py-4 text-sm font-bold rounded-full transition-all ${
                       canPay
                         ? 'bg-teleiosis-gold text-[#2c0e68] hover:bg-teleiosis-gold/85 cursor-pointer'
                         : 'bg-slate-100 text-slate-400 cursor-not-allowed'
                     }`}
                   >
-                    Give ZMW {amount > 0 ? amount.toLocaleString() : '—'}
+                    Give ZMW {amount > 0 ? amount.toLocaleString() : '0'}
                   </LencoPayButton>
 
                   {paymentState === 'abandoned' && (
-                    <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 p-3.5 rounded-lg text-sm">
+                    <div className="flex items-start gap-3 bg-amber-50 p-3.5 rounded-lg text-sm">
                       <RotateCcw size={15} className="text-amber-500 shrink-0 mt-0.5" />
                       <div className="flex-1">
                         <p className="text-amber-800 font-medium">Payment not completed.</p>

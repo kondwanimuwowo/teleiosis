@@ -27,7 +27,7 @@ function StoreGridSkeleton() {
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="border border-slate-100 overflow-hidden animate-pulse"
+              className="shadow-sm overflow-hidden animate-pulse rounded-xl"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="aspect-square bg-slate-100" />
@@ -54,12 +54,11 @@ export default function StorePage() {
     <>
       {/* ── HERO — static ─────────────────────────────────────────── */}
       <section className="relative flex items-center" style={{ minHeight: '50vh' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(26,8,64,0.95) 0%, rgba(20,8,43,0.95) 100%)' }} />
+        <div className="absolute inset-0 bg-[#1a0840]/95" />
         <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: "url('/images/yannick-pulver-FAU2NI1Uixg-unsplash.jpg')" }} />
         <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-40 sm:pb-20">
-          <p className="text-teleiosis-gold/30 text-xs font-semibold tracking-[0.3em] uppercase mb-5">The Store</p>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.05] mb-6 max-w-3xl">
-            Resources &amp; Merch
+            Resources and merch
           </h1>
           <p className="text-white/65 text-base sm:text-lg max-w-2xl leading-relaxed">
             Books, teaching materials, and merchandise to equip you in the revelation of Christ and Kingdom authority.
