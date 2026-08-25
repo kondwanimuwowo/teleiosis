@@ -52,46 +52,27 @@ export default function PartnershipPage() {
         </div>
       </section>
 
-      {/* ── WHY PARTNER ──────────────────────────────────────────── */}
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-12 max-w-xl">
-            What your partnership does
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {PILLARS.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="p-6 sm:p-8 bg-white shadow-sm rounded-xl relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-teleiosis-gold" />
-                <div className="w-10 h-10 bg-slate-100 flex items-center justify-center mb-4 rounded-lg">
-                  <Icon size={20} className="text-teleiosis-purple" />
-                </div>
-                <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-3">{title}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── GIVE SECTION ─────────────────────────────────────────── */}
+      {/* ── WHY PARTNER + GIVE ───────────────────────────────────── */}
       <section className="bg-slate-50 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-            {/* Left — copy */}
-            <div className="lg:pt-4">
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-6">
-                Sow into the kingdom
+            {/* Left — what partnership does */}
+            <div>
+              <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2c0e68] leading-tight mb-10">
+                What your partnership does
               </h2>
-              <p className="text-slate-600 text-base leading-relaxed mb-6">
-                You define the amount. No gift is too small, every seed sown in faith carries Kingdom weight.
-              </p>
-              <blockquote className="border-l-2 border-teleiosis-gold pl-5">
-                <p className="text-[#4a0e68] text-base leading-relaxed mb-2">
-                  "Give, and it shall be given unto you; good measure, pressed down, and shaken together, and running over."
-                </p>
-                <cite className="text-xs text-slate-400 not-italic">Luke 6:38</cite>
-              </blockquote>
+              <div className="space-y-6">
+                {PILLARS.map(({ icon: Icon, title, desc }) => (
+                  <div key={title} className="p-6 sm:p-8 bg-white shadow-md rounded-xl">
+                    <div className="w-10 h-10 bg-slate-100 flex items-center justify-center mb-4 rounded-lg">
+                      <Icon size={20} className="text-teleiosis-purple" />
+                    </div>
+                    <h3 className="font-serif font-bold text-lg text-[#2c0e68] mb-3">{title}</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Right — form */}

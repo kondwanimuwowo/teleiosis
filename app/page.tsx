@@ -112,7 +112,14 @@ export default async function Home() {
                 {STATS.map(({ value, label }, i) => (
                   <div
                     key={label}
-                    className={`h-40 w-40 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
+                    style={{
+                      borderRadius:
+                        i === 0 ? '30% 0 0 0' :
+                        i === 1 ? '0 30% 0 0' :
+                        i === 2 ? '0 0 0 30%' :
+                        '0 0 30% 0'
+                    }}
+                    className={`h-40 w-40 p-4 flex flex-col items-center justify-center text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
                       i === 0 || i === 3 ? 'bg-[#2c0e68] text-white' :
                       'bg-slate-50 text-[#2c0e68]'
                     }`}
