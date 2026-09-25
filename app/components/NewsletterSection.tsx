@@ -1,7 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type { TurnstileInstance } from '@marsidev/react-turnstile'
 import { Loader2, CheckCircle } from 'lucide-react'
+import { HoneypotField } from '@/app/components/HoneypotField'
+import { TurnstileWidget } from '@/app/components/TurnstileWidget'
+import { useFormTiming } from '@/lib/useFormTiming'
+import { TS_FIELD } from '@/lib/anti-spam'
 
 interface NewsletterSectionProps {
   title?: string
@@ -17,23 +22,36 @@ export function NewsletterSection({
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const hpRef = useRef<HTMLInputElement>(null)
+  const turnstileRef = useRef<TurnstileInstance>()
+  const loadedAt = useFormTiming()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email.trim()) return
+
+    if (hpRef.current?.value) {
+      setStatus('success')
+      return
+    }
+
     setStatus('loading')
     setErrorMsg('')
     try {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, [TS_FIELD]: loadedAt.current, turnstileToken }),
       })
-      if (!res.ok) throw new Error()
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.')
       setStatus('success')
-    } catch {
-      setErrorMsg('Something went wrong. Please try again.')
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Something went wrong. Please try again.')
       setStatus('error')
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
     }
   }
 
@@ -57,6 +75,7 @@ export function NewsletterSection({
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2">
+                <HoneypotField inputRef={hpRef} />
                 <input
                   type="email"
                   required
@@ -75,6 +94,11 @@ export function NewsletterSection({
                   ) : 'Subscribe now'}
                 </button>
               </form>
+            )}
+            {status !== 'success' && (
+              <div className="flex justify-center">
+                <TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} />
+              </div>
             )}
             {status === 'error' && (
               <p className="text-xs text-red-500">{errorMsg}</p>

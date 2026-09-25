@@ -26,3 +26,15 @@ export function validatePhone(value: string): string | null {
   if (!MIN_DIGITS.test(v))  return 'Please enter a valid phone number.'
   return null
 }
+
+// Basic shape check — form-level enforcement (dotted-Gmail evasion, disposable
+// domains) lives in lib/email-normalize.ts and is applied at the API layer.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+export function validateEmail(value: string): string | null {
+  const v = value.trim()
+  if (!v) return 'Email address is required.'
+  if (v.length > 254) return 'Email address is too long.'
+  if (!EMAIL_RE.test(v)) return 'Please enter a valid email address.'
+  return null
+}

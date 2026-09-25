@@ -1,8 +1,13 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
+import type { TurnstileInstance } from '@marsidev/react-turnstile'
 import { CheckCircle, Loader2 } from 'lucide-react'
 import { validateName } from '@/lib/validation'
+import { HoneypotField } from '@/app/components/HoneypotField'
+import { TurnstileWidget } from '@/app/components/TurnstileWidget'
+import { useFormTiming } from '@/lib/useFormTiming'
+import { TS_FIELD } from '@/lib/anti-spam'
 
 const SUBJECTS = [
   { value: 'General Inquiry', label: 'General Inquiry' },
@@ -17,10 +22,10 @@ export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [nameError, setNameError] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const hpRef = useRef<HTMLInputElement>(null)
-  const loadedAt = useRef<number>(0)
-
-  useEffect(() => { loadedAt.current = Date.now() }, [])
+  const turnstileRef = useRef<TurnstileInstance>()
+  const loadedAt = useFormTiming()
 
   function set(field: string, value: string) {
     setForm((f) => ({ ...f, [field]: value }))
@@ -48,7 +53,7 @@ export function ContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, _t: loadedAt.current }),
+        body: JSON.stringify({ ...form, [TS_FIELD]: loadedAt.current, turnstileToken }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Something went wrong.')
@@ -56,6 +61,9 @@ export function ContactForm() {
     } catch (err: any) {
       setErrorMsg(err.message || 'Failed to send. Please try again.')
       setStatus('error')
+      // A Turnstile token is single-use — re-run it before another attempt.
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
     }
   }
 
@@ -82,15 +90,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
-      {/* Honeypot — hidden from real users, filled by bots */}
-      <input
-        ref={hpRef}
-        name="website"
-        tabIndex={-1}
-        aria-hidden="true"
-        autoComplete="off"
-        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', height: 0, width: 0, left: '-9999px' }}
-      />
+      <HoneypotField inputRef={hpRef} />
       <div>
         <label htmlFor="name" className={labelCls}>Full Name</label>
         <input
@@ -132,6 +132,10 @@ export function ContactForm() {
           onChange={(e) => set('message', e.target.value)}
           className={inputCls + ' resize-none'}
         />
+      </div>
+
+      <div className="sm:col-span-2">
+        <TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} />
       </div>
 
       {status === 'error' && (

@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type { TurnstileInstance } from '@marsidev/react-turnstile'
 import { createBrowserClient } from '@supabase/ssr'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, LogIn, Loader2 } from 'lucide-react'
+import { TurnstileWidget } from '@/app/components/TurnstileWidget'
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -17,16 +19,25 @@ export default function AdminLoginPage() {
   const [showPw, setShowPw]     = useState(false)
   const [loading, setLoading]   = useState(false)
   const [error, setError]       = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileInstance>()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+      options: { captchaToken: turnstileToken ?? undefined },
+    })
 
     if (error) {
       setError(error.message)
+      // A Turnstile token is single-use — re-run it before another attempt.
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
       setLoading(false)
     } else {
       router.push('/admin')
@@ -95,6 +106,8 @@ export default function AdminLoginPage() {
                 </button>
               </div>
             </div>
+
+            <TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} />
 
             {/* Error */}
             {error && (

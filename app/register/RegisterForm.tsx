@@ -1,9 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type { TurnstileInstance } from '@marsidev/react-turnstile'
 import Link from 'next/link'
 import { CheckCircle, Loader2 } from 'lucide-react'
 import { validateName, validatePhone } from '@/lib/validation'
+import { HoneypotField } from '@/app/components/HoneypotField'
+import { TurnstileWidget } from '@/app/components/TurnstileWidget'
+import { useFormTiming } from '@/lib/useFormTiming'
+import { TS_FIELD } from '@/lib/anti-spam'
 
 const HEAR_OPTIONS = [
   'A friend or family member',
@@ -23,10 +28,19 @@ export function RegisterForm() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
   const [fieldErrors, setFieldErrors] = useState<{ name?: string; phone?: string }>({})
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const hpRef = useRef<HTMLInputElement>(null)
+  const turnstileRef = useRef<TurnstileInstance>()
+  const loadedAt = useFormTiming()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+
+    if (hpRef.current?.value) {
+      setSuccess(true)
+      return
+    }
 
     const nameErr  = validateName(name)
     const phoneErr = validatePhone(phone)
@@ -40,12 +54,19 @@ export function RegisterForm() {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone: phone || undefined, type: 'general', notes: heardFrom ? `Heard via: ${heardFrom}` : undefined }),
+        body: JSON.stringify({
+          name, email, phone: phone || undefined, type: 'general',
+          notes: heardFrom ? `Heard via: ${heardFrom}` : undefined,
+          [TS_FIELD]: loadedAt.current, turnstileToken,
+        }),
       })
-      if (!res.ok) throw new Error('Registration failed')
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Registration failed')
       setSuccess(true)
-    } catch {
-      setError('Something went wrong. Please try again.')
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong. Please try again.')
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
     } finally {
       setLoading(false)
     }
@@ -83,6 +104,7 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      <HoneypotField inputRef={hpRef} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Full Name *</label>
@@ -136,6 +158,8 @@ export function RegisterForm() {
           {HEAR_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
       </div>
+
+      <TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} />
 
       {error && (
         <p className="text-sm text-red-500 text-center">{error}</p>

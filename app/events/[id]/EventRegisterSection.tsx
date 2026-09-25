@@ -1,8 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type { TurnstileInstance } from '@marsidev/react-turnstile'
 import { CheckCircle, Loader2, UserCheck, ChevronDown } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { HoneypotField } from '@/app/components/HoneypotField'
+import { TurnstileWidget } from '@/app/components/TurnstileWidget'
+import { useFormTiming } from '@/lib/useFormTiming'
+import { TS_FIELD } from '@/lib/anti-spam'
 
 export function EventRegisterSection({ eventId, eventTitle }: { eventId: string; eventTitle: string }) {
   const [open, setOpen] = useState(false)
@@ -12,22 +17,39 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const hpRef = useRef<HTMLInputElement>(null)
+  const turnstileRef = useRef<TurnstileInstance>()
+  const loadedAt = useFormTiming()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+
+    if (hpRef.current?.value) {
+      setSuccess(true)
+      setOpen(true)
+      return
+    }
+
     setLoading(true)
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone: phone || undefined, eventId, type: 'event' }),
+        body: JSON.stringify({
+          name, email, phone: phone || undefined, eventId, type: 'event',
+          [TS_FIELD]: loadedAt.current, turnstileToken,
+        }),
       })
-      if (!res.ok) throw new Error()
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Registration failed')
       setSuccess(true)
       setOpen(true)
-    } catch {
-      setError('Something went wrong. Please try again.')
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong. Please try again.')
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
     } finally {
       setLoading(false)
     }
@@ -78,6 +100,7 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 pt-5">
+              <HoneypotField inputRef={hpRef} />
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Name *</label>
@@ -106,6 +129,7 @@ export function EventRegisterSection({ eventId, eventTitle }: { eventId: string;
                   className={inputCls}
                 />
               </div>
+              <TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} />
               {error && <p className="text-xs text-red-500">{error}</p>}
               <button
                 type="submit"

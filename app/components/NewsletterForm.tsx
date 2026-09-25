@@ -1,16 +1,21 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
+import type { TurnstileInstance } from '@marsidev/react-turnstile'
 import { Loader2, CheckCircle } from 'lucide-react'
+import { HoneypotField } from '@/app/components/HoneypotField'
+import { TurnstileWidget } from '@/app/components/TurnstileWidget'
+import { useFormTiming } from '@/lib/useFormTiming'
+import { TS_FIELD } from '@/lib/anti-spam'
 
 export function NewsletterForm() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [error, setError] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const hpRef = useRef<HTMLInputElement>(null)
-  const loadedAt = useRef<number>(0)
-
-  useEffect(() => { loadedAt.current = Date.now() }, [])
+  const turnstileRef = useRef<TurnstileInstance>()
+  const loadedAt = useFormTiming()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -28,7 +33,7 @@ export function NewsletterForm() {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, _t: loadedAt.current }),
+        body: JSON.stringify({ email, [TS_FIELD]: loadedAt.current, turnstileToken }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Something went wrong.')
@@ -36,6 +41,8 @@ export function NewsletterForm() {
     } catch (err: any) {
       setError(err.message || 'Failed to subscribe.')
       setStatus('error')
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
     }
   }
 
@@ -50,15 +57,7 @@ export function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-sm">
-      {/* Honeypot — hidden from real users, filled by bots */}
-      <input
-        ref={hpRef}
-        name="website"
-        tabIndex={-1}
-        aria-hidden="true"
-        autoComplete="off"
-        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', height: 0, width: 0, left: '-9999px' }}
-      />
+      <HoneypotField inputRef={hpRef} />
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="email"
@@ -76,6 +75,7 @@ export function NewsletterForm() {
           {status === 'loading' ? <Loader2 size={14} className="animate-spin" /> : 'Subscribe'}
         </button>
       </div>
+      <TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} />
       {status === 'error' && (
         <p className="text-red-400 text-xs">{error}</p>
       )}

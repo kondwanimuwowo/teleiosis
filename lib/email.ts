@@ -10,6 +10,18 @@ const FROM = process.env.RESEND_FROM || 'Teleiosis Mandate <noreply@notification
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@teleiosis.org'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://teleiosis.org'
 
+// Escapes free-text user input before it lands in an HTML email body. The
+// contact form's message and email are the only unconstrained fields that
+// reach a template — everything else is already restricted by validation.ts.
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 // ─── Shared layout ──────────────────────────────────────────────────────────
 
 function layout(content: string) {
@@ -205,14 +217,14 @@ export async function sendAdminContactNotification({
     ${divider()}
     <table cellpadding="0" cellspacing="0" width="100%">
       ${dataRow('From', name)}
-      ${dataRow('Email', `<a href="mailto:${email}" style="color:#4a0e68;">${email}</a>`)}
+      ${dataRow('Email', `<a href="mailto:${escapeHtml(email)}" style="color:#4a0e68;">${escapeHtml(email)}</a>`)}
       ${dataRow('Subject', subject)}
       ${dataRow('Date', new Date().toLocaleString('en-ZM', { dateStyle: 'long', timeStyle: 'short' }))}
     </table>
     ${divider()}
     <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9090a8;font-family:Arial,sans-serif;">Message</p>
     <blockquote style="margin:0;padding:16px 20px;background:#f8f7ff;border-left:3px solid #d4af37;font-size:14px;color:#444466;font-family:Arial,sans-serif;line-height:1.7;">
-      ${message.replace(/\n/g, '<br/>')}
+      ${escapeHtml(message).replace(/\n/g, '<br/>')}
     </blockquote>
     ${divider()}
     ${goldButton('Reply to ' + name.split(' ')[0], `mailto:${email}`)}
