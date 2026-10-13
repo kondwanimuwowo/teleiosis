@@ -74,6 +74,13 @@ export async function consumeQuota(bucket: string, dailyCap: number): Promise<bo
   }
 }
 
+/** Keeps the free-tier Upstash database from being archived for inactivity. */
+export async function pingRedis(): Promise<'ok' | 'not-configured'> {
+  if (!redis) return 'not-configured'
+  await redis.set('keepalive:last-ping', new Date().toISOString())
+  return 'ok'
+}
+
 /** True if this exact payload was already seen within the window. */
 export async function isDuplicate(scope: string, fingerprint: string, windowSeconds: number): Promise<boolean> {
   if (!redis) return false
