@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Cinzel } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import { PublicShell } from './components/PublicShell'
 import { ProgressBar } from './components/ProgressBar'
@@ -12,17 +12,19 @@ import CookieBanner from './components/CookieBanner'
 import ScrollToTop from './components/ScrollToTop'
 import { isMaintenanceMode } from '@/lib/maintenance'
 
-const inter = Inter({
-  subsets: ['latin'],
+// Self-hosted variable fonts, subset to Latin (+ Greek for Inter) — see app/fonts
+const inter = localFont({
+  src: './fonts/Inter.woff2',
   variable: '--font-inter',
   display: 'swap',
+  weight: '100 900',
 })
 
-const cinzel = Cinzel({
-  subsets: ['latin'],
+const cinzel = localFont({
+  src: './fonts/Cinzel.woff2',
   variable: '--font-serif',
   display: 'swap',
-  weight: ['400', '600', '700'],
+  weight: '400 900',
 })
 
 export const viewport: Viewport = {
