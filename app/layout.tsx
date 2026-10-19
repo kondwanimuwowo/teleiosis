@@ -10,6 +10,7 @@ import { JsonLd, organizationSchema } from './components/JsonLd'
 import SmoothScroll from './components/SmoothScroll'
 import CookieBanner from './components/CookieBanner'
 import ScrollToTop from './components/ScrollToTop'
+import { isMaintenanceMode } from '@/lib/maintenance'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -80,6 +81,7 @@ export default function RootLayout({
         <JsonLd data={organizationSchema} />
       </head>
       <body className={`${inter.variable} ${cinzel.variable} font-sans antialiased`} suppressHydrationWarning>
+        {isMaintenanceMode() ? children : (
         <AudioProvider>
           <SmoothScroll>
             <Suspense fallback={null}>
@@ -93,6 +95,7 @@ export default function RootLayout({
           <ScrollToTop />
           </SmoothScroll>
         </AudioProvider>
+        )}
       </body>
     </html>
   )
